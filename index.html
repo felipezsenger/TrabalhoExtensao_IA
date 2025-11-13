@@ -131,7 +131,7 @@
         #intro-summary ul { list-style-position: inside; color: var(--p-color); margin-left: 10px; }
 
         /* ============================================= */
-        /* 4. ATUALIZADO: SEÇÃO DE TESTE DE IA (WEBCAM)  */
+        /* 4. SEÇÃO DE TESTE DE IA (WEBCAM)              */
         /* ============================================= */
         #gesture-recognition {
             background-color: var(--card-bg-color);
@@ -142,7 +142,6 @@
             text-align: center;
         }
         
-        /* NOVO: Menu Dropdown para selecionar o modelo */
         #model-selector {
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
@@ -288,9 +287,17 @@
 
         <section id="intro-summary">
             <h2>O que são IAs Generativas?</h2>
-            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar ou agir sobre dados existentes.</p>
+            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar ou agir sobre dados existentes. Eles aprendem padrões e estruturas a partir de vastos conjuntos de dados e, em seguida, usam esse conhecimento para gerar saídas completamente novas e originais.</p>
+            <p>Isso inclui a criação de texto (como este), imagens, música, código e muito mais, tudo a partir de um simples comando de texto (um "prompt").</p>
+
             <h2>Tipos de Agentes de IA</h2>
-            <p>Um "Agente de IA" é um sistema projetado para atingir objetivos. Ele percebe seu ambiente, toma decisões e age de forma autônoma.</p>
+            <p>Um "Agente de IA" é mais do que apenas um modelo; é um sistema projetado para atingir objetivos. Ele percebe seu ambiente, toma decisões e age de forma autônoma. Os principais tipos incluem:</p>
+            <ul>
+                <li><strong>Agentes Reativos Simples:</strong> Não têm memória. Apenas reagem ao que veem no momento (ex: um termostato).</li>
+                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um "modelo" interno do mundo. Podem lidar com ambientes que não veem completamente.</li>
+                <li><strong>Agentes Baseados em Objetivos:</strong> Vão além da reação. Eles têm um objetivo e planejam suas ações para alcançá-lo (ex: um GPS que recalcula a rota).</li>
+                <li><strong>Agentes Baseados em Utilidade:</strong> Escolhem a ação que maximiza sua "utilidade" ou "felicidade", sendo uma forma mais avançada de tomada de decisão.</li>
+            </ul>
         </section>
 
         <section id="gesture-recognition">
@@ -332,7 +339,29 @@
                 </div>
             </section>
 
-            </section> </main>
+            <section class="categoria">
+                <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card">
+                        <h3>GitHub Copilot</h3>
+                        <p>Uma IA "parceira" de programação que sugere linhas de código e funções inteiras diretamente no seu editor de código (VS Code, etc.).</p>
+                        <a href="https://github.com/features/copilot" target="_blank">Visitar Site</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎙️ Geração de Áudio e Voz</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card">
+                        <h3>ElevenLabs</h3>
+                        <p>Plataforma líder em geração de voz sintética (Text-to-Speech) e clonagem de voz com realismo impressionante em múltiplos idiomas.</p>
+                        <a href="https://elevenlabs.io/" target="_blank">Visitar Site</a>
+                    </div>
+                </div>
+            </section>
+
+        </section> </main>
     
     <script>
         
@@ -341,15 +370,15 @@
         // ==========================================================
 
         // --- Variáveis Globais de IA ---
-        let rpsClassifier;
+        let rpsClassifier; // CORRIGIDO: Nome da variável
         let faceApi;
         let video;
         let flippedVideo;
         let label = "Selecione um modelo...";
         let currentModel = 'none'; // Controla qual modelo está ativo
 
-        // --- URL do seu modelo de LIBRAS / RPS ---
-        // (Use o link ou a pasta local, como preferir)
+        // --- URL do modelo de LIBRAS / RPS ---
+        // (Use o link válido ou a pasta local)
         const rpsModelURL = 'https://teachablemachine.withgoogle.com/models/jR-4BiMT/model.json';
         // const rpsModelURL = 'meu-modelo/model.json'; // Se baixou
 
@@ -366,7 +395,7 @@
 
         // --- p5.js: Carrega o modelo de RPS antes de tudo ---
         function preload() {
-            rpsClassifier = ml5.imageClassifier(rpsModelURL);
+            rpsClassifier = ml5.imageClassifier(rpsModelURL); // CORRIGIDO: Nome da variável
             console.log('Modelo de RPS pré-carregado.');
         }
 
@@ -380,7 +409,6 @@
             video.hide();
 
             // Carrega o modelo de Emoções (FaceAPI)
-            // A detecção só começa quando o usuário selecionar
             const faceApiOptions = { withDescriptors: false, withExpressions: true };
             faceApi = ml5.faceApi(video, faceApiOptions, () => {
                 console.log('Modelo de Emoções (FaceAPI) pronto!');
@@ -404,9 +432,13 @@
 
         // Loop 1: Classificador de RPS
         function classifyRPS() {
-            if (currentModel !== 'rps') return; // Para o loop se o modelo mudou
+            if (currentModel !== 'rps' || !flippedVideo) {
+                setTimeout(classifyRPS, 100); // Espera se não estiver ativo ou pronto
+                return;
+            }
             
-            classifier.classify(flippedVideo, (err, results) => {
+            // CORRIGIDO: Usar "rpsClassifier"
+            rpsClassifier.classify(flippedVideo, (err, results) => {
                 if (err) { console.error(err); return; }
                 label = results[0].label;
                 classifyRPS(); // Chama a si mesmo para continuar o loop
@@ -415,7 +447,10 @@
 
         // Loop 2: Detector de Emoções
         function detectEmotions() {
-            if (currentModel !== 'emotion') return; // Para o loop
+            if (currentModel !== 'emotion' || !faceApi.ready) {
+                setTimeout(detectEmotions, 100); // Espera se não estiver ativo ou pronto
+                return; 
+            }
             
             faceApi.detect((err, results) => {
                 if (err) { console.error(err); return; }
@@ -435,8 +470,7 @@
             let maxProb = 0;
             let topEmotion = 'neutral';
             
-            // O ml5.js 0.12.2 mudou o nome de "expressions" para "expressions"
-            // Vamos checar ambos por segurança
+            // O ml5.js 0.12.2 mudou o nome de "expressions"
             const expr = expressions.expressions || expressions;
 
             for (const [emotion, prob] of Object.entries(expr)) {
