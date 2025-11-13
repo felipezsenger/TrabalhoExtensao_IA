@@ -86,11 +86,7 @@
             transition: background-color 0.3s ease;
         }
 
-        header h1 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 1.8rem;
-        }
+        header h1 { margin: 0; font-weight: 700; font-size: 1.8rem; }
         
         /* Barra de Busca */
         #search-bar {
@@ -131,20 +127,11 @@
             margin-bottom: 40px;
             box-shadow: var(--card-shadow);
         }
-        
-        #intro-summary p {
-            color: var(--p-color);
-            margin-bottom: 15px;
-        }
-        
-        #intro-summary ul {
-            list-style-position: inside;
-            color: var(--p-color);
-            margin-left: 10px;
-        }
+        #intro-summary p { color: var(--p-color); margin-bottom: 15px; }
+        #intro-summary ul { list-style-position: inside; color: var(--p-color); margin-left: 10px; }
 
         /* ============================================= */
-        /* 4. NOVO: SEÇÃO DE RECONHECIMENTO DE GESTOS    */
+        /* 4. ATUALIZADO: SEÇÃO DE TESTE DE IA (WEBCAM)  */
         /* ============================================= */
         #gesture-recognition {
             background-color: var(--card-bg-color);
@@ -155,6 +142,20 @@
             text-align: center;
         }
         
+        /* NOVO: Menu Dropdown para selecionar o modelo */
+        #model-selector {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background-color: var(--card-bg-color);
+            color: var(--h2-color);
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
         #webcam-container {
             width: 100%;
             max-width: 480px;
@@ -162,7 +163,7 @@
             background-color: #333;
             border-radius: 8px;
             margin: 20px auto 0;
-            overflow: hidden; /* Para o vídeo se ajustar */
+            overflow: hidden;
             border: 4px solid var(--border-color);
         }
 
@@ -172,6 +173,7 @@
             color: var(--h3-color);
             margin-top: 15px;
             font-weight: 700;
+            min-height: 48px; /* Evita que a página "pule" */
         }
 
         /* ============================================= */
@@ -181,12 +183,8 @@
             border-bottom: 3px solid var(--border-color);
             padding-bottom: 10px;
         }
-        
-        .categoria {
-            margin-bottom: 15px;
-        }
+        .categoria { margin-bottom: 15px; }
 
-        /* Título da Categoria (Botão Clicável) */
         .categoria-titulo {
             background-color: var(--card-bg-color);
             color: var(--h2-color);
@@ -197,15 +195,12 @@
             font-size: 1.3rem;
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
-            position: relative; /* Para o ícone +/- */
+            position: relative;
         }
-        
         .categoria-titulo:hover {
             box-shadow: var(--card-shadow-hover);
             transform: translateY(-2px);
         }
-        
-        /* Ícone de +/- */
         .categoria-titulo::after {
             content: '+';
             font-family: monospace;
@@ -216,8 +211,6 @@
             transform: translateY(-50%);
             color: var(--h3-color);
         }
-        
-        /* Lista de cards (Escondida por padrão) */
         .ferramentas-lista {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -228,27 +221,15 @@
             margin-top: 0;
         }
         
-        /* ============================================= */
-        /* 6. ESTADO ATIVO (ACORDEÃO ABERTO)             */
-        /* ============================================= */
-        
-        .categoria.active .categoria-titulo::after {
-            content: '−';
-        }
-        
-        .categoria.active .ferramentas-lista {
-            max-height: 2000px; /* Valor alto para expansão */
-            margin-top: 20px;
-        }
+        /* Acordeão Aberto */
+        .categoria.active .categoria-titulo::after { content: '−'; }
+        .categoria.active .ferramentas-lista { max-height: 2000px; margin-top: 20px; }
 
-        /* ============================================= */
-        /* 7. ESTILOS DOS CARDS                          */
-        /* ============================================= */
+        /* Estilos dos Cards (sem alteração) */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .ferramenta-card {
             border: none;
             border-radius: 12px;
@@ -260,29 +241,9 @@
             animation: fadeIn 0.5s ease-out forwards;
             opacity: 0;
         }
-        
-        .ferramenta-card:nth-child(2) { animation-delay: 0.1s; }
-        .ferramenta-card:nth-child(3) { animation-delay: 0.2s; }
-        .ferramenta-card:nth-child(4) { animation-delay: 0.3s; }
-
-        .ferramenta-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--card-shadow-hover);
-        }
-
-        .ferramenta-card h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: var(--h3-color);
-            font-weight: 600;
-        }
-
-        .ferramenta-card p {
-            font-size: 0.95em;
-            color: var(--p-color);
-            margin-bottom: 20px;
-        }
-
+        .ferramenta-card:hover { transform: translateY(-8px); box-shadow: var(--card-shadow-hover); }
+        .ferramenta-card h3 { margin-top: 0; margin-bottom: 10px; color: var(--h3-color); font-weight: 600; }
+        .ferramenta-card p { font-size: 0.95em; color: var(--p-color); margin-bottom: 20px; }
         .ferramenta-card a {
             text-decoration: none;
             color: #ffffff;
@@ -294,55 +255,15 @@
             display: inline-block;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
+        .ferramenta-card a:hover { background-color: #2980b9; transform: scale(1.05); }
+        .hidden { display: none; }
 
-        .ferramenta-card a:hover {
-            background-color: #2980b9;
-            transform: scale(1.05);
-        }
-        
-        /* Classe de utilidade para o JS */
-        .hidden {
-            display: none;
-        }
-
-        /* ============================================= */
-        /* 8. TOGGLE DE TEMA                             */
-        /* ============================================= */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--header-text);
-        }
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
+        /* Toggle de Tema (sem alteração) */
+        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; color: var(--header-text); }
+        .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
         .theme-switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--toggle-bg);
-            transition: .4s;
-            border-radius: 26px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--toggle-bg); transition: .4s; border-radius: 26px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--toggle-bg); }
         input:checked + .slider:before { transform: translateX(24px); }
 
@@ -367,22 +288,22 @@
 
         <section id="intro-summary">
             <h2>O que são IAs Generativas?</h2>
-            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar ou agir sobre dados existentes. Eles aprendem padrões e estruturas a partir de vastos conjuntos de dados e, em seguida, usam esse conhecimento para gerar saídas completamente novas e originais.</p>
-
+            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar ou agir sobre dados existentes.</p>
             <h2>Tipos de Agentes de IA</h2>
-            <p>Um "Agente de IA" é um sistema projetado para atingir objetivos. Ele percebe seu ambiente, toma decisões e age de forma autônoma. Os principais tipos incluem:</p>
-            <ul>
-                <li><strong>Agentes Reativos Simples:</strong> Apenas reagem ao que veem no momento.</li>
-                <li><strong>Agentes Baseados em Objetivos:</strong> Têm um objetivo e planejam suas ações para alcançá-lo.</li>
-            </ul>
+            <p>Um "Agente de IA" é um sistema projetado para atingir objetivos. Ele percebe seu ambiente, toma decisões e age de forma autônoma.</p>
         </section>
 
         <section id="gesture-recognition">
-            <h2>Teste de IA: Pedra, Papel e Tesoura</h2>
-            <p>Mostre seu gesto para a webcam e a IA tentará adivinhar!</p>
+            <h2>Teste de IA na Webcam</h2>
+            
+            <select id="model-selector">
+                <option value="none">Selecione um modelo...</option>
+                <option value="rps">Pedra, Papel e Tesoura</option>
+                <option value="emotion">Detector de Emoções</option>
+            </select>
             
             <div id="webcam-container"></div>
-            <h3 id="result-label">...carregando modelo...</h3>
+            <h3 id="result-label">...</h3>
         </section>
 
 
@@ -397,57 +318,16 @@
                         <p>Um modelo de linguagem avançado para conversação, criação de conteúdo, tradução, resumo e resposta a perguntas complexas.</p>
                         <a href="https://chat.openai.com/" target="_blank">Visitar Site</a>
                     </div>
-                    <div class="ferramenta-card">
-                        <h3>Gemini (Google)</h3>
-                        <p>A família de modelos de IA multimodal da Google, capaz de entender e processar texto, imagens, áudio e código de forma integrada.</p>
-                        <a href="https://gemini.google.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Notion AI</h3>
-                        <p>Integrado à ferramenta de produtividade Notion, ajuda a escrever, resumir, gerar ideias (brainstorm) e organizar notas.</p>
-                        <a href="https://www.notion.so/product/ai" target="_blank">Visitar Site</a>
-                    </div>
                 </div>
             </section>
-
+            
             <section class="categoria">
                 <h2 class="categoria-titulo">🎨 Geração de Imagem</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
+                     <div class="ferramenta-card">
                         <h3>Midjourney</h3>
                         <p>Famoso pela alta qualidade artística e fotorrealismo. Gera imagens impressionantes a partir de descrições de texto (prompts) detalhados.</p>
                         <a href="https://www.midjourney.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>DALL-E 3 (OpenAI)</h3>
-                        <p>Integrado ao ChatGPT Plus, é excelente em seguir prompts complexos e gerar imagens criativas e coesas com texto.</p>
-                        <a href="https://openai.com/dall-e-3" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Adobe Firefly</h3>
-                        <p>Integrada ao Photoshop e Illustrator, foca em geração de imagens "seguras para uso comercial", preenchimento generativo e efeitos de texto.</p>
-                        <a href="https://www.adobe.com/br/products/firefly.html" target="_blank">Visitar Site</a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="categoria">
-                <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
-                <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>GitHub Copilot</h3>
-                        <p>Uma IA "parceira" de programação que sugere linhas de código e funções inteiras diretamente no seu editor de código (VS Code, etc.).</p>
-                        <a href="https://github.com/features/copilot" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Tabnine</h3>
-                        <p>Assistente de IA que autocompleta código em diversasagens. Utiliza modelos treinados e pode ser adaptado para bases de código privadas.</p>
-                        <a href="https://www.tabnine.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Amazon CodeWhisperer</h3>
-                        <p>Ferramenta da AWS que oferece sugestões de código, desde trechos até funções completas, e ajuda a escanear por vulnerabilidades.</p>
-                        <a href="https://aws.amazon.com/codewhisperer/" target="_blank">Visitar Site</a>
                     </div>
                 </div>
             </section>
@@ -457,97 +337,146 @@
     <script>
         
         // ==========================================================
-        // PARTE 1: LÓGICA DE RECONHECIMENTO DE GESTOS (ml5.js)
-        // (Esta parte precisa ficar FORA do 'DOMContentLoaded')
+        // PARTE 1: LÓGICA DE RECONHECIMENTO (p5.js + ml5.js)
         // ==========================================================
 
-        // !!! SUBSTITUA ESTA URL PELA URL DO SEU MODELO TREINADO !!!
-        const modelURL = 'https://teachablemachine.withgoogle.com/models/jR-4BiMT/model.json';
-
-        let classifier;
+        // --- Variáveis Globais de IA ---
+        let rpsClassifier;
+        let faceApi;
         let video;
         let flippedVideo;
-        let label = "...carregando modelo..."; // Texto inicial
+        let label = "Selecione um modelo...";
+        let currentModel = 'none'; // Controla qual modelo está ativo
 
-        // Função do p5.js: Carrega o modelo
+        // --- URL do seu modelo de LIBRAS / RPS ---
+        // (Use o link ou a pasta local, como preferir)
+        const rpsModelURL = 'https://teachablemachine.withgoogle.com/models/jR-4BiMT/model.json';
+        // const rpsModelURL = 'meu-modelo/model.json'; // Se baixou
+
+        // --- Tradução das Emoções ---
+        const emotions = {
+            angry: 'Com Raiva 😠',
+            disgusted: 'Com Nojo 🤢',
+            fearful: 'Com Medo 😨',
+            happy: 'Feliz 😊',
+            neutral: 'Neutro 😐',
+            sad: 'Triste 😢',
+            surprised: 'Surpreso 😮'
+        };
+
+        // --- p5.js: Carrega o modelo de RPS antes de tudo ---
         function preload() {
-            classifier = ml5.imageClassifier(modelURL);
+            rpsClassifier = ml5.imageClassifier(rpsModelURL);
+            console.log('Modelo de RPS pré-carregado.');
         }
 
-        // Função do p5.js: Configuração inicial
+        // --- p5.js: Configuração inicial ---
         function setup() {
-            // Cria o canvas da webcam e anexa ao contêiner HTML
             const canvas = createCanvas(480, 360);
             canvas.parent('webcam-container');
             
-            // Inicia a captura da webcam
             video = createCapture(VIDEO);
             video.size(480, 360);
-            video.hide(); // Esconde o elemento de vídeo HTML extra
+            video.hide();
 
-            // Inicia a classificação
-            classifyVideo();
+            // Carrega o modelo de Emoções (FaceAPI)
+            // A detecção só começa quando o usuário selecionar
+            const faceApiOptions = { withDescriptors: false, withExpressions: true };
+            faceApi = ml5.faceApi(video, faceApiOptions, () => {
+                console.log('Modelo de Emoções (FaceAPI) pronto!');
+            });
         }
 
-        // Função do p5.js: Roda em loop (desenha o vídeo na tela)
+        // --- p5.js: Loop de desenho ---
         function draw() {
             background(0);
-            
-            // Espelha o vídeo (para que pareça um espelho)
             flippedVideo = ml5.flipImage(video);
-            
-            // Desenha o vídeo espelhado no canvas
             image(flippedVideo, 0, 0, width, height);
-        }
-
-        // Inicia a classificação em loop
-        function classifyVideo() {
-            // Garante que o flippedVideo esteja pronto antes de classificar
-            if (flippedVideo) {
-                classifier.classify(flippedVideo, gotResult);
-            } else {
-                // Tenta novamente em breve se o vídeo não estiver pronto
-                setTimeout(classifyVideo, 100);
-            }
-        }
-
-        // Quando temos um resultado
-        function gotResult(error, results) {
-            if (error) {
-                console.error(error);
-                return;
-            }
             
-            // Pega o resultado mais provável
-            label = results[0].label;
-            
-            // Atualiza a interface (agora usando um seletor de ID)
+            // Atualiza o texto na tela
             const labelElement = document.getElementById('result-label');
-            if (labelElement) {
+            if (labelElement.innerText !== label) {
                 labelElement.innerText = label;
             }
-            
-            // Classifica novamente
-            classifyVideo();
         }
 
+        // --- Nossas Funções de Classificação ---
+
+        // Loop 1: Classificador de RPS
+        function classifyRPS() {
+            if (currentModel !== 'rps') return; // Para o loop se o modelo mudou
+            
+            classifier.classify(flippedVideo, (err, results) => {
+                if (err) { console.error(err); return; }
+                label = results[0].label;
+                classifyRPS(); // Chama a si mesmo para continuar o loop
+            });
+        }
+
+        // Loop 2: Detector de Emoções
+        function detectEmotions() {
+            if (currentModel !== 'emotion') return; // Para o loop
+            
+            faceApi.detect((err, results) => {
+                if (err) { console.error(err); return; }
+                
+                if (results && results.length > 0) {
+                    const topEmotion = getTopEmotion(results[0].expressions);
+                    label = emotions[topEmotion] || '...';
+                } else {
+                    label = "..."; // Se nenhum rosto for detectado
+                }
+                detectEmotions(); // Chama a si mesmo
+            });
+        }
+        
+        // Função Auxiliar: Pega a emoção com maior probabilidade
+        function getTopEmotion(expressions) {
+            let maxProb = 0;
+            let topEmotion = 'neutral';
+            
+            // O ml5.js 0.12.2 mudou o nome de "expressions" para "expressions"
+            // Vamos checar ambos por segurança
+            const expr = expressions.expressions || expressions;
+
+            for (const [emotion, prob] of Object.entries(expr)) {
+                if (prob > maxProb) {
+                    maxProb = prob;
+                    topEmotion = emotion;
+                }
+            }
+            return topEmotion;
+        }
 
         // ==========================================================
         // PARTE 2: LÓGICA DO SITE (TEMA, BUSCA, ACORDEÃO)
-        // (Esta parte precisa ficar DENTRO do 'DOMContentLoaded')
         // ==========================================================
         
         document.addEventListener('DOMContentLoaded', () => {
             
+            // --- LÓGICA DO SELETOR DE MODELO ---
+            const modelSelector = document.getElementById('model-selector');
+            modelSelector.addEventListener('change', (e) => {
+                currentModel = e.target.value;
+                
+                if (currentModel === 'rps') {
+                    label = "Carregando RPS...";
+                    classifyRPS(); // Inicia o loop de RPS
+                } else if (currentModel === 'emotion') {
+                    label = "Carregando Emoções...";
+                    detectEmotions(); // Inicia o loop de Emoções
+                } else {
+                    label = "Selecione um modelo...";
+                }
+            });
+            
             // --- LÓGICA DO MODO CLARO/ESCURO ---
             const themeSwitch = document.getElementById('theme-switch');
             const currentTheme = localStorage.getItem('theme');
-
             if (currentTheme === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeSwitch.checked = true;
             }
-
             themeSwitch.addEventListener('change', function() {
                 if (this.checked) {
                     document.body.classList.add('dark-mode');
@@ -560,55 +489,33 @@
 
             // --- LÓGICA DO ACORDEÃO ---
             const allCategoryTitles = document.querySelectorAll('.categoria-titulo');
-            
             allCategoryTitles.forEach(title => {
                 title.addEventListener('click', () => {
-                    const category = title.parentElement;
-                    category.classList.toggle('active');
+                    title.parentElement.classList.toggle('active');
                 });
             });
-
 
             // --- LÓGICA DO FILTRO DE BUSCA ---
             const searchBar = document.getElementById('search-bar');
             const allCards = document.querySelectorAll('.ferramenta-card');
-            // Seleciona todas as seções de categoria dentro do catálogo
             const allCategories = document.querySelectorAll('#catalogo .categoria'); 
-
             searchBar.addEventListener('keyup', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
-
-                // 1. Filtra os Cards
                 allCards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const description = card.querySelector('p').textContent.toLowerCase();
-                    const cardText = title + description;
-
-                    if (cardText.includes(searchTerm)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
+                    const cardText = card.textContent.toLowerCase();
+                    card.classList.toggle('hidden', !cardText.includes(searchTerm));
                 });
-
-                // 2. Filtra as Categorias
                 allCategories.forEach(category => {
                     const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
-                    
                     if (searchTerm.length === 0) {
-                        // Se a busca está vazia, reseta tudo
-                        category.classList.remove('hidden'); // Mostra a categoria
-                        category.classList.remove('active'); // FECHA o acordeão
-                    
-                    } else if (visibleCards > 0) {
-                        // Se tem cards visíveis, mostra a categoria E ABRE o acordeão
                         category.classList.remove('hidden');
-                        category.classList.add('active'); // Abre para mostrar o resultado
-                    
+                        category.classList.remove('active');
+                    } else if (visibleCards > 0) {
+                        category.classList.remove('hidden');
+                        category.classList.add('active');
                     } else {
-                        // Se não tem cards visíveis, esconde a categoria inteira
                         category.classList.add('hidden');
-                        category.classList.remove('active'); // Garante que está fechada
+                        category.classList.remove('active');
                     }
                 });
             });
@@ -617,5 +524,3 @@
 
 </body>
 </html>
-
-
