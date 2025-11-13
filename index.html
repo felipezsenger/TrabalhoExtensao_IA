@@ -5,101 +5,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Ferramentas de IA</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Reseta e define o Box Sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         /* Estilos Gerais */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* Usando a fonte Poppins */
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            background-color: #f4f7f6;
+            background-color: #f0f2f5; /* Fundo mais suave */
             color: #333;
+        }
+
+        /* Cabeçalho Fixo */
+        header {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: white;
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            
+            /* Para centralizar o conteúdo do header */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 {
             margin: 0;
-            padding: 20px;
+            font-weight: 700;
+        }
+        
+        /* Barra de Busca */
+        #search-bar {
+            width: 100%;
+            max-width: 600px;
+            padding: 12px 15px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background-color: #f0f2f5;
         }
 
         /* Container Principal */
         .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px; /* Removido padding de cima/baixo */
         }
 
-        /* Títulos */
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-
+        /* Títulos de Categoria */
         h2 {
             color: #1a5276;
-            border-bottom: 2px solid #aed6f1;
-            padding-bottom: 8px;
+            border-bottom: 3px solid #aed6f1;
+            padding-bottom: 10px;
             margin-top: 40px;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
-        /* Seção da Categoria */
-        .categoria {
-            margin-bottom: 30px;
-        }
-
-        /* Grade de Ferramentas (Usando CSS Grid) */
+        /* Grade de Ferramentas (CSS Grid) */
         .ferramentas-lista {
             display: grid;
-            /* Cria colunas responsivas: tenta encaixar o máximo de colunas de 300px */
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px; /* Espaço entre os cards */
+            gap: 25px;
+        }
+
+        /* Animação de Fade-in para os Cards */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Card da Ferramenta */
         .ferramenta-card {
-            border: 1px solid #d5dbdb;
-            border-radius: 8px;
-            padding: 20px;
-            background-color: #fdfefe;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            border-radius: 12px; /* Bordas mais arredondadas */
+            padding: 25px;
+            background-color: #ffffff;
+            /* Sombra mais suave e moderna */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Garante que nada "vaze" do card */
+            
+            /* Aplica a animação */
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0; /* Começa invisível para a animação */
         }
+        
+        /* Stagger (atraso) na animação para cada card */
+        /* Isso é um pouco mais avançado, mas cria um efeito legal */
+        .ferramenta-card:nth-child(2) { animation-delay: 0.1s; }
+        .ferramenta-card:nth-child(3) { animation-delay: 0.2s; }
+        .ferramenta-card:nth-child(4) { animation-delay: 0.3s; }
+
 
         .ferramenta-card:hover {
-            transform: translateY(-5px); /* Efeito de "levantar" */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px); /* Levanta mais */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .ferramenta-card h3 {
             margin-top: 0;
+            margin-bottom: 10px;
             color: #21618C;
+            font-weight: 600;
         }
 
         .ferramenta-card p {
             font-size: 0.95em;
             color: #566573;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .ferramenta-card a {
             text-decoration: none;
-            color: #154360;
-            font-weight: bold;
-            background-color: #eaf2f8;
-            padding: 8px 12px;
-            border-radius: 5px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9em;
+            background-color: #3498db; /* Cor de destaque */
+            padding: 10px 15px;
+            border-radius: 8px;
             display: inline-block;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
         .ferramenta-card a:hover {
-            background-color: #d4e6f1;
+            background-color: #2980b9;
+            transform: scale(1.05); /* Efeito de "zoom" no botão */
+        }
+        
+        /* Classe de utilidade para o JS */
+        .hidden {
+            display: none;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Meu Catálogo de Ferramentas de IA</h1>
+    <header>
+        <h1>Catálogo de Ferramentas de IA</h1>
+        <input type="search" id="search-bar" placeholder="Buscar por nome ou descrição...">
+    </header>
+
+    <main class="container">
 
         <section class="categoria">
             <h2>✍️ Geração de Texto</h2>
@@ -226,7 +295,50 @@
             </div>
         </section>
 
-    </div>
+    </main>
+    
+    <script>
+        // Espera o conteúdo da página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const searchBar = document.getElementById('search-bar');
+            const allCards = document.querySelectorAll('.ferramenta-card');
+            const allCategories = document.querySelectorAll('.categoria');
+
+            // Adiciona um "ouvinte" para o evento de digitação na barra de busca
+            searchBar.addEventListener('keyup', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+
+                // 1. Filtra os Cards
+                allCards.forEach(card => {
+                    // Pega o texto do título (h3) e da descrição (p)
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const cardText = title + description;
+
+                    // Verifica se o texto do card inclui o termo buscado
+                    if (cardText.includes(searchTerm)) {
+                        card.classList.remove('hidden'); // Mostra o card
+                    } else {
+                        card.classList.add('hidden'); // Esconde o card
+                    }
+                });
+
+                // 2. Filtra as Categorias
+                allCategories.forEach(category => {
+                    // Seleciona apenas os cards VISÍVEIS dentro desta categoria
+                    const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)');
+                    
+                    // Se não houver cards visíveis, esconde a categoria inteira
+                    if (visibleCards.length === 0) {
+                        category.classList.add('hidden');
+                    } else {
+                        category.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
