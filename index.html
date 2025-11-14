@@ -9,9 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
-    <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
-
     <style>
         /* ============================================= */
         /* 1. VARIÁVEIS DE COR (TEMA)                    */
@@ -86,7 +83,11 @@
             transition: background-color 0.3s ease;
         }
 
-        header h1 { margin: 0; font-weight: 700; font-size: 1.8rem; }
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
         
         /* Barra de Busca */
         #search-bar {
@@ -109,7 +110,7 @@
             padding: 0 20px;
         }
 
-        /* Títulos H2 genéricos */
+        /* Títulos H2 genéricos (para resumo) */
         h2 {
             color: var(--h2-color);
             margin-top: 20px;
@@ -118,7 +119,7 @@
         }
 
         /* ============================================= */
-        /* 3. SEÇÃO DE RESUMO                            */
+        /* 3. NOVO: SEÇÃO DE RESUMO                      */
         /* ============================================= */
         #intro-summary {
             background-color: var(--card-bg-color);
@@ -127,63 +128,31 @@
             margin-bottom: 40px;
             box-shadow: var(--card-shadow);
         }
-        #intro-summary p { color: var(--p-color); margin-bottom: 15px; }
-        #intro-summary ul { list-style-position: inside; color: var(--p-color); margin-left: 10px; }
-
-        /* ============================================= */
-        /* 4. SEÇÃO DE TESTE DE IA (WEBCAM)              */
-        /* ============================================= */
-        #gesture-recognition {
-            background-color: var(--card-bg-color);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            box-shadow: var(--card-shadow);
-            text-align: center;
+        
+        #intro-summary p {
+            color: var(--p-color);
+            margin-bottom: 15px;
         }
         
-        #model-selector {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-            background-color: var(--card-bg-color);
-            color: var(--h2-color);
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-        
-        #webcam-container {
-            width: 100%;
-            max-width: 480px;
-            height: 360px;
-            background-color: #333;
-            border-radius: 8px;
-            margin: 20px auto 0;
-            overflow: hidden;
-            border: 4px solid var(--border-color);
-        }
-
-        #result-label {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--h3-color);
-            margin-top: 15px;
-            font-weight: 700;
-            min-height: 48px; /* Evita que a página "pule" */
+        #intro-summary ul {
+            list-style-position: inside;
+            color: var(--p-color);
+            margin-left: 10px;
         }
 
         /* ============================================= */
-        /* 5. ESTILOS DO CATÁLOGO (ACORDEÃO)             */
+        /* 4. ATUALIZADO: ESTILOS DO CATÁLOGO (ACORDEÃO) */
         /* ============================================= */
-        #catalogo h2.titulo-secao-catalogo {
+        #catalogo h2 {
             border-bottom: 3px solid var(--border-color);
             padding-bottom: 10px;
         }
-        .categoria { margin-bottom: 15px; }
+        
+        .categoria {
+            margin-bottom: 15px;
+        }
 
+        /* Título da Categoria (Botão Clicável) */
         .categoria-titulo {
             background-color: var(--card-bg-color);
             color: var(--h2-color);
@@ -194,12 +163,15 @@
             font-size: 1.3rem;
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
-            position: relative;
+            position: relative; /* Para o ícone +/- */
         }
+        
         .categoria-titulo:hover {
             box-shadow: var(--card-shadow-hover);
             transform: translateY(-2px);
         }
+        
+        /* Ícone de +/- */
         .categoria-titulo::after {
             content: '+';
             font-family: monospace;
@@ -210,25 +182,41 @@
             transform: translateY(-50%);
             color: var(--h3-color);
         }
+        
+        /* Estilo da lista de cards (Escondida por padrão) */
         .ferramentas-lista {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
+            
+            /* A MÁGICA DO ACORDEÃO */
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
-            margin-top: 0;
+            margin-top: 0; /* Sem margem quando fechado */
         }
         
-        /* Acordeão Aberto */
-        .categoria.active .categoria-titulo::after { content: '−'; }
-        .categoria.active .ferramentas-lista { max-height: 2000px; margin-top: 20px; }
+        /* ============================================= */
+        /* 5. ESTADO ATIVO (QUANDO CLICADO)              */
+        /* ============================================= */
+        
+        .categoria.active .categoria-titulo::after {
+            content: '−'; /* Muda para "menos" */
+        }
+        
+        .categoria.active .ferramentas-lista {
+            max-height: 2000px; /* Valor alto para permitir expansão */
+            margin-top: 20px; /* Espaço entre o título e os cards */
+        }
 
-        /* Estilos dos Cards (sem alteração) */
+        /* ============================================= */
+        /* 6. ESTILOS DOS CARDS (Sem alteração)          */
+        /* ============================================= */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .ferramenta-card {
             border: none;
             border-radius: 12px;
@@ -240,9 +228,29 @@
             animation: fadeIn 0.5s ease-out forwards;
             opacity: 0;
         }
-        .ferramenta-card:hover { transform: translateY(-8px); box-shadow: var(--card-shadow-hover); }
-        .ferramenta-card h3 { margin-top: 0; margin-bottom: 10px; color: var(--h3-color); font-weight: 600; }
-        .ferramenta-card p { font-size: 0.95em; color: var(--p-color); margin-bottom: 20px; }
+        
+        .ferramenta-card:nth-child(2) { animation-delay: 0.1s; }
+        .ferramenta-card:nth-child(3) { animation-delay: 0.2s; }
+        .ferramenta-card:nth-child(4) { animation-delay: 0.3s; }
+
+        .ferramenta-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .ferramenta-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--h3-color);
+            font-weight: 600;
+        }
+
+        .ferramenta-card p {
+            font-size: 0.95em;
+            color: var(--p-color);
+            margin-bottom: 20px;
+        }
+
         .ferramenta-card a {
             text-decoration: none;
             color: #ffffff;
@@ -254,15 +262,55 @@
             display: inline-block;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
-        .ferramenta-card a:hover { background-color: #2980b9; transform: scale(1.05); }
-        .hidden { display: none; }
 
-        /* Toggle de Tema (sem alteração) */
-        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; color: var(--header-text); }
-        .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .ferramenta-card a:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        
+        /* Classe de utilidade para o JS */
+        .hidden {
+            display: none;
+        }
+
+        /* ============================================= */
+        /* 7. TOGGLE DE TEMA (Sem alteração)             */
+        /* ============================================= */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--header-text);
+        }
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
         .theme-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--toggle-bg); transition: .4s; border-radius: 26px; }
-        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: .4s;
+            border-radius: 26px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
         input:checked + .slider { background-color: var(--toggle-bg); }
         input:checked + .slider:before { transform: translateX(24px); }
 
@@ -294,28 +342,14 @@
             <p>Um "Agente de IA" é mais do que apenas um modelo; é um sistema projetado para atingir objetivos. Ele percebe seu ambiente, toma decisões e age de forma autônoma. Os principais tipos incluem:</p>
             <ul>
                 <li><strong>Agentes Reativos Simples:</strong> Não têm memória. Apenas reagem ao que veem no momento (ex: um termostato).</li>
-                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um "modelo" interno do mundo. Podem lidar com ambientes que não veem completamente.</li>
+                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um "modelo" interno do mundo. Podem lidar com ambientes que não veem completamente (ex: IA de um jogo).</li>
                 <li><strong>Agentes Baseados em Objetivos:</strong> Vão além da reação. Eles têm um objetivo e planejam suas ações para alcançá-lo (ex: um GPS que recalcula a rota).</li>
-                <li><strong>Agentes Baseados em Utilidade:</strong> Escolhem a ação que maximiza sua "utilidade" ou "felicidade", sendo uma forma mais avançada de tomada de decisão.</li>
+                <li><strong>Agentes Baseados em Utilidade:</strong> Escolhem a ação que maximiza sua "utilidade" ou felicidade, sendo a forma mais avançada de tomada de decisão.</li>
             </ul>
         </section>
 
-        <section id="gesture-recognition">
-            <h2>Teste de IA na Webcam</h2>
-            
-            <select id="model-selector">
-                <option value="none">Selecione um modelo...</option>
-                <option value="rps">Pedra, Papel e Tesoura</option>
-                <option value="emotion">Detector de Emoções</option>
-            </select>
-            
-            <div id="webcam-container"></div>
-            <h3 id="result-label">...</h3>
-        </section>
-
-
         <section id="catalogo">
-            <h2 class="titulo-secao-catalogo">Catálogo de Ferramentas</h2>
+            <h2>Catálogo de Ferramentas</h2>
             
             <section class="categoria">
                 <h2 class="categoria-titulo">✍️ Geração de Texto</h2>
@@ -325,16 +359,36 @@
                         <p>Um modelo de linguagem avançado para conversação, criação de conteúdo, tradução, resumo e resposta a perguntas complexas.</p>
                         <a href="https://chat.openai.com/" target="_blank">Visitar Site</a>
                     </div>
+                    <div class="ferramenta-card">
+                        <h3>Gemini (Google)</h3>
+                        <p>A família de modelos de IA multimodal da Google, capaz de entender e processar texto, imagens, áudio e código de forma integrada.</p>
+                        <a href="https://gemini.google.com/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Notion AI</h3>
+                        <p>Integrado à ferramenta de produtividade Notion, ajuda a escrever, resumir, gerar ideias (brainstorm) e organizar notas.</p>
+                        <a href="https://www.notion.so/product/ai" target="_blank">Visitar Site</a>
+                    </div>
                 </div>
             </section>
-            
+
             <section class="categoria">
                 <h2 class="categoria-titulo">🎨 Geração de Imagem</h2>
                 <div class="ferramentas-lista">
-                     <div class="ferramenta-card">
+                    <div class="ferramenta-card">
                         <h3>Midjourney</h3>
                         <p>Famoso pela alta qualidade artística e fotorrealismo. Gera imagens impressionantes a partir de descrições de texto (prompts) detalhados.</p>
                         <a href="https://www.midjourney.com/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>DALL-E 3 (OpenAI)</h3>
+                        <p>Integrado ao ChatGPT Plus, é excelente em seguir prompts complexos e gerar imagens criativas e coesas com texto.</p>
+                        <a href="https://openai.com/dall-e-3" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Adobe Firefly</h3>
+                        <p>Integrada ao Photoshop e Illustrator, foca em geração de imagens "seguras para uso comercial", preenchimento generativo e efeitos de texto.</p>
+                        <a href="https://www.adobe.com/br/products/firefly.html" target="_blank">Visitar Site</a>
                     </div>
                 </div>
             </section>
@@ -347,6 +401,16 @@
                         <p>Uma IA "parceira" de programação que sugere linhas de código e funções inteiras diretamente no seu editor de código (VS Code, etc.).</p>
                         <a href="https://github.com/features/copilot" target="_blank">Visitar Site</a>
                     </div>
+                    <div class="ferramenta-card">
+                        <h3>Tabnine</h3>
+                        <p>Assistente de IA que autocompleta código em diversas linguagens. Utiliza modelos treinados e pode ser adaptado para bases de código privadas.</p>
+                        <a href="https://www.tabnine.com/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Amazon CodeWhisperer</h3>
+                        <p>Ferramenta da AWS que oferece sugestões de código, desde trechos até funções completas, e ajuda a escanear por vulnerabilidades.</p>
+                        <a href="https://aws.amazon.com/codewhisperer/" target="_blank">Visitar Site</a>
+                    </div>
                 </div>
             </section>
             
@@ -358,159 +422,96 @@
                         <p>Plataforma líder em geração de voz sintética (Text-to-Speech) e clonagem de voz com realismo impressionante em múltiplos idiomas.</p>
                         <a href="https://elevenlabs.io/" target="_blank">Visitar Site</a>
                     </div>
+                    <div class="ferramenta-card">
+                        <h3>Murf.ai</h3>
+                        <p>Ferramenta versátil para criar narrações com qualidade de estúdio. Oferece uma vasta biblioteca de vozes para vídeos e apresentações.</p>
+                        <a href="https://murf.ai/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Play.ht</h3>
+                        <p>Gera vozes de IA ultra-realistas e permite criar áudio a partir de texto. Muito usado para converter artigos de blog em podcasts.</p>
+                        <a href="https://play.ht/" target="_blank">Visitar Site</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎬 Edição e Geração de Vídeo</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card">
+                        <h3>Runway (Gen-2)</h3>
+                        <p>Pioneira na geração de vídeo a partir de texto (text-to-video) e imagem. Oferece um conjunto de ferramentas mágicas para edição.</p>
+                        <a href="https://runwayml.com/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Pika Labs</h3>
+                        <p>Uma ferramenta poderosa e popular para criar vídeos curtos e clipes animados a partir de simples prompts de texto ou imagens estáticas.</p>
+                        <a href="https://pika.art/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Descript</h3>
+                        <p>Edita vídeo e áudio da mesma forma que se edita um documento de texto. Transcreve automaticamente, permitindo cortar e montar editando o texto.</p>
+                        <a href="https://www.descript.com/" target="_blank">Visitar Site</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">📊 Produtividade e Organização</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card">
+                        <h3>Motion</h3>
+                        <p>Um assistente de IA que agenda automaticamente suas tarefas e reuniões no seu calendário para otimizar o seu dia.</p>
+                        <a href="https://www.motion.com/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>ClickUp AI</h3>
+                        <p>Ajuda a automatizar tarefas, resumir documentos, gerar e-mails e planejar projetos complexos dentro da plataforma ClickUp.</p>
+                        <a href="https://clickup.com/features/ai" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>SaneBox</h3>
+                        <p>Uma IA que aprende seus hábitos de e-mail e move automaticamente e-mails sem importância para fora da sua caixa de entrada principal.</p>
+                        <a href="https://www.sanebox.com/" target="_blank">Visitar Site</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎵 Geração de Música</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card">
+                        <h3>Suno AI</h3>
+                        <p>Gera músicas completas (vocais, instrumentais e letras) a partir de um simples prompt de texto, em diversos estilos musicais.</p>
+                        <a href="https://www.suno.ai/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>Udio</h3>
+                        <p>Concorrente direto do Suno, também cria músicas realistas e de alta qualidade com vocais e instrumentação a partir de texto.</p>
+                        <a href="https://www.udio.com/" target="_blank">Visitar Site</a>
+                    </div>
+                    <div class="ferramenta-card">
+                        <h3>AIVA</h3>
+                        <p>Especializada em compor trilhas sonoras emocionais para filmes, comerciais e jogos. Permite mais controle de edição musical.</p>
+                        <a href="https://www.aiva.ai/" target="_blank">Visitar Site</a>
+                    </div>
                 </div>
             </section>
 
         </section> </main>
     
     <script>
-        
-        // ==========================================================
-        // PARTE 1: LÓGICA DE RECONHECIMENTO (p5.js + ml5.js)
-        // ==========================================================
-
-        // --- Variáveis Globais de IA ---
-        let rpsClassifier; // CORRIGIDO: Nome da variável
-        let faceApi;
-        let video;
-        let flippedVideo;
-        let label = "Selecione um modelo...";
-        let currentModel = 'none'; // Controla qual modelo está ativo
-
-        // --- URL do modelo de LIBRAS / RPS ---
-        // (Use o link válido ou a pasta local)
-        const rpsModelURL = 'https://teachablemachine.withgoogle.com/models/jR-4BiMT/model.json';
-        // const rpsModelURL = 'meu-modelo/model.json'; // Se baixou
-
-        // --- Tradução das Emoções ---
-        const emotions = {
-            angry: 'Com Raiva 😠',
-            disgusted: 'Com Nojo 🤢',
-            fearful: 'Com Medo 😨',
-            happy: 'Feliz 😊',
-            neutral: 'Neutro 😐',
-            sad: 'Triste 😢',
-            surprised: 'Surpreso 😮'
-        };
-
-        // --- p5.js: Carrega o modelo de RPS antes de tudo ---
-        function preload() {
-            rpsClassifier = ml5.imageClassifier(rpsModelURL); // CORRIGIDO: Nome da variável
-            console.log('Modelo de RPS pré-carregado.');
-        }
-
-        // --- p5.js: Configuração inicial ---
-        function setup() {
-            const canvas = createCanvas(480, 360);
-            canvas.parent('webcam-container');
-            
-            video = createCapture(VIDEO);
-            video.size(480, 360);
-            video.hide();
-
-            // Carrega o modelo de Emoções (FaceAPI)
-            const faceApiOptions = { withDescriptors: false, withExpressions: true };
-            faceApi = ml5.faceApi(video, faceApiOptions, () => {
-                console.log('Modelo de Emoções (FaceAPI) pronto!');
-            });
-        }
-
-        // --- p5.js: Loop de desenho ---
-        function draw() {
-            background(0);
-            flippedVideo = ml5.flipImage(video);
-            image(flippedVideo, 0, 0, width, height);
-            
-            // Atualiza o texto na tela
-            const labelElement = document.getElementById('result-label');
-            if (labelElement.innerText !== label) {
-                labelElement.innerText = label;
-            }
-        }
-
-        // --- Nossas Funções de Classificação ---
-
-        // Loop 1: Classificador de RPS
-        function classifyRPS() {
-            if (currentModel !== 'rps' || !flippedVideo) {
-                setTimeout(classifyRPS, 100); // Espera se não estiver ativo ou pronto
-                return;
-            }
-            
-            // CORRIGIDO: Usar "rpsClassifier"
-            rpsClassifier.classify(flippedVideo, (err, results) => {
-                if (err) { console.error(err); return; }
-                label = results[0].label;
-                classifyRPS(); // Chama a si mesmo para continuar o loop
-            });
-        }
-
-        // Loop 2: Detector de Emoções
-        function detectEmotions() {
-            if (currentModel !== 'emotion' || !faceApi.ready) {
-                setTimeout(detectEmotions, 100); // Espera se não estiver ativo ou pronto
-                return; 
-            }
-            
-            faceApi.detect((err, results) => {
-                if (err) { console.error(err); return; }
-                
-                if (results && results.length > 0) {
-                    const topEmotion = getTopEmotion(results[0].expressions);
-                    label = emotions[topEmotion] || '...';
-                } else {
-                    label = "..."; // Se nenhum rosto for detectado
-                }
-                detectEmotions(); // Chama a si mesmo
-            });
-        }
-        
-        // Função Auxiliar: Pega a emoção com maior probabilidade
-        function getTopEmotion(expressions) {
-            let maxProb = 0;
-            let topEmotion = 'neutral';
-            
-            // O ml5.js 0.12.2 mudou o nome de "expressions"
-            const expr = expressions.expressions || expressions;
-
-            for (const [emotion, prob] of Object.entries(expr)) {
-                if (prob > maxProb) {
-                    maxProb = prob;
-                    topEmotion = emotion;
-                }
-            }
-            return topEmotion;
-        }
-
-        // ==========================================================
-        // PARTE 2: LÓGICA DO SITE (TEMA, BUSCA, ACORDEÃO)
-        // ==========================================================
-        
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- LÓGICA DO SELETOR DE MODELO ---
-            const modelSelector = document.getElementById('model-selector');
-            modelSelector.addEventListener('change', (e) => {
-                currentModel = e.target.value;
-                
-                if (currentModel === 'rps') {
-                    label = "Carregando RPS...";
-                    classifyRPS(); // Inicia o loop de RPS
-                } else if (currentModel === 'emotion') {
-                    label = "Carregando Emoções...";
-                    detectEmotions(); // Inicia o loop de Emoções
-                } else {
-                    label = "Selecione um modelo...";
-                }
-            });
-            
-            // --- LÓGICA DO MODO CLARO/ESCURO ---
+            // --- LÓGICA DO MODO CLARO/ESCURO (Igual) ---
             const themeSwitch = document.getElementById('theme-switch');
             const currentTheme = localStorage.getItem('theme');
+
             if (currentTheme === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeSwitch.checked = true;
             }
+
             themeSwitch.addEventListener('change', function() {
                 if (this.checked) {
                     document.body.classList.add('dark-mode');
@@ -521,35 +522,59 @@
                 }
             });
 
-            // --- LÓGICA DO ACORDEÃO ---
+            // --- NOVO: LÓGICA DO ACORDEÃO ---
             const allCategoryTitles = document.querySelectorAll('.categoria-titulo');
+            
             allCategoryTitles.forEach(title => {
                 title.addEventListener('click', () => {
-                    title.parentElement.classList.toggle('active');
+                    // Pega o elemento pai (a <section class="categoria">)
+                    const category = title.parentElement;
+                    // Adiciona ou remove a classe 'active'
+                    category.classList.toggle('active');
                 });
             });
 
-            // --- LÓGICA DO FILTRO DE BUSCA ---
+
+            // --- ATUALIZADO: LÓGICA DO FILTRO DE BUSCA ---
             const searchBar = document.getElementById('search-bar');
             const allCards = document.querySelectorAll('.ferramenta-card');
-            const allCategories = document.querySelectorAll('#catalogo .categoria'); 
+            const allCategories = document.querySelectorAll('.categoria');
+
             searchBar.addEventListener('keyup', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
+
+                // 1. Filtra os Cards (igual a antes)
                 allCards.forEach(card => {
-                    const cardText = card.textContent.toLowerCase();
-                    card.classList.toggle('hidden', !cardText.includes(searchTerm));
-                });
-                allCategories.forEach(category => {
-                    const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
-                    if (searchTerm.length === 0) {
-                        category.classList.remove('hidden');
-                        category.classList.remove('active');
-                    } else if (visibleCards > 0) {
-                        category.classList.remove('hidden');
-                        category.classList.add('active');
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const cardText = title + description;
+
+                    if (cardText.includes(searchTerm)) {
+                        card.classList.remove('hidden');
                     } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                // 2. ATUALIZADO: Filtra as Categorias
+                allCategories.forEach(category => {
+                    // Conta quantos cards VISÍVEIS existem dentro desta categoria
+                    const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
+                    
+                    if (searchTerm.length === 0) {
+                        // Se a busca está vazia, reseta tudo
+                        category.classList.remove('hidden'); // Mostra a categoria
+                        category.classList.remove('active'); // FECHA o acordeão
+                    
+                    } else if (visibleCards > 0) {
+                        // Se tem cards visíveis, mostra a categoria E ABRE o acordeão
+                        category.classList.remove('hidden');
+                        category.classList.add('active'); // Abre para mostrar o resultado
+                    
+                    } else {
+                        // Se não tem cards visíveis, esconde a categoria inteira
                         category.classList.add('hidden');
-                        category.classList.remove('active');
+                        category.classList.remove('active'); // Garante que está fechada
                     }
                 });
             });
