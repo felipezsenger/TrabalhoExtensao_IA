@@ -11,7 +11,7 @@
     
     <style>
         /* ============================================= */
-        /* 1. VARIÁVEIS DE COR (TEMA)                    */
+        /* 1. VARIÁVEIS DE COR (TEMA)                */
         /* ============================================= */
         :root {
             /* Modo Claro (Default) */
@@ -50,7 +50,7 @@
         }
 
         /* ============================================= */
-        /* 2. ESTILOS GERAIS                             */
+        /* 2. ESTILOS GERAIS                         */
         /* ============================================= */
         * {
             margin: 0;
@@ -89,6 +89,47 @@
             font-size: 1.8rem;
         }
         
+        /* ============================================= */
+        /* 2b. NOVO: ESTILOS DE NAVEGAÇÃO              */
+        /* ============================================= */
+        .main-nav {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 20px;
+            border: 2px solid var(--header-text);
+            background-color: transparent;
+            color: var(--header-text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: var(--header-text);
+            color: var(--h3-color);
+        }
+        /* Estilo do botão ativo */
+        .nav-button.active {
+            background-color: #ffffff;
+            color: #2c3e50;
+            border-color: #ffffff;
+        }
+        /* No modo escuro, o botão ativo inverte */
+        body.dark-mode .nav-button.active {
+            background-color: var(--h3-color);
+            color: var(--header-text);
+            border-color: var(--h3-color);
+        }
+        body.dark-mode .nav-button:hover {
+            background-color: var(--header-text);
+            color: var(--header-bg);
+        }
+
+
         /* Barra de Busca */
         #search-bar {
             flex-grow: 1;
@@ -101,6 +142,7 @@
             outline: none;
             background-color: var(--search-bg);
             color: var(--search-text);
+            transition: all 0.3s ease;
         }
 
         /* Container Principal */
@@ -119,9 +161,9 @@
         }
 
         /* ============================================= */
-        /* 3. NOVO: SEÇÃO DE RESUMO                      */
+        /* 3. SEÇÃO DE RESUMO E PÁGINA "SOBRE"       */
         /* ============================================= */
-        #intro-summary {
+        #intro-summary, .info-card {
             background-color: var(--card-bg-color);
             padding: 30px;
             border-radius: 12px;
@@ -129,7 +171,7 @@
             box-shadow: var(--card-shadow);
         }
         
-        #intro-summary p {
+        #intro-summary p, .info-card p {
             color: var(--p-color);
             margin-bottom: 15px;
         }
@@ -141,7 +183,7 @@
         }
 
         /* ============================================= */
-        /* 4. ATUALIZADO: ESTILOS DO CATÁLOGO (ACORDEÃO) */
+        /* 4. ESTILOS DO CATÁLOGO (ACORDEÃO)         */
         /* ============================================= */
         #catalogo h2 {
             border-bottom: 3px solid var(--border-color);
@@ -197,7 +239,7 @@
         }
         
         /* ============================================= */
-        /* 5. ESTADO ATIVO (QUANDO CLICADO)              */
+        /* 5. ESTADO ATIVO (QUANDO CLICADO)          */
         /* ============================================= */
         
         .categoria.active .categoria-titulo::after {
@@ -210,7 +252,7 @@
         }
 
         /* ============================================= */
-        /* 6. ESTILOS DOS CARDS (Sem alteração)          */
+        /* 6. ESTILOS DOS CARDS                      */
         /* ============================================= */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -270,11 +312,11 @@
         
         /* Classe de utilidade para o JS */
         .hidden {
-            display: none;
+            display: none !important; /* !important para garantir a sobreposição */
         }
 
         /* ============================================= */
-        /* 7. TOGGLE DE TEMA (Sem alteração)             */
+        /* 7. TOGGLE DE TEMA                         */
         /* ============================================= */
         .theme-switch-wrapper {
             display: flex;
@@ -320,6 +362,12 @@
 
     <header>
         <h1>Catálogo de IA</h1>
+        
+        <nav class="main-nav">
+            <button id="btn-catalogo" class="nav-button active">Catálogo</button>
+            <button id="btn-sobre" class="nav-button">Sobre</button>
+        </nav>
+
         <input type="search" id="search-bar" placeholder="Buscar por nome ou descrição...">
         <div class="theme-switch-wrapper">
             <span>☀️</span>
@@ -331,20 +379,20 @@
         </div>
     </header>
 
-    <main class="container">
+    <main id="pagina-catalogo" class="container">
 
         <section id="intro-summary">
             <h2>O que são IAs Generativas?</h2>
-            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar ou agir sobre dados existentes. Eles aprendem padrões e estruturas a partir de vastos conjuntos de dados e, em seguida, usam esse conhecimento para gerar saídas completamente novas e originais.</p>
-            <p>Isso inclui a criação de texto (como este), imagens, música, código e muito mais, tudo a partir de um simples comando de texto (um "prompt").</p>
+            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos...</p>
+            <p>Isso inclui a criação de texto (como este), imagens, música, código e muito mais...</p>
 
             <h2>Tipos de Agentes de IA</h2>
-            <p>Um "Agente de IA" é mais do que apenas um modelo; é um sistema projetado para atingir objetivos. Ele percebe seu ambiente, toma decisões e age de forma autônoma. Os principais tipos incluem:</p>
+            <p>Um "Agente de IA" é mais do que apenas um modelo; é um sistema projetado para atingir objetivos...</p>
             <ul>
-                <li><strong>Agentes Reativos Simples:</strong> Não têm memória. Apenas reagem ao que veem no momento (ex: um termostato).</li>
-                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um "modelo" interno do mundo. Podem lidar com ambientes que não veem completamente (ex: IA de um jogo).</li>
-                <li><strong>Agentes Baseados em Objetivos:</strong> Vão além da reação. Eles têm um objetivo e planejam suas ações para alcançá-lo (ex: um GPS que recalcula a rota).</li>
-                <li><strong>Agentes Baseados em Utilidade:</strong> Escolhem a ação que maximiza sua "utilidade" ou felicidade, sendo a forma mais avançada de tomada de decisão.</li>
+                <li><strong>Agentes Reativos Simples:</strong> Não têm memória...</li>
+                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um "modelo" interno...</li>
+                <li><strong>Agentes Baseados em Objetivos:</strong> Vão além da reação...</li>
+                <li><strong>Agentes Baseados em Utilidade:</strong> Escolhem a ação que maximiza...</li>
             </ul>
         </section>
 
@@ -392,126 +440,86 @@
                     </div>
                 </div>
             </section>
-
+            
             <section class="categoria">
                 <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>GitHub Copilot</h3>
-                        <p>Uma IA "parceira" de programação que sugere linhas de código e funções inteiras diretamente no seu editor de código (VS Code, etc.).</p>
-                        <a href="https://github.com/features/copilot" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Tabnine</h3>
-                        <p>Assistente de IA que autocompleta código em diversas linguagens. Utiliza modelos treinados e pode ser adaptado para bases de código privadas.</p>
-                        <a href="https://www.tabnine.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Amazon CodeWhisperer</h3>
-                        <p>Ferramenta da AWS que oferece sugestões de código, desde trechos até funções completas, e ajuda a escanear por vulnerabilidades.</p>
-                        <a href="https://aws.amazon.com/codewhisperer/" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>GitHub Copilot</h3><p>Uma IA "parceira" de programação que sugere linhas de código e funções inteiras diretamente no seu editor de código (VS Code, etc.).</p><a href="https://github.com/features/copilot" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Tabnine</h3><p>Assistente de IA que autocompleta código em diversas linguagens. Utiliza modelos treinados e pode ser adaptado para bases de código privadas.</p><a href="https://www.tabnine.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Amazon CodeWhisperer</h3><p>Ferramenta da AWS que oferece sugestões de código, desde trechos até funções completas, e ajuda a escanear por vulnerabilidades.</p><a href="https://aws.amazon.com/codewhisperer/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
-            
             <section class="categoria">
                 <h2 class="categoria-titulo">🎙️ Geração de Áudio e Voz</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>ElevenLabs</h3>
-                        <p>Plataforma líder em geração de voz sintética (Text-to-Speech) e clonagem de voz com realismo impressionante em múltiplos idiomas.</p>
-                        <a href="https://elevenlabs.io/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Murf.ai</h3>
-                        <p>Ferramenta versátil para criar narrações com qualidade de estúdio. Oferece uma vasta biblioteca de vozes para vídeos e apresentações.</p>
-                        <a href="https://murf.ai/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Play.ht</h3>
-                        <p>Gera vozes de IA ultra-realistas e permite criar áudio a partir de texto. Muito usado para converter artigos de blog em podcasts.</p>
-                        <a href="https://play.ht/" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>ElevenLabs</h3><p>Plataforma líder em geração de voz sintética (Text-to-Speech) e clonagem de voz com realismo impressionante em múltiplos idiomas.</p><a href="https://elevenlabs.io/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Murf.ai</h3><p>Ferramenta versátil para criar narrações com qualidade de estúdio. Oferece uma vasta biblioteca de vozes para vídeos e apresentações.</p><a href="https://murf.ai/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Play.ht</h3><p>Gera vozes de IA ultra-realistas e permite criar áudio a partir de texto. Muito usado para converter artigos de blog em podcasts.</p><a href="https://play.ht/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
-            
             <section class="categoria">
                 <h2 class="categoria-titulo">🎬 Edição e Geração de Vídeo</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>Runway (Gen-2)</h3>
-                        <p>Pioneira na geração de vídeo a partir de texto (text-to-video) e imagem. Oferece um conjunto de ferramentas mágicas para edição.</p>
-                        <a href="https://runwayml.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Pika Labs</h3>
-                        <p>Uma ferramenta poderosa e popular para criar vídeos curtos e clipes animados a partir de simples prompts de texto ou imagens estáticas.</p>
-                        <a href="https://pika.art/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Descript</h3>
-                        <p>Edita vídeo e áudio da mesma forma que se edita um documento de texto. Transcreve automaticamente, permitindo cortar e montar editando o texto.</p>
-                        <a href="https://www.descript.com/" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>Runway (Gen-2)</h3><p>Pioneira na geração de vídeo a partir de texto (text-to-video) e imagem. Oferece um conjunto de ferramentas mágicas para edição.</p><a href="https://runwayml.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Pika Labs</h3><p>Uma ferramenta poderosa e popular para criar vídeos curtos e clipes animados a partir de simples prompts de texto ou imagens estáticas.</p><a href="https://pika.art/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita um documento de texto. Transcreve automaticamente, permitindo cortar e montar editando o texto.</p><a href="https://www.descript.com/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
-
             <section class="categoria">
                 <h2 class="categoria-titulo">📊 Produtividade e Organização</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>Motion</h3>
-                        <p>Um assistente de IA que agenda automaticamente suas tarefas e reuniões no seu calendário para otimizar o seu dia.</p>
-                        <a href="https://www.motion.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>ClickUp AI</h3>
-                        <p>Ajuda a automatizar tarefas, resumir documentos, gerar e-mails e planejar projetos complexos dentro da plataforma ClickUp.</p>
-                        <a href="https://clickup.com/features/ai" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>SaneBox</h3>
-                        <p>Uma IA que aprende seus hábitos de e-mail e move automaticamente e-mails sem importância para fora da sua caixa de entrada principal.</p>
-                        <a href="https://www.sanebox.com/" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>Motion</h3><p>Um assistente de IA que agenda automaticamente suas tarefas e reuniões no seu calendário para otimizar o seu dia.</p><a href="https://www.motion.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>ClickUp AI</h3><p>Ajuda a automatizar tarefas, resumir documentos, gerar e-mails e planejar projetos complexos dentro da plataforma ClickUp.</p><a href="https://clickup.com/features/ai" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>SaneBox</h3><p>Uma IA que aprende seus hábitos de e-mail e move automaticamente e-mails sem importância para fora da sua caixa de entrada principal.</p><a href="https://www.sanebox.com/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
-
             <section class="categoria">
                 <h2 class="categoria-titulo">🎵 Geração de Música</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>Suno AI</h3>
-                        <p>Gera músicas completas (vocais, instrumentais e letras) a partir de um simples prompt de texto, em diversos estilos musicais.</p>
-                        <a href="https://www.suno.ai/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Udio</h3>
-                        <p>Concorrente direto do Suno, também cria músicas realistas e de alta qualidade com vocais e instrumentação a partir de texto.</p>
-                        <a href="https://www.udio.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>AIVA</h3>
-                        <p>Especializada em compor trilhas sonoras emocionais para filmes, comerciais e jogos. Permite mais controle de edição musical.</p>
-                        <a href="https://www.aiva.ai/" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>Suno AI</h3><p>Gera músicas completas (vocais, instrumentais e letras) a partir de um simples prompt de texto, em diversos estilos musicais.</p><a href="https://www.suno.ai/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Udio</h3><p>Concorrente direto do Suno, também cria músicas realistas e de alta qualidade com vocais e instrumentação a partir de texto.</p<a href="https://www.udio.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>AIVA</h3><p>Especializada em compor trilhas sonoras emocionais para filmes, comerciais e jogos. Permite mais controle de edição musical.</p><a href="https://www.aiva.ai/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
 
-        </section> </main>
+        </section> 
+    </main>
+
+    <main id="pagina-sobre" class="container hidden">
+        <section class="info-card">
+            <h2>Sobre este Projeto</h2>
+            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial, projetado para ser rápido, responsivo e fácil de usar.</p>
+            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando como criar uma interface moderna e dinâmica (incluindo modo escuro, acordeão e filtro de busca) sem a necessidade de frameworks pesados.</p>
+            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras, permitindo que os usuários encontrem facilmente o que precisam.</p>
+        </section>
+    </main>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- LÓGICA DO MODO CLARO/ESCURO (Igual) ---
+            // --- Referências de Elementos Principais ---
             const themeSwitch = document.getElementById('theme-switch');
-            const currentTheme = localStorage.getItem('theme');
+            const searchBar = document.getElementById('search-bar');
+            
+            // NOVO: Elementos da Navegação de Página
+            const btnCatalogo = document.getElementById('btn-catalogo');
+            const btnSobre = document.getElementById('btn-sobre');
+            const paginaCatalogo = document.getElementById('pagina-catalogo');
+            const paginaSobre = document.getElementById('pagina-sobre');
 
+            // Elementos do Catálogo
+            const allCategoryTitles = document.querySelectorAll('.categoria-titulo');
+            const allCards = document.querySelectorAll('.ferramenta-card');
+            const allCategories = document.querySelectorAll('.categoria');
+
+
+            // --- LÓGICA DO MODO CLARO/ESCURO ---
+            const currentTheme = localStorage.getItem('theme');
             if (currentTheme === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeSwitch.checked = true;
             }
-
             themeSwitch.addEventListener('change', function() {
                 if (this.checked) {
                     document.body.classList.add('dark-mode');
@@ -522,28 +530,49 @@
                 }
             });
 
-            // --- NOVO: LÓGICA DO ACORDEÃO ---
-            const allCategoryTitles = document.querySelectorAll('.categoria-titulo');
-            
+
+            // --- NOVO: LÓGICA DE NAVEGAÇÃO (TROCA DE PÁGINA) ---
+            btnCatalogo.addEventListener('click', () => {
+                // Ativa/desativa botões
+                btnCatalogo.classList.add('active');
+                btnSobre.classList.remove('active');
+
+                // Mostra/Esconde páginas
+                paginaCatalogo.classList.remove('hidden');
+                paginaSobre.classList.add('hidden');
+                
+                // Mostra a barra de busca
+                searchBar.classList.remove('hidden');
+            });
+
+            btnSobre.addEventListener('click', () => {
+                // Ativa/desativa botões
+                btnCatalogo.classList.remove('active');
+                btnSobre.classList.add('active');
+
+                // Mostra/Esconde páginas
+                paginaCatalogo.classList.add('hidden');
+                paginaSobre.classList.remove('hidden');
+                
+                // Esconde a barra de busca
+                searchBar.classList.add('hidden');
+            });
+
+
+            // --- LÓGICA DO ACORDEÃO ---
             allCategoryTitles.forEach(title => {
                 title.addEventListener('click', () => {
-                    // Pega o elemento pai (a <section class="categoria">)
                     const category = title.parentElement;
-                    // Adiciona ou remove a classe 'active'
                     category.classList.toggle('active');
                 });
             });
 
 
-            // --- ATUALIZADO: LÓGICA DO FILTRO DE BUSCA ---
-            const searchBar = document.getElementById('search-bar');
-            const allCards = document.querySelectorAll('.ferramenta-card');
-            const allCategories = document.querySelectorAll('.categoria');
-
+            // --- LÓGICA DO FILTRO DE BUSCA ---
             searchBar.addEventListener('keyup', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
 
-                // 1. Filtra os Cards (igual a antes)
+                // 1. Filtra os Cards
                 allCards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     const description = card.querySelector('p').textContent.toLowerCase();
@@ -556,25 +585,21 @@
                     }
                 });
 
-                // 2. ATUALIZADO: Filtra as Categorias
+                // 2. Filtra as Categorias
                 allCategories.forEach(category => {
-                    // Conta quantos cards VISÍVEIS existem dentro desta categoria
                     const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
                     
                     if (searchTerm.length === 0) {
-                        // Se a busca está vazia, reseta tudo
-                        category.classList.remove('hidden'); // Mostra a categoria
-                        category.classList.remove('active'); // FECHA o acordeão
+                        category.classList.remove('hidden');
+                        category.classList.remove('active'); // Fecha acordeão
                     
                     } else if (visibleCards > 0) {
-                        // Se tem cards visíveis, mostra a categoria E ABRE o acordeão
                         category.classList.remove('hidden');
-                        category.classList.add('active'); // Abre para mostrar o resultado
+                        category.classList.add('active'); // Abre para mostrar resultado
                     
                     } else {
-                        // Se não tem cards visíveis, esconde a categoria inteira
                         category.classList.add('hidden');
-                        category.classList.remove('active'); // Garante que está fechada
+                        category.classList.remove('active');
                     }
                 });
             });
