@@ -90,7 +90,7 @@
         }
         
         /* ============================================= */
-        /* 2b. NOVO: ESTILOS DE NAVEGAÇÃO              */
+        /* 2b. ESTILOS DE NAVEGAÇÃO                    */
         /* ============================================= */
         .main-nav {
             display: flex;
@@ -161,7 +161,7 @@
         }
 
         /* ============================================= */
-        /* 3. SEÇÃO DE RESUMO E PÁGINA "SOBRE"       */
+        /* 3. SEÇÃO DE RESUMO E PÁGINA "SOBRE" / "PROMPT" */
         /* ============================================= */
         #intro-summary, .info-card {
             background-color: var(--card-bg-color);
@@ -171,15 +171,21 @@
             box-shadow: var(--card-shadow);
         }
         
-        #intro-summary p, .info-card p {
+        #intro-summary p, .info-card p, .info-card li {
             color: var(--p-color);
             margin-bottom: 15px;
         }
         
-        #intro-summary ul {
+        #intro-summary ul, .info-card ul {
             list-style-position: inside;
             color: var(--p-color);
             margin-left: 10px;
+        }
+        
+        .info-card h3 {
+             color: var(--h3-color);
+             margin-top: 20px;
+             margin-bottom: 10px;
         }
 
         /* ============================================= */
@@ -365,6 +371,7 @@
         
         <nav class="main-nav">
             <button id="btn-catalogo" class="nav-button active">Catálogo</button>
+            <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
 
@@ -462,7 +469,7 @@
                 <div class="ferramentas-lista">
                     <div class="ferramenta-card"><h3>Runway (Gen-2)</h3><p>Pioneira na geração de vídeo a partir de texto (text-to-video) e imagem. Oferece um conjunto de ferramentas mágicas para edição.</p><a href="https://runwayml.com/" target="_blank">Visitar Site</a></div>
                     <div class="ferramenta-card"><h3>Pika Labs</h3><p>Uma ferramenta poderosa e popular para criar vídeos curtos e clipes animados a partir de simples prompts de texto ou imagens estáticas.</p><a href="https://pika.art/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita um documento de texto. Transcreve automaticamente, permitindo cortar e montar editando o texto.</p><a href="https://www.descript.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita um documento de texto. Transcreve automaticamente, permitindo cortar e montar editando o texto.</p><a href="httpsM://www.descript.com/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
@@ -485,11 +492,28 @@
         </section> 
     </main>
 
+    <main id="pagina-prompt" class="container hidden">
+        <section class="info-card">
+            <h2>O que é Engenharia de Prompt?</h2>
+            <p>Engenharia de Prompt é a prática de desenhar e otimizar as instruções (os "prompts") dadas a um modelo de linguagem (como o Gemini ou ChatGPT) para garantir que ele gere a resposta mais precisa, relevante e útil possível.</p>
+            <p>Em vez de apenas perguntar, a engenharia de prompt envolve estruturar a pergunta com contexto, exemplos ou regras para guiar a IA.</p>
+            
+            <h3>Pilares de um Bom Prompt:</h3>
+            <ul>
+                <li><strong>Clareza e Especificidade:</strong> Evite ambiguidades. Diga exatamente o que quer.</li>
+                <li><strong>Contexto:</strong> Forneça as informações de fundo necessárias para a IA entender o cenário.</li>
+                <li><strong>Persona (Papel):</strong> Diga à IA quem ela deve "ser". (Ex: "Aja como um crítico de cinema experiente...")</li>
+                <li><strong>Formato:</strong> Especifique como você quer a resposta. (Ex: "Responda em tópicos", "Crie uma tabela", "Escreva em tom formal.")</li>
+            </ul>
+        </section>
+    </main>
+    
+
     <main id="pagina-sobre" class="container hidden">
         <section class="info-card">
             <h2>Sobre este Projeto</h2>
             <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial, projetado para ser rápido, responsivo e fácil de usar.</p>
-            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando como criar uma interface moderna e dinâmica (incluindo modo escuro, acordeão e filtro de busca) sem a necessidade de frameworks pesados.</p>
+            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando how to create a modern and dynamic interface (including dark mode, accordion and search filter) without the need for heavy frameworks.</p>
             <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras, permitindo que os usuários encontrem facilmente o que precisam.</p>
         </section>
     </main>
@@ -502,10 +526,13 @@
             const themeSwitch = document.getElementById('theme-switch');
             const searchBar = document.getElementById('search-bar');
             
-            // NOVO: Elementos da Navegação de Página
+            // NOVO: Elementos da Navegação de Página (3 páginas)
             const btnCatalogo = document.getElementById('btn-catalogo');
+            const btnPrompt = document.getElementById('btn-prompt'); // NOVO
             const btnSobre = document.getElementById('btn-sobre');
+            
             const paginaCatalogo = document.getElementById('pagina-catalogo');
+            const paginaPrompt = document.getElementById('pagina-prompt'); // NOVO
             const paginaSobre = document.getElementById('pagina-sobre');
 
             // Elementos do Catálogo
@@ -531,27 +558,48 @@
             });
 
 
-            // --- NOVO: LÓGICA DE NAVEGAÇÃO (TROCA DE PÁGINA) ---
+            // --- ATUALIZADO: LÓGICA DE NAVEGAÇÃO (TROCA DE PÁGINA) ---
             btnCatalogo.addEventListener('click', () => {
                 // Ativa/desativa botões
                 btnCatalogo.classList.add('active');
+                btnPrompt.classList.remove('active'); // NOVO
                 btnSobre.classList.remove('active');
 
                 // Mostra/Esconde páginas
                 paginaCatalogo.classList.remove('hidden');
+                paginaPrompt.classList.add('hidden'); // NOVO
                 paginaSobre.classList.add('hidden');
                 
                 // Mostra a barra de busca
                 searchBar.classList.remove('hidden');
             });
 
+            // NOVO: Clique para a página de Prompt
+            btnPrompt.addEventListener('click', () => {
+                // Ativa/desativa botões
+                btnCatalogo.classList.remove('active');
+                btnPrompt.classList.add('active'); // NOVO
+                btnSobre.classList.remove('active');
+
+                // Mostra/Esconde páginas
+                paginaCatalogo.classList.add('hidden');
+                paginaPrompt.classList.remove('hidden'); // NOVO
+                paginaSobre.classList.add('hidden');
+                
+                // Esconde a barra de busca
+                searchBar.classList.add('hidden');
+            });
+
+
             btnSobre.addEventListener('click', () => {
                 // Ativa/desativa botões
                 btnCatalogo.classList.remove('active');
+                btnPrompt.classList.remove('active'); // NOVO
                 btnSobre.classList.add('active');
 
                 // Mostra/Esconde páginas
                 paginaCatalogo.classList.add('hidden');
+                paginaPrompt.classList.add('hidden'); // NOVO
                 paginaSobre.classList.remove('hidden');
                 
                 // Esconde a barra de busca
