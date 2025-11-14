@@ -163,7 +163,7 @@
         /* ============================================= */
         /* 3. SEÇÃO DE RESUMO E PÁGINA "SOBRE" / "PROMPT" */
         /* ============================================= */
-        #intro-summary, .info-card { /* intro-summary mantido aqui caso queira reusar o estilo */
+        #intro-summary, .info-card {
             background-color: var(--card-bg-color);
             padding: 30px;
             border-radius: 12px;
@@ -364,7 +364,7 @@
         
         
         /* ============================================= */
-        /* 8. ESTILOS DO GERADOR DE PROMPT           */
+        /* 8. NOVO: ESTILOS DO GERADOR DE PROMPT     */
         /* ============================================= */
         #prompt-generator h3 {
             margin-top: 20px;
@@ -449,108 +449,90 @@
     </header>
 
     <main id="pagina-catalogo" class="container">
-
+        <section id="intro-summary">
+            <h2>O que são IAs Generativas?</h2>
+            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos...</p>
+            <p>Isso inclui a criação de texto (como este), imagens, música, código e muito mais...</p>
+            <h2>Tipos de Agentes de IA</h2>
+            <p>Um "Agente de IA" é mais do que apenas um modelo; é um sistema projetado para atingir objetivos...</p>
+            <ul>
+                <li><strong>Agentes Reativos Simples:</strong> Não têm memória...</li>
+                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um "modelo" interno...</li>
+                <li><strong>Agentes Baseados em Objetivos:</strong> Vão além da reação...</li>
+                <li><strong>Agentes Baseados em Utilidade:</strong> Escolhem a ação que maximiza...</li>
+            </ul>
+        </section>
         <section id="catalogo">
             <h2>Catálogo de Ferramentas</h2>
-            
             <section class="categoria">
                 <h2 class="categoria-titulo">✍️ Geração de Texto</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>ChatGPT (OpenAI)</h3>
-                        <p>Um modelo de linguagem avançado para conversação, criação de conteúdo, tradução, resumo e resposta a perguntas complexas.</p>
-                        <a href="https://chat.openai.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Gemini (Google)</h3>
-                        <p>A família de modelos de IA multimodal da Google, capaz de entender e processar texto, imagens, áudio e código de forma integrada.</p>
-                        <a href="https://gemini.google.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Notion AI</h3>
-                        <p>Integrado à ferramenta de produtividade Notion, ajuda a escrever, resumir, gerar ideias (brainstorm) e organizar notas.</p>
-                        <a href="https://www.notion.so/product/ai" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>ChatGPT (OpenAI)</h3><p>Um modelo de linguagem avançado para conversação...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Gemini (Google)</h3><p>A família de modelos de IA multimodal da Google...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Notion AI</h3><p>Integrado à ferramenta de produtividade Notion...</p><a href="https..._blank">Visitar Site</a></div>
                 </div>
             </section>
-
             <section class="categoria">
                 <h2 class="categoria-titulo">🎨 Geração de Imagem</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card">
-                        <h3>Midjourney</h3>
-                        <p>Famoso pela alta qualidade artística e fotorrealismo. Gera imagens impressionantes a partir de descrições de texto (prompts) detalhados.</p>
-                        <a href="https://www.midjourney.com/" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>DALL-E 3 (OpenAI)</h3>
-                        <p>Integrado ao ChatGPT Plus, é excelente em seguir prompts complexos e gerar imagens criativas e coesas com texto.</p>
-                        <a href="https://openai.com/dall-e-3" target="_blank">Visitar Site</a>
-                    </div>
-                    <div class="ferramenta-card">
-                        <h3>Adobe Firefly</h3>
-                        <p>Integrada ao Photoshop e Illustrator, foca em geração de imagens "seguras para uso comercial", preenchimento generativo e efeitos de texto.</p>
-                        <a href="https://www.adobe.com/br/products/firefly.html" target="_blank">Visitar Site</a>
-                    </div>
+                    <div class="ferramenta-card"><h3>Midjourney</h3><p>Famoso pela alta qualidade artística e fotorrealismo...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>DALL-E 3 (OpenAI)</h3><p>Integrado ao ChatGPT Plus, é excelente em seguir prompts...</p><a href="https..." target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Adobe Firefly</h3><p>Integrada ao Photoshop e Illustrator, foca em...</p><a href="https..." target="_blank">Visitar Site</a></div>
                 </div>
             </section>
-            
             <section class="categoria">
                 <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>GitHub Copilot</h3><p>Uma IA "parceira" de programação que sugere linhas de código e funções inteiras diretamente no seu editor de código (VS Code, etc.).</p><a href="https://github.com/features/copilot" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Tabnine</h3><p>Assistente de IA que autocompleta código em diversas linguagens. Utiliza modelos treinados e pode ser adaptado para bases de código privadas.</p><a href="https://www.tabnine.com/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Amazon CodeWhisperer</h3><p>Ferramenta da AWS que oferece sugestões de código, desde trechos até funções completas, e ajuda a escanear por vulnerabilidades.</p><a href="https://aws.amazon.com/codewhisperer/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>GitHub Copilot</h3><p>Uma IA "parceira" de programação que sugere linhas...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Tabnine</h3><p>Assistente de IA que autocompleta código em diversas...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Amazon CodeWhisperer</h3><p>Ferramenta da AWS que oferece sugestões de código...</p><a href="https..._blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎙️ Geração de Áudio e Voz</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>ElevenLabs</h3><p>Plataforma líder em geração de voz sintética (Text-to-Speech) e clonagem de voz com realismo impressionante em múltiplos idiomas.</p><a href="https://elevenlabs.io/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Murf.ai</h3><p>Ferramenta versátil para criar narrações com qualidade de estúdio. Oferece uma vasta biblioteca de vozes para vídeos e apresentações.</p><a href="https://murf.ai/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Play.ht</h3><p>Gera vozes de IA ultra-realistas e permite criar áudio a partir de texto. Muito usado para converter artigos de blog em podcasts.</p><a href="https://play.ht/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>ElevenLabs</h3><p>Plataforma líder em geração de voz sintética...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Murf.ai</h3><p>Ferramenta versátil para criar narrações com...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Play.ht</h3><p>Gera vozes de IA ultra-realistas e permite...</p><a href="https..._blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎬 Edição e Geração de Vídeo</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Runway (Gen-2)</h3><p>Pioneira na geração de vídeo a partir de texto (text-to-video) e imagem. Oferece um conjunto de ferramentas mágicas para edição.</p><a href="https://runwayml.com/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Pika Labs</h3><p>Uma ferramenta poderosa e popular para criar vídeos curtos e clipes animados a partir de simples prompts de texto ou imagens estáticas.</p><a href="https://pika.art/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita um documento de texto. Transcreve automaticamente, permitindo cortar e montar editando o texto.</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Runway (Gen-2)</h3><p>Pioneira na geração de vídeo a partir de texto...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Pika Labs</h3><p>Uma ferramenta poderosa e popular para criar...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita...</p><a href="https..._blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">📊 Produtividade e Organização</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Motion</h3><p>Um assistente de IA que agenda automaticamente suas tarefas e reuniões no seu calendário para otimizar o seu dia.</p><a href="https://www.motion.com/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>ClickUp AI</h3><p>Ajuda a automatizar tarefas, resumir documentos, gerar e-mails e planejar projetos complexos dentro da plataforma ClickUp.</p><a href="https://clickup.com/features/ai" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>SaneBox</h3><p>Uma IA que aprende seus hábitos de e-mail e move automaticamente e-mails sem importância para fora da sua caixa de entrada principal.</p><a href="https://www.sanebox.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Motion</h3><p>Um assistente de IA que agenda automaticamente...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>ClickUp AI</h3><p>Ajuda a automatizar tarefas, resumir documentos...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>SaneBox</h3><p>Uma IA que aprende seus hábitos de e-mail...</p><a href="https..._blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎵 Geração de Música</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Suno AI</h3><p>Gera músicas completas (vocais, instrumentais e letras) a partir de um simples prompt de texto, em diversos estilos musicais.</p><a href="https://www.suno.ai/" target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Udio</h3><p>Concorrente direto do Suno, também cria músicas realistas e de alta qualidade com vocais e instrumentação a partir de texto.</p<a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>AIVA</h3><p>Especializada em compor trilhas sonoras emocionais para filmes, comerciais e jogos. Permite mais controle de edição musical.</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Suno AI</h3><p>Gera músicas completas (vocais, instrumentais...)</p><a href="https..." target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Udio</h3><p>Concorrente direto do Suno, também cria...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>AIVA</h3><p>Especializada em compor trilhas sonoras...</p><a href="https..._blank">Visitar Site</a></div>
                 </div>
             </section>
-
         </section> 
     </main>
 
     <main id="pagina-prompt" class="container hidden">
         <section class="info-card">
             <h2>O que é Engenharia de Prompt?</h2>
-            <p>Engenharia de Prompt é a prática de desenhar e otimizar as instruções (os "prompts") dadas a um modelo de linguagem (como o Gemini ou ChatGPT) para garantir que ele gere a resposta mais precisa, relevante e útil possível.</p>
-            <p>Em vez de apenas perguntar, a engenharia de prompt envolve estruturar a pergunta com contexto, exemplos ou regras para guiar a IA.</p>
-            
+            <p>Engenharia de Prompt é a prática de desenhar e otimizar as instruções (os "prompts") dadas a um modelo de linguagem...</p>
             <h3>Pilares de um Bom Prompt:</h3>
             <ul>
                 <li><strong>Clareza e Especificidade:</strong> Evite ambiguidades. Diga exatamente o que quer.</li>
-                <li><strong>Contexto:</strong> Forneça as informações de fundo necessárias para a IA entender o cenário.</li>
-                <li><strong>Persona (Papel):</strong> Diga à IA quem ela deve "ser". (Ex: "Aja como um crítico de cinema experiente...")</li>
-                <li><strong>Formato:</strong> Especifique como você quer a resposta. (Ex: "Responda em tópicos", "Crie uma tabela", "Escreva em tom formal.")</li>
+                <li><strong>Contexto:</strong> Forneça as informações de fundo necessárias...</li>
+                <li><strong>Persona (Papel):</strong> Diga à IA quem ela deve "ser"...</li>
+                <li><strong>Formato:</strong> Especifique como você quer a resposta...</li>
             </ul>
         </section>
         
@@ -604,9 +586,9 @@
     <main id="pagina-sobre" class="container hidden">
         <section class="info-card">
             <h2>Sobre este Projeto</h2>
-            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial, projetado para ser rápido, responsivo e fácil de usar.</p>
-            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando como criar uma interface moderna e dinâmica (incluindo modo escuro, acordeão e filtro de busca) sem a necessidade de frameworks pesados.</p>
-            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras, permitindo que os usuários encontrem facilmente o que precisam.</p>
+            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial...</p>
+            <p>Foi construído usando apenas HTML, CSS e JavaScript puro...</p>
+            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras...</p>
         </section>
     </main>
 
@@ -674,7 +656,7 @@
             btnSobre.addEventListener('click', () => {
                 btnCatalogo.classList.remove('active');
                 btnPrompt.classList.remove('active');
-O                btnSobre.classList.add('active');
+                btnSobre.classList.add('active');
                 paginaCatalogo.classList.add('hidden');
                 paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.remove('hidden');
@@ -722,7 +704,7 @@ O                btnSobre.classList.add('active');
             });
             
             
-            // --- LÓGICA DO GERADOR DE PROMPT ---
+            // --- NOVO: LÓGICA DO GERADOR DE PROMPT ---
             const btnGenerate = document.getElementById('btn-generate-prompt');
             const taskSelect = document.getElementById('prompt-task');
             const topicInput = document.getElementById('prompt-topic');
