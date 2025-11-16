@@ -29,8 +29,7 @@
             --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
             --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
             --toggle-bg: #ccc;
-            --tag-bg: #e8f6f3;
-            --tag-text: #16a085;
+            --modal-overlay: rgba(0, 0, 0, 0.6);
         }
 
         /* Modo Escuro */
@@ -49,14 +48,17 @@
             --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.3);
             --toggle-bg: #5dade2;
-            --tag-bg: #1e3a36;
-            --tag-text: #48c9b0;
+            --modal-overlay: rgba(0, 0, 0, 0.8);
         }
 
         /* ============================================= */
         /* 2. ESTILOS GERAIS                          */
         /* ============================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -66,6 +68,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Cabeçalho Fixo */
         header {
             background: var(--header-bg);
             color: var(--header-text);
@@ -79,15 +82,25 @@
             justify-content: space-between;
             align-items: center;
             gap: 20px;
+            transition: background-color 0.3s ease;
         }
 
-        header h1 { margin: 0; font-weight: 700; font-size: 1.8rem; }
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
         
-        /* Navegação */
-        .main-nav { display: flex; gap: 10px; }
+        /* ============================================= */
+        /* 2b. ESTILOS DE NAVEGAÇÃO                      */
+        /* ============================================= */
+        .main-nav {
+            display: flex;
+            gap: 10px;
+        }
         .nav-button {
-            padding: 8px 16px;
-            font-size: 0.95rem;
+            padding: 10px 20px;
+            font-size: 1rem;
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
             border-radius: 20px;
@@ -97,472 +110,942 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .nav-button:hover { background-color: var(--header-text); color: var(--h3-color); }
-        .nav-button.active { background-color: #ffffff; color: #2c3e50; border-color: #ffffff; }
-        body.dark-mode .nav-button.active { background-color: var(--h3-color); color: var(--header-text); border-color: var(--h3-color); }
-        body.dark-mode .nav-button:hover { background-color: var(--header-text); color: var(--header-bg); }
+        .nav-button:hover {
+            background-color: var(--header-text);
+            color: var(--h3-color);
+        }
+        /* Estilo do botão ativo */
+        .nav-button.active {
+            background-color: #ffffff;
+            color: #2c3e50;
+            border-color: #ffffff;
+        }
+        /* No modo escuro, o botão ativo inverte */
+        body.dark-mode .nav-button.active {
+            background-color: var(--h3-color);
+            color: var(--header-text);
+            border-color: var(--h3-color);
+        }
 
-        /* Busca */
+
+        /* Barra de Busca */
         #search-bar {
-            flex-grow: 1; min-width: 200px; max-width: 500px; padding: 10px 15px;
-            font-size: 16px; border-radius: 25px; border: none; outline: none;
-            background-color: var(--search-bg); color: var(--search-text);
+            flex-grow: 1;
+            min-width: 250px;
+            max-width: 600px;
+            padding: 12px 15px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background-color: var(--search-bg);
+            color: var(--search-text);
+            transition: all 0.3s ease;
         }
 
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        h2 { color: var(--h2-color); margin-top: 20px; margin-bottom: 15px; font-weight: 600; }
+        /* Container Principal */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
 
-        /* Cards Info */
-        .info-card { background-color: var(--card-bg-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; box-shadow: var(--card-shadow); }
-        .info-card p, .info-card li { color: var(--p-color); margin-bottom: 15px; }
-        .info-card ul { list-style-position: inside; color: var(--p-color); margin-left: 10px; }
-        .info-card h3 { color: var(--h3-color); margin-top: 20px; margin-bottom: 10px; }
+        /* Títulos H2 genéricos (para resumo) */
+        h2 {
+            color: var(--h2-color);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
 
         /* ============================================= */
-        /* 3. ESTILOS DO CATÁLOGO                    */
+        /* 3. SEÇÃO DE RESUMO, INICIO E "SOBRE"       */
         /* ============================================= */
-        .categoria { margin-bottom: 15px; }
+        .info-card {
+            background-color: var(--card-bg-color);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .info-card p, .info-card li {
+            color: var(--p-color);
+            margin-bottom: 15px;
+        }
+        
+        .info-card ul {
+            list-style-position: inside;
+            color: var(--p-color);
+            margin-left: 10px;
+        }
+        
+        .info-card h3 {
+             color: var(--h3-color);
+             margin-top: 20px;
+             margin-bottom: 10px;
+        }
+        
+        /* Estilo Específico para o título de boas-vindas */
+        .welcome-title {
+            font-size: 2rem;
+            color: var(--h2-color);
+            margin-bottom: 10px;
+        }
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: var(--p-color);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* ============================================= */
+        /* 4. ESTILOS DO CATÁLOGO (ACORDEÃO)         */
+        /* ============================================= */
+        #catalogo h2 {
+            border-bottom: 3px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .categoria {
+            margin-bottom: 15px;
+        }
+
+        /* Título da Categoria (Botão Clicável) */
         .categoria-titulo {
-            background-color: var(--card-bg-color); color: var(--h2-color); padding: 15px 20px;
-            border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1.3rem;
-            box-shadow: var(--card-shadow); transition: all 0.3s ease; position: relative;
+            background-color: var(--card-bg-color);
+            color: var(--h2-color);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.3rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative; /* Para o ícone +/- */
         }
+        
+        .categoria-titulo:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Ícone de +/- */
         .categoria-titulo::after {
-            content: '+'; font-family: monospace; font-size: 1.8rem; position: absolute;
-            right: 20px; top: 50%; transform: translateY(-50%); color: var(--h3-color);
+            content: '+';
+            font-family: monospace;
+            font-size: 1.8rem;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--h3-color);
         }
-        .categoria.active .categoria-titulo::after { content: '−'; }
         
+        /* Estilo da lista de cards (Escondida por padrão) */
         .ferramentas-lista {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;
-            max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, margin-top 0.5s ease-out; margin-top: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            
+            /* A MÁGICA DO ACORDEÃO */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
+            margin-top: 0; /* Sem margem quando fechado */
         }
-        .categoria.active .ferramentas-lista { max-height: 3000px; margin-top: 20px; }
+        
+        /* ============================================= */
+        /* 5. ESTADO ATIVO (QUANDO CLICADO)          */
+        /* ============================================= */
+        
+        .categoria.active .categoria-titulo::after {
+            content: '−'; /* Muda para "menos" */
+        }
+        
+        .categoria.active .ferramentas-lista {
+            max-height: 3000px; /* Aumentei para garantir */
+            margin-top: 20px; /* Espaço entre o título e os cards */
+        }
 
-        /* Card da Ferramenta */
+        /* ============================================= */
+        /* 6. ESTILOS DOS CARDS                      */
+        /* ============================================= */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .ferramenta-card {
-            border-radius: 12px; padding: 25px; background-color: var(--card-bg-color);
-            box-shadow: var(--card-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex; flex-direction: column; justify-content: space-between;
+            border: none;
+            border-radius: 12px;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .ferramenta-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); }
-        .ferramenta-card h3 { margin: 0 0 10px 0; color: var(--h3-color); font-weight: 600; }
-        .ferramenta-card p { font-size: 0.9em; color: var(--p-color); margin-bottom: 20px; flex-grow: 1; }
         
-        /* Botões do Card */
-        .card-actions { display: flex; gap: 10px; }
-        .btn-detalhes {
-            background-color: transparent; border: 2px solid #3498db; color: #3498db;
-            padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; flex: 1; text-align: center;
-            transition: 0.2s;
+        .ferramenta-card:nth-child(2) { animation-delay: 0.1s; }
+        .ferramenta-card:nth-child(3) { animation-delay: 0.2s; }
+        .ferramenta-card:nth-child(4) { animation-delay: 0.3s; }
+
+        .ferramenta-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
         }
-        .btn-detalhes:hover { background-color: #3498db; color: white; }
-        
+
+        .ferramenta-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--h3-color);
+            font-weight: 600;
+        }
+
+        .ferramenta-card p {
+            font-size: 0.95em;
+            color: var(--p-color);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Área de botões do Card */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
         .btn-visitar {
-            text-decoration: none; background-color: #3498db; color: white;
-            padding: 8px 12px; border-radius: 6px; font-weight: 600; flex: 1; text-align: center;
-            transition: 0.2s; display: block; border: 2px solid #3498db;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9em;
+            background-color: #3498db;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            text-align: center;
+            flex: 1;
         }
-        .btn-visitar:hover { background-color: #2980b9; border-color: #2980b9; }
 
-        /* ============================================= */
-        /* 4. NOVO: PÁGINA DE DETALHES               */
-        /* ============================================= */
-        .detalhe-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap;}
-        .detalhe-header h1 { color: var(--h2-color); margin: 0; }
-        .btn-voltar {
-            background: transparent; border: none; color: var(--p-color); cursor: pointer;
-            font-size: 1rem; display: flex; align-items: center; gap: 5px; font-weight: 600;
+        .btn-visitar:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
         }
-        .btn-voltar:hover { color: var(--h3-color); text-decoration: underline; }
 
-        .detalhe-content { background: var(--card-bg-color); padding: 40px; border-radius: 15px; box-shadow: var(--card-shadow); }
+        /* NOVO: Botão Detalhes */
+        .btn-detalhes {
+            background-color: transparent;
+            color: var(--h3-color);
+            border: 2px solid var(--border-color);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .btn-detalhes:hover {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
         
-        .detalhe-tag {
-            display: inline-block; background-color: var(--tag-bg); color: var(--tag-text);
-            padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px;
+        /* Classe de utilidade para o JS */
+        .hidden {
+            display: none !important; /* !important para garantir a sobreposição */
         }
 
-        .grid-pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-        .pros-box, .cons-box { padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); }
-        .pros-box h4 { color: #27ae60; margin-bottom: 10px; }
-        .cons-box h4 { color: #c0392b; margin-bottom: 10px; }
-        
-        @media(max-width: 768px) { .grid-pros-cons { grid-template-columns: 1fr; } }
-
         /* ============================================= */
-        /* 5. DEMAIS ESTILOS (TEMA, PROMPT, ETC)     */
+        /* 7. TOGGLE DE TEMA                          */
         /* ============================================= */
-        .hidden { display: none !important; }
-
-        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; color: var(--header-text); }
-        .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--header-text);
+        }
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
         .theme-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--toggle-bg); transition: .4s; border-radius: 26px; }
-        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: .4s;
+            border-radius: 26px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
         input:checked + .slider { background-color: var(--toggle-bg); }
         input:checked + .slider:before { transform: translateX(24px); }
-
-        /* Prompt Gen Styles */
-        #prompt-generator select, #prompt-generator input, #prompt-generator textarea, #btn-generate-prompt {
-            width: 100%; margin-bottom: 15px; padding: 12px; border-radius: 8px;
-            border: 2px solid var(--border-color); background-color: var(--search-bg); color: var(--search-text);
+        
+        
+        /* ============================================= */
+        /* 8. NOVO: ESTILOS DO GERADOR DE PROMPT     */
+        /* ============================================= */
+        #prompt-generator h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--h3-color);
         }
-        #btn-generate-prompt { background-color: #3498db; color: white; border: none; cursor: pointer; font-weight: 700; margin-top: 10px;}
-        #btn-generate-prompt:hover { background-color: #2980b9; }
+        /* Estilo para Select e Input */
+        #prompt-generator select,
+        #prompt-generator input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background-color: var(--search-bg);
+            color: var(--search-text);
+            font-family: 'Poppins', sans-serif;
+            appearance: none; /* Remove seta padrão */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 1.2em;
+        }
+        body.dark-mode #prompt-generator select,
+        body.dark-mode #prompt-generator input[type="text"] {
+             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f0f0f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        }
+
+        /* Botão de Gerar */
+        #btn-generate-prompt {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 25px;
+            transition: all 0.2s ease;
+        }
+        #btn-generate-prompt:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Área de Resultado */
+        #prompt-result {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            resize: none;
+        }
+
+        /* ============================================= */
+        /* 9. NOVO: ESTILOS DO MODAL (POPUP)          */
+        /* ============================================= */
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg-color);
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            border-top: 5px solid var(--h3-color);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--p-color);
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--h3-color);
+        }
+
+        #modal-title {
+            margin-top: 0;
+            color: var(--h2-color);
+        }
+
+        #modal-desc-full {
+            margin-top: 15px;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .modal-meta {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .modal-badge {
+            background-color: var(--bg-color);
+            color: var(--h3-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+        .modal-pricing {
+            background-color: #d4efdf;
+            color: #145a32;
+            border-color: #a9dfbf;
+        }
+        body.dark-mode .modal-pricing {
+             background-color: #145a32;
+             color: #d4efdf;
+             border-color: #1e8449;
+        }
+
     </style>
 </head>
 <body>
 
     <header>
         <h1>Catálogo de IA</h1>
+        
         <nav class="main-nav">
             <button id="btn-inicio" class="nav-button active">Início</button>
             <button id="btn-catalogo" class="nav-button">Catálogo</button>
             <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
-        <input type="search" id="search-bar" class="hidden" placeholder="Buscar...">
+
+        <input type="search" id="search-bar" class="hidden" placeholder="Buscar por nome ou descrição...">
+        
         <div class="theme-switch-wrapper">
             <span>☀️</span>
-            <label class="theme-switch" for="theme-switch"><input type="checkbox" id="theme-switch"><span class="slider"></span></label>
+            <label class="theme-switch" for="theme-switch">
+                <input type="checkbox" id="theme-switch" />
+                <span class="slider"></span>
+            </label>
             <span>🌙</span>
         </div>
     </header>
 
     <main id="pagina-inicio" class="container">
         <section class="info-card">
-            <h1 style="color: var(--h2-color); font-size: 2rem;">Bem-vindo ao Hub de IA</h1>
-            <p>Explore ferramentas e aprenda sobre a revolução da IA Generativa.</p>
+            <h1 class="welcome-title">Bem-vindo ao Hub de Inteligência Artificial</h1>
+            <p class="welcome-subtitle">Explore ferramentas, aprenda conceitos e otimize sua produtividade.</p>
+            
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
             <h2>O que são IAs Generativas?</h2>
-            <p>Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos (texto, imagem, áudio, vídeo, código) em vez de apenas classificar dados existentes.</p>
+            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar dados existentes.</p>
+            <p>Isso inclui a criação de textos complexos (como artigos ou códigos), imagens realistas, músicas, vídeos e muito mais, aprendendo a partir de vastos conjuntos de dados.</p>
+
+            <h2>Tipos de Agentes de IA</h2>
+            <p>Um "Agente de IA" é um sistema projetado para perceber seu ambiente e agir para atingir objetivos.</p>
+            <ul>
+                <li><strong>Agentes Reativos Simples:</strong> Apenas respondem a entradas imediatas, sem memória do passado.</li>
+                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um estado interno para rastrear aspectos do mundo que não são evidentes no momento.</li>
+                <li><strong>Agentes Baseados em Objetivos:</strong> Planejam ações para alcançar uma meta específica, considerando o futuro.</li>
+                <li><strong>Agentes Baseados em Utilidade:</strong> Tomam decisões baseadas em quão útil ou "feliz" um estado resultante será, maximizando a eficiência.</li>
+            </ul>
         </section>
     </main>
 
     <main id="pagina-catalogo" class="container hidden">
-        <section id="catalogo-content">
-            </section> 
-    </main>
-
-    <main id="pagina-detalhes" class="container hidden">
-        <div class="detalhe-header">
-            <button id="btn-voltar-catalogo" class="btn-voltar">← Voltar ao Catálogo</button>
-        </div>
-        <div class="detalhe-content">
-            <span id="detalhe-tag" class="detalhe-tag">Categoria</span>
-            <h1 id="detalhe-titulo">Nome da Ferramenta</h1>
-            <p id="detalhe-descricao" style="font-size: 1.1rem; margin-top: 10px;">Descrição curta...</p>
+        <section id="catalogo">
+            <h2>Catálogo de Ferramentas</h2>
             
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 30px 0;">
-            
-            <h3>Análise Completa</h3>
-            <p id="detalhe-texto">Texto longo...</p>
+            <section class="categoria">
+                <h2 class="categoria-titulo">✍️ Geração de Texto</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" 
+                         data-nome="ChatGPT (OpenAI)"
+                         data-desc="Um modelo de linguagem avançado para conversação, capaz de responder perguntas, escrever textos, codificar e muito mais."
+                         data-details="O ChatGPT é baseado na arquitetura GPT (Generative Pre-trained Transformer). Ele é afinado usando aprendizado por reforço com feedback humano (RLHF). É ideal para brainstorming, redação, e resolução de problemas lógicos."
+                         data-pricing="Freemium (Grátis / Plus $20)"
+                         data-features="Chatbot, API, Plugins, Análise de Dados">
+                        <h3>ChatGPT (OpenAI)</h3>
+                        <p>Um modelo de linguagem avançado para conversação...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://openai.com/chatgpt" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
 
-            <div class="grid-pros-cons">
-                <div class="pros-box">
-                    <h4>👍 Pontos Fortes</h4>
-                    <ul id="detalhe-pros"></ul>
-                </div>
-                <div class="cons-box">
-                    <h4>👎 Pontos de Atenção</h4>
-                    <ul id="detalhe-cons"></ul>
-                </div>
-            </div>
+                    <div class="ferramenta-card"
+                         data-nome="Gemini (Google)"
+                         data-desc="A família de modelos de IA multimodal da Google, projetada para raciocinar através de texto, imagens e vídeo."
+                         data-details="O Gemini (antigo Bard) integra-se profundamente com o ecossistema Google (Docs, Gmail, Drive). Sua capacidade multimodal nativa permite entender vídeos e imagens melhor que concorrentes que usam modelos separados."
+                         data-pricing="Freemium (Grátis / Advanced)"
+                         data-features="Multimodal, Integração Google, Pesquisa em tempo real">
+                        <h3>Gemini (Google)</h3>
+                        <p>A família de modelos de IA multimodal da Google...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://gemini.google.com/" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
 
-            <a id="detalhe-link" href="#" target="_blank" class="btn-visitar" style="display: inline-block; width: auto; padding: 12px 25px;">Visitar Site Oficial ↗</a>
-        </div>
+                    <div class="ferramenta-card"
+                         data-nome="Notion AI"
+                         data-desc="Assistente de escrita integrado à ferramenta de produtividade Notion."
+                         data-details="O Notion AI ajuda a resumir anotações de reuniões, gerar ideias de conteúdo e melhorar a escrita diretamente no seu espaço de trabalho, sem precisar alternar abas."
+                         data-pricing="Pago (Add-on $10/mês)"
+                         data-features="Resumo, Tradução, Brainstorming, Edição">
+                        <h3>Notion AI</h3>
+                        <p>Integrado à ferramenta de produtividade Notion...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://www.notion.so/product/ai" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎨 Geração de Imagem</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card"
+                         data-nome="Midjourney"
+                         data-desc="Famoso pela alta qualidade artística e fotorrealismo impressionante."
+                         data-details="O Midjourney opera principalmente através do Discord. É conhecido por ter uma 'personalidade' artística distinta, criando imagens com iluminação e composição cinematográficas."
+                         data-pricing="Pago (A partir de $10/mês)"
+                         data-features="Alta Resolução, Estilos Artísticos, Discord">
+                        <h3>Midjourney</h3>
+                        <p>Famoso pela alta qualidade artística e fotorrealismo...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://www.midjourney.com/" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+
+                    <div class="ferramenta-card"
+                         data-nome="DALL-E 3 (OpenAI)"
+                         data-desc="Integrado ao ChatGPT, excelente em seguir prompts complexos."
+                         data-details="O DALL-E 3 entende nuances linguísticas muito bem. Você pode conversar com o ChatGPT para refinar a imagem, tornando o processo de criação mais intuitivo e menos dependente de 'engenharia de prompt' complexa."
+                         data-pricing="Incluso no ChatGPT Plus"
+                         data-features="Conversacional, Preciso, Seguro">
+                        <h3>DALL-E 3 (OpenAI)</h3>
+                        <p>Integrado ao ChatGPT Plus, é excelente em seguir prompts...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://openai.com/dall-e-3" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+
+                    <div class="ferramenta-card"
+                         data-nome="Adobe Firefly"
+                         data-desc="IA generativa focada em uso comercial seguro e integração com Creative Cloud."
+                         data-details="O Firefly foi treinado em imagens de banco de dados da Adobe Stock, o que o torna 'seguro para uso comercial' (sem problemas de direitos autorais). Possui recursos incríveis como Preenchimento Generativo no Photoshop."
+                         data-pricing="Créditos Mensais (Freemium)"
+                         data-features="Uso Comercial, Photoshop, Vetores">
+                        <h3>Adobe Firefly</h3>
+                        <p>Integrada ao Photoshop e Illustrator, foca em...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://www.adobe.com/products/firefly.html" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card"
+                         data-nome="GitHub Copilot"
+                         data-desc="Seu par programador com IA."
+                         data-details="Desenvolvido pelo GitHub e OpenAI, o Copilot sugere linhas inteiras ou funções completas diretamente no seu editor de código (VS Code). Aprende com o contexto do seu projeto."
+                         data-pricing="Pago ($10/mês)"
+                         data-features="Autocompletar, Chat no Editor, Refatoração">
+                        <h3>GitHub Copilot</h3>
+                        <p>Uma IA "parceira" de programação que sugere linhas...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://github.com/features/copilot" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+                    <div class="ferramenta-card"
+                         data-nome="Tabnine"
+                         data-desc="Autocompletar de código com foco em privacidade e empresas."
+                         data-details="O Tabnine foca em privacidade, permitindo rodar modelos localmente ou em servidores privados. Oferece sugestões baseadas em contexto para diversas linguagens."
+                         data-pricing="Freemium"
+                         data-features="Privacidade, Local, Enterprise">
+                        <h3>Tabnine</h3>
+                        <p>Assistente de IA que autocompleta código em diversas...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://www.tabnine.com/" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <section class="categoria">
+                <h2 class="categoria-titulo">🎙️ Geração de Áudio e Voz</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card"
+                         data-nome="ElevenLabs"
+                         data-desc="Vozes sintéticas indistinguíveis da realidade."
+                         data-details="A ferramenta líder para Text-to-Speech (TTS) e clonagem de voz. Capaz de gerar entonação emocional, risadas e pausas naturais em dezenas de idiomas."
+                         data-pricing="Freemium"
+                         data-features="Clonagem de Voz, Dublagem, Alta Qualidade">
+                        <h3>ElevenLabs</h3>
+                        <p>Plataforma líder em geração de voz sintética...</p>
+                        <div class="card-actions">
+                            <button class="btn-detalhes">Detalhes</button>
+                            <a href="https://elevenlabs.io/" class="btn-visitar" target="_blank">Visitar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section> 
     </main>
 
     <main id="pagina-prompt" class="container hidden">
+        <section class="info-card">
+            <h2>O que é Engenharia de Prompt?</h2>
+            <p>Engenharia de Prompt é a prática de desenhar e otimizar as instruções (os "prompts") dadas a um modelo de linguagem...</p>
+            <h3>Pilares de um Bom Prompt:</h3>
+            <ul>
+                <li><strong>Clareza e Especificidade:</strong> Evite ambiguidades. Diga exatamente o que quer.</li>
+                <li><strong>Contexto:</strong> Forneça as informações de fundo necessárias...</li>
+                <li><strong>Persona (Papel):</strong> Diga à IA quem ela deve "ser"...</li>
+                <li><strong>Formato:</strong> Especifique como você quer a resposta...</li>
+            </ul>
+        </section>
+        
         <section class="info-card" id="prompt-generator">
             <h2>Gerador de Prompt</h2>
-            <label>Tarefa:</label>
+            <p>Use os campos abaixo para construir um prompt estruturado e eficaz.</p>
+            
+            <h3>1. Qual é a tarefa?</h3>
             <select id="prompt-task">
                 <option value="Escreva">Escreva</option>
                 <option value="Resuma">Resuma</option>
+                <option value="Traduza para o inglês">Traduza (para inglês)</option>
                 <option value="Explique">Explique</option>
-                <option value="Crie código em Python para">Python Code</option>
+                <option value="Gere o código (em Python)">Gere código (Python)</option>
+                <option value="Crie um plano detalhado para">Crie um plano para</option>
+                <option value="Compare e contraste">Compare e contraste</option>
             </select>
-            <label>Assunto:</label>
-            <input type="text" id="prompt-topic" placeholder="ex: e-mail de vendas">
-            <label>Persona:</label>
+
+            <h3>2. Qual é o assunto principal?</h3>
+            <input type="text" id="prompt-topic" placeholder="ex: um e-mail de marketing para o Dia das Mães">
+
+            <h3>3. Dê um papel para a IA (Persona):</h3>
             <select id="prompt-persona">
-                <option value="">-- Nenhuma --</option>
-                <option value="um especialista de marketing">Marketer</option>
-                <option value="um programador sênior">Dev Sênior</option>
+                <option value="">-- Nenhuma (padrão) --</option>
+                <option value="um especialista em marketing digital">Especialista em Marketing</option>
+                <option value="um professor de história didático">Professor de História</option>
+                <option value="um programador sênior">Programador Sênior</option>
+                <option value="um roteirista de comédia">Roteirista de Comédia</option>
+                <option value="um advogado revisando um contrato">Advogado</option>
             </select>
-            <button id="btn-generate-prompt">Gerar</button>
-            <textarea id="prompt-result" rows="5" readonly></textarea>
+
+            <h3>4. Qual o formato da resposta?</h3>
+            <select id="prompt-format">
+                <option value="">-- Nenhum (padrão) --</option>
+                <option value="em tópicos (bullet points)">Tópicos (bullet points)</option>
+                <option value="em uma tabela com duas colunas">Tabela</option>
+                <option value="em um tom formal e profissional">Tom formal</option>
+                <option value="de forma simples, como se eu tivesse 10 anos">Tom simples (ELi5)</option>
+                <option value="como um bloco de código JSON">JSON</option>
+            </select>
+
+            <button id="btn-generate-prompt">Gerar Prompt</button>
+
+            <h3>Prompt Gerado:</h3>
+            <textarea id="prompt-result" rows="6" readonly placeholder="Seu prompt aparecerá aqui..."></textarea>
+
         </section>
     </main>
     
     <main id="pagina-sobre" class="container hidden">
         <section class="info-card">
             <h2>Sobre este Projeto</h2>
-            <p>Catálogo SPA criado com Vanilla JS.</p>
+            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial.</p>
+            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando como criar uma Single Page Application (SPA) simples sem frameworks pesados.</p>
+            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras para facilitar a descoberta.</p>
         </section>
     </main>
 
-    <script>
-        // --- 1. BANCO DE DADOS DAS FERRAMENTAS (JSON) ---
-        const ferramentasData = [
-            {
-                id: 'chatgpt',
-                nome: 'ChatGPT (OpenAI)',
-                categoria: 'texto',
-                resumo: 'Modelo de linguagem avançado para conversação e criação de texto.',
-                descricaoCompleta: 'O ChatGPT é um chatbot baseado no modelo de linguagem GPT. Ele é capaz de manter conversas naturais, escrever ensaios, gerar código e muito mais. A versão gratuita usa o GPT-3.5/4o-mini, enquanto a paga oferece acesso aos modelos mais recentes.',
-                pros: ['Extremamente versátil', 'Grande base de conhecimento', 'Versão gratuita muito capaz'],
-                contras: ['Pode gerar informações incorretas (alucinações)', 'Limite de uso na versão Plus'],
-                link: 'https://chat.openai.com',
-                tag: 'Geração de Texto'
-            },
-            {
-                id: 'gemini',
-                nome: 'Gemini (Google)',
-                categoria: 'texto',
-                resumo: 'IA multimodal do Google integrada ao ecossistema Workspace.',
-                descricaoCompleta: 'Gemini é a resposta do Google ao ChatGPT. Seu grande diferencial é ser "multimodal" nativamente, entendendo texto, imagem e vídeo simultaneamente. Integra-se bem com Google Docs e Gmail.',
-                pros: ['Conexão com Google Apps', 'Rápido e eficiente', 'Multimodalidade nativa'],
-                contras: ['Ainda em evolução na geração de imagens', 'Interface pode ser confusa'],
-                link: 'https://gemini.google.com',
-                tag: 'Geração de Texto'
-            },
-            {
-                id: 'midjourney',
-                nome: 'Midjourney',
-                categoria: 'imagem',
-                resumo: 'Famoso pela alta qualidade artística e fotorrealismo.',
-                descricaoCompleta: 'O Midjourney opera através do Discord e é amplamente considerado o melhor gerador de imagens artísticas do mercado atual. É capaz de criar estilos visuais impressionantes com prompts simples.',
-                pros: ['Qualidade estética insuperável', 'Comunidade ativa', 'Vários estilos artísticos'],
-                contras: ['Uso apenas via Discord', 'Não tem plano gratuito permanente'],
-                link: 'https://midjourney.com',
-                tag: 'Geração de Imagem'
-            },
-            {
-                id: 'dalle3',
-                nome: 'DALL-E 3',
-                categoria: 'imagem',
-                resumo: 'Integrado ao ChatGPT, excelente em seguir instruções precisas.',
-                descricaoCompleta: 'Diferente do Midjourney, o DALL-E 3 entende comandos complexos em linguagem natural muito bem, pois usa o "cérebro" do ChatGPT para processar o pedido antes de desenhar.',
-                pros: ['Fácil de usar (conversacional)', 'Segue instruções complexas', 'Integrado ao ChatGPT'],
-                contras: ['Menos controle de estilo fino', 'Censura às vezes excessiva'],
-                link: 'https://openai.com/dall-e-3',
-                tag: 'Geração de Imagem'
-            },
-            {
-                id: 'copilot',
-                nome: 'GitHub Copilot',
-                categoria: 'codigo',
-                resumo: 'Seu par programador com IA dentro do VS Code.',
-                descricaoCompleta: 'O Copilot sugere linhas inteiras ou funções completas enquanto você digita no seu editor de código. Ele aprende com bilhões de linhas de código público.',
-                pros: ['Aumenta muito a produtividade', 'Integração perfeita com VS Code', 'Suporta muitas linguagens'],
-                contras: ['Pode sugerir código inseguro', 'Pago (mensalidade)'],
-                link: 'https://github.com/features/copilot',
-                tag: 'Assistente de Código'
-            },
-            {
-                id: 'suno',
-                nome: 'Suno AI',
-                categoria: 'audio',
-                resumo: 'Cria músicas completas com letra e voz.',
-                descricaoCompleta: 'O Suno AI está revolucionando a música generativa. Você digita um estilo e um tema, e ele cria uma música de 2 minutos com vocais realistas e instrumentais coerentes.',
-                pros: ['Resultados impressionantes', 'Cria letra e voz', 'Fácil de usar'],
-                contras: ['Qualidade do áudio (bitrate) ainda pode melhorar', 'Direitos autorais complexos'],
-                link: 'https://suno.com',
-                tag: 'Geração de Áudio'
-            }
-        ];
+    <div id="modal-overlay" class="hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Título da Ferramenta</h2>
+            <div class="modal-meta">
+                <span id="modal-pricing" class="modal-badge modal-pricing">Preço</span>
+                <span id="modal-features" class="modal-badge">Tags</span>
+            </div>
+            <p id="modal-desc-full">Descrição completa aqui...</p>
+        </div>
+    </div>
 
-        // --- 2. INICIALIZAÇÃO DO DOM ---
+    
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Referências
+            // --- Referências de Elementos Principais ---
             const themeSwitch = document.getElementById('theme-switch');
             const searchBar = document.getElementById('search-bar');
             
-            // Botões Nav
-            const btnsNav = {
-                inicio: document.getElementById('btn-inicio'),
-                catalogo: document.getElementById('btn-catalogo'),
-                prompt: document.getElementById('btn-prompt'),
-                sobre: document.getElementById('btn-sobre')
-            };
-
-            // Páginas Main
-            const paginas = {
-                inicio: document.getElementById('pagina-inicio'),
-                catalogo: document.getElementById('pagina-catalogo'),
-                detalhes: document.getElementById('pagina-detalhes'), // Nova
-                prompt: document.getElementById('pagina-prompt'),
-                sobre: document.getElementById('pagina-sobre')
-            };
-
-            // Elementos da Tela de Detalhes
-            const detalheEl = {
-                titulo: document.getElementById('detalhe-titulo'),
-                descricao: document.getElementById('detalhe-descricao'),
-                texto: document.getElementById('detalhe-texto'),
-                pros: document.getElementById('detalhe-pros'),
-                cons: document.getElementById('detalhe-cons'),
-                tag: document.getElementById('detalhe-tag'),
-                link: document.getElementById('detalhe-link'),
-                btnVoltar: document.getElementById('btn-voltar-catalogo')
-            };
-
-            // --- 3. FUNÇÃO DE RENDERIZAR O CATÁLOGO ---
-            function renderizarCatalogo() {
-                const container = document.getElementById('catalogo-content');
-                container.innerHTML = '<h2>Catálogo de Ferramentas</h2>';
-
-                // Agrupar por categoria
-                const categoriasMap = {
-                    'texto': '✍️ Geração de Texto',
-                    'imagem': '🎨 Geração de Imagem',
-                    'codigo': '💻 Assistentes de Código',
-                    'audio': '🎙️ Áudio e Música'
-                };
-
-                // Criar as seções HTML dinamicamente
-                for (const [key, label] of Object.entries(categoriasMap)) {
-                    // Filtrar ferramentas desta categoria
-                    const ferramentasDaCategoria = ferramentasData.filter(f => f.categoria === key);
-                    
-                    if (ferramentasDaCategoria.length > 0) {
-                        const section = document.createElement('section');
-                        section.className = 'categoria';
-                        
-                        // Título Clicável
-                        const h2 = document.createElement('h2');
-                        h2.className = 'categoria-titulo';
-                        h2.textContent = label;
-                        h2.onclick = () => { section.classList.toggle('active'); };
-                        
-                        // Grid de Cards
-                        const divLista = document.createElement('div');
-                        divLista.className = 'ferramentas-lista';
-
-                        ferramentasDaCategoria.forEach(tool => {
-                            const card = document.createElement('div');
-                            card.className = 'ferramenta-card';
-                            card.innerHTML = `
-                                <div>
-                                    <h3>${tool.nome}</h3>
-                                    <p>${tool.resumo}</p>
-                                </div>
-                                <div class="card-actions">
-                                    <button class="btn-detalhes" onclick="abrirDetalhes('${tool.id}')">Ver Detalhes</button>
-                                    <a href="${tool.link}" target="_blank" class="btn-visitar">Visitar</a>
-                                </div>
-                            `;
-                            divLista.appendChild(card);
-                        });
-
-                        section.appendChild(h2);
-                        section.appendChild(divLista);
-                        container.appendChild(section);
-                    }
-                }
-            }
-
-            // Chamar renderização inicial
-            renderizarCatalogo();
-
-            // --- 4. LÓGICA DA TELA DE DETALHES ---
+            // Elementos da Navegação de Página (4 páginas)
+            const btnInicio = document.getElementById('btn-inicio');
+            const btnCatalogo = document.getElementById('btn-catalogo');
+            const btnPrompt = document.getElementById('btn-prompt');
+            const btnSobre = document.getElementById('btn-sobre');
             
-            // Função Global para ser chamada pelo onclick do HTML injetado
-            window.abrirDetalhes = function(id) {
-                const tool = ferramentasData.find(t => t.id === id);
-                if (!tool) return;
+            const paginaInicio = document.getElementById('pagina-inicio');
+            const paginaCatalogo = document.getElementById('pagina-catalogo');
+            const paginaPrompt = document.getElementById('pagina-prompt');
+            const paginaSobre = document.getElementById('pagina-sobre');
 
-                // Preencher dados
-                detalheEl.titulo.textContent = tool.nome;
-                detalheEl.descricao.textContent = tool.resumo;
-                detalheEl.texto.textContent = tool.descricaoCompleta;
-                detalheEl.tag.textContent = tool.tag;
-                detalheEl.link.href = tool.link;
+            // Elementos do Catálogo
+            const allCategoryTitles = document.querySelectorAll('.categoria-titulo');
+            const allCards = document.querySelectorAll('.ferramenta-card');
+            const allCategories = document.querySelectorAll('.categoria');
 
-                // Limpar e preencher listas
-                detalheEl.pros.innerHTML = tool.pros.map(item => `<li>${item}</li>`).join('');
-                detalheEl.cons.innerHTML = tool.cons.map(item => `<li>${item}</li>`).join('');
+            // Elementos do Modal
+            const modalOverlay = document.getElementById('modal-overlay');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDesc = document.getElementById('modal-desc-full');
+            const modalPricing = document.getElementById('modal-pricing');
+            const modalFeatures = document.getElementById('modal-features');
 
-                // Navegar
-                esconderTodasPaginas();
-                paginas.detalhes.classList.remove('hidden');
-                window.scrollTo(0,0);
-            };
 
-            detalheEl.btnVoltar.addEventListener('click', () => {
-                esconderTodasPaginas();
-                paginas.catalogo.classList.remove('hidden');
-                searchBar.classList.remove('hidden');
-                btnsNav.catalogo.classList.add('active');
+            // --- LÓGICA DO MODO CLARO/ESCURO ---
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeSwitch.checked = true;
+            }
+            themeSwitch.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
             });
 
 
-            // --- 5. NAVEGAÇÃO GERAL ---
-            function esconderTodasPaginas() {
-                Object.values(paginas).forEach(p => p.classList.add('hidden'));
-                Object.values(btnsNav).forEach(b => b.classList.remove('active'));
+            // --- LÓGICA DE NAVEGAÇÃO (TROCA DE PÁGINA) ---
+            function resetNavigation() {
+                btnInicio.classList.remove('active');
+                btnCatalogo.classList.remove('active');
+                btnPrompt.classList.remove('active');
+                btnSobre.classList.remove('active');
+                
+                paginaInicio.classList.add('hidden');
+                paginaCatalogo.classList.add('hidden');
+                paginaPrompt.classList.add('hidden');
+                paginaSobre.classList.add('hidden');
+                
                 searchBar.classList.add('hidden');
             }
 
-            // Event Listeners Menu
-            btnsNav.inicio.addEventListener('click', () => { esconderTodasPaginas(); paginas.inicio.classList.remove('hidden'); btnsNav.inicio.classList.add('active'); });
-            btnsNav.catalogo.addEventListener('click', () => { esconderTodasPaginas(); paginas.catalogo.classList.remove('hidden'); btnsNav.catalogo.classList.add('active'); searchBar.classList.remove('hidden'); });
-            btnsNav.prompt.addEventListener('click', () => { esconderTodasPaginas(); paginas.prompt.classList.remove('hidden'); btnsNav.prompt.classList.add('active'); });
-            btnsNav.sobre.addEventListener('click', () => { esconderTodasPaginas(); paginas.sobre.classList.remove('hidden'); btnsNav.sobre.classList.add('active'); });
-
-            // --- 6. TEMA ESCURO ---
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'dark') { document.body.classList.add('dark-mode'); themeSwitch.checked = true; }
-            themeSwitch.addEventListener('change', function() {
-                if (this.checked) { document.body.classList.add('dark-mode'); localStorage.setItem('theme', 'dark'); }
-                else { document.body.classList.remove('dark-mode'); localStorage.setItem('theme', 'light'); }
+            btnInicio.addEventListener('click', () => {
+                resetNavigation();
+                btnInicio.classList.add('active');
+                paginaInicio.classList.remove('hidden');
             });
 
-            // --- 7. BUSCA ---
-            searchBar.addEventListener('keyup', (e) => {
-                const termo = e.target.value.toLowerCase();
-                const cards = document.querySelectorAll('.ferramenta-card');
-                const categorias = document.querySelectorAll('.categoria');
+            btnCatalogo.addEventListener('click', () => {
+                resetNavigation();
+                btnCatalogo.classList.add('active');
+                paginaCatalogo.classList.remove('hidden');
+                searchBar.classList.remove('hidden');
+            });
 
-                cards.forEach(card => {
-                    const texto = card.innerText.toLowerCase();
-                    if(texto.includes(termo)) card.classList.remove('hidden');
-                    else card.classList.add('hidden');
+            btnPrompt.addEventListener('click', () => {
+                resetNavigation();
+                btnPrompt.classList.add('active');
+                paginaPrompt.classList.remove('hidden');
+            });
+
+            btnSobre.addEventListener('click', () => {
+                resetNavigation();
+                btnSobre.classList.add('active');
+                paginaSobre.classList.remove('hidden');
+            });
+
+
+            // --- LÓGICA DO ACORDEÃO ---
+            allCategoryTitles.forEach(title => {
+                title.addEventListener('click', () => {
+                    const category = title.parentElement;
+                    category.classList.toggle('active');
                 });
+            });
 
-                categorias.forEach(cat => {
-                    const cardsVisiveis = cat.querySelectorAll('.ferramenta-card:not(.hidden)').length;
-                    if(termo === '') {
-                        cat.classList.remove('hidden', 'active');
-                    } else if (cardsVisiveis > 0) {
-                        cat.classList.remove('hidden');
-                        cat.classList.add('active');
+
+            // --- LÓGICA DO FILTRO DE BUSCA ---
+            searchBar.addEventListener('keyup', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                allCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    // Também busca nos detalhes escondidos
+                    const details = card.dataset.details ? card.dataset.details.toLowerCase() : '';
+
+                    const cardText = title + description + details;
+                    
+                    if (cardText.includes(searchTerm)) {
+                        card.classList.remove('hidden');
                     } else {
-                        cat.classList.add('hidden');
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                allCategories.forEach(category => {
+                    const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
+                    if (searchTerm.length === 0) {
+                        category.classList.remove('hidden');
+                        category.classList.remove('active');
+                    } else if (visibleCards > 0) {
+                        category.classList.remove('hidden');
+                        category.classList.add('active');
+                    } else {
+                        category.classList.add('hidden');
+                        category.classList.remove('active');
                     }
                 });
             });
             
-             // --- 8. PROMPT GENERATOR ---
-            document.getElementById('btn-generate-prompt').addEventListener('click', () => {
-                 const task = document.getElementById('prompt-task').value;
-                 const topic = document.getElementById('prompt-topic').value;
-                 const persona = document.getElementById('prompt-persona').value;
-                 
-                 if(!topic) return alert('Preencha o assunto!');
-                 
-                 let txt = "";
-                 if(persona) txt += `Aja como ${persona}. `;
-                 txt += `${task} ${topic}.`;
-                 
-                 document.getElementById('prompt-result').value = txt;
+            
+            // --- LÓGICA DO GERADOR DE PROMPT ---
+            const btnGenerate = document.getElementById('btn-generate-prompt');
+            const taskSelect = document.getElementById('prompt-task');
+            const topicInput = document.getElementById('prompt-topic');
+            const personaSelect = document.getElementById('prompt-persona');
+            const formatSelect = document.getElementById('prompt-format');
+            const resultTextarea = document.getElementById('prompt-result');
+
+            btnGenerate.addEventListener('click', () => {
+                const task = taskSelect.value;
+                const topic = topicInput.value;
+                const persona = personaSelect.value;
+                const format = formatSelect.value;
+
+                if (topic.trim() === '') {
+                    alert('Por favor, preencha o "Assunto Principal".');
+                    topicInput.focus();
+                    return;
+                }
+
+                let finalPrompt = "";
+                if (persona) finalPrompt += `Aja como ${persona}. `;
+                finalPrompt += `${task} ${topic}.`;
+                if (format) finalPrompt += ` Formate a resposta ${format}.`;
+                
+                resultTextarea.value = finalPrompt;
             });
 
+            // --- LÓGICA DO MODAL DE DETALHES (NOVO) ---
+            
+            // 1. Abrir Modal
+            const detailButtons = document.querySelectorAll('.btn-detalhes');
+            
+            detailButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // O botão está dentro de .card-actions, que está dentro de .ferramenta-card
+                    const card = e.target.closest('.ferramenta-card');
+                    
+                    // Pega os dados dos atributos data-
+                    const nome = card.getAttribute('data-nome');
+                    const details = card.getAttribute('data-details') || "Descrição detalhada não disponível.";
+                    const pricing = card.getAttribute('data-pricing') || "Sob consulta";
+                    const features = card.getAttribute('data-features') || "Geral";
+
+                    // Preenche o Modal
+                    modalTitle.textContent = nome;
+                    modalDesc.textContent = details;
+                    modalPricing.textContent = pricing;
+                    modalFeatures.textContent = features;
+
+                    // Mostra o Modal
+                    modalOverlay.classList.remove('hidden');
+                });
+            });
+
+            // 2. Fechar Modal (Clicando no X)
+            closeModalBtn.addEventListener('click', () => {
+                modalOverlay.classList.add('hidden');
+            });
+
+            // 3. Fechar Modal (Clicando fora da caixa branca)
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.add('hidden');
+                }
+            });
+
+            // 4. Fechar com ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+                    modalOverlay.classList.add('hidden');
+                }
+            });
+            
         });
     </script>
+
 </body>
 </html>
