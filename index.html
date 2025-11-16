@@ -161,9 +161,9 @@
         }
 
         /* ============================================= */
-        /* 3. SEÇÃO DE RESUMO E PÁGINA "SOBRE" / "PROMPT" */
+        /* 3. SEÇÃO DE RESUMO, INICIO E "SOBRE"       */
         /* ============================================= */
-        #intro-summary, .info-card {
+        .info-card {
             background-color: var(--card-bg-color);
             padding: 30px;
             border-radius: 12px;
@@ -171,12 +171,12 @@
             box-shadow: var(--card-shadow);
         }
         
-        #intro-summary p, .info-card p, .info-card li {
+        .info-card p, .info-card li {
             color: var(--p-color);
             margin-bottom: 15px;
         }
         
-        #intro-summary ul, .info-card ul {
+        .info-card ul {
             list-style-position: inside;
             color: var(--p-color);
             margin-left: 10px;
@@ -186,6 +186,19 @@
              color: var(--h3-color);
              margin-top: 20px;
              margin-bottom: 10px;
+        }
+        
+        /* Estilo Específico para o título de boas-vindas */
+        .welcome-title {
+            font-size: 2rem;
+            color: var(--h2-color);
+            margin-bottom: 10px;
+        }
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: var(--p-color);
+            margin-bottom: 30px;
+            font-weight: 400;
         }
 
         /* ============================================= */
@@ -432,12 +445,14 @@
         <h1>Catálogo de IA</h1>
         
         <nav class="main-nav">
-            <button id="btn-catalogo" class="nav-button active">Catálogo</button>
+            <button id="btn-inicio" class="nav-button active">Início</button>
+            <button id="btn-catalogo" class="nav-button">Catálogo</button>
             <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
 
-        <input type="search" id="search-bar" placeholder="Buscar por nome ou descrição...">
+        <input type="search" id="search-bar" class="hidden" placeholder="Buscar por nome ou descrição...">
+        
         <div class="theme-switch-wrapper">
             <span>☀️</span>
             <label class="theme-switch" for="theme-switch">
@@ -448,63 +463,85 @@
         </div>
     </header>
 
-    <main id="pagina-catalogo" class="container">
+    <main id="pagina-inicio" class="container">
+        <section class="info-card">
+            <h1 class="welcome-title">Bem-vindo ao Hub de Inteligência Artificial</h1>
+            <p class="welcome-subtitle">Explore ferramentas, aprenda conceitos e otimize sua produtividade.</p>
+            
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
+            <h2>O que são IAs Generativas?</h2>
+            <p>A Inteligência Artificial Generativa refere-se a modelos de IA que podem criar novos conteúdos, em vez de apenas analisar dados existentes.</p>
+            <p>Isso inclui a criação de textos complexos (como artigos ou códigos), imagens realistas, músicas, vídeos e muito mais, aprendendo a partir de vastos conjuntos de dados.</p>
+
+            <h2>Tipos de Agentes de IA</h2>
+            <p>Um "Agente de IA" é um sistema projetado para perceber seu ambiente e agir para atingir objetivos.</p>
+            <ul>
+                <li><strong>Agentes Reativos Simples:</strong> Apenas respondem a entradas imediatas, sem memória do passado.</li>
+                <li><strong>Agentes Reativos Baseados em Modelo:</strong> Mantêm um estado interno para rastrear aspectos do mundo que não são evidentes no momento.</li>
+                <li><strong>Agentes Baseados em Objetivos:</strong> Planejam ações para alcançar uma meta específica, considerando o futuro.</li>
+                <li><strong>Agentes Baseados em Utilidade:</strong> Tomam decisões baseadas em quão útil ou "feliz" um estado resultante será, maximizando a eficiência.</li>
+            </ul>
+        </section>
+    </main>
+
+    <main id="pagina-catalogo" class="container hidden">
         <section id="catalogo">
             <h2>Catálogo de Ferramentas</h2>
             <section class="categoria">
                 <h2 class="categoria-titulo">✍️ Geração de Texto</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>ChatGPT (OpenAI)</h3><p>Um modelo de linguagem avançado para conversação...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Gemini (Google)</h3><p>A família de modelos de IA multimodal da Google...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Notion AI</h3><p>Integrado à ferramenta de produtividade Notion...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>ChatGPT (OpenAI)</h3><p>Um modelo de linguagem avançado para conversação...</p><a href="https://openai.com/chatgpt" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Gemini (Google)</h3><p>A família de modelos de IA multimodal da Google...</p><a href="https://gemini.google.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Notion AI</h3><p>Integrado à ferramenta de produtividade Notion...</p><a href="https://www.notion.so/product/ai" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎨 Geração de Imagem</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Midjourney</h3><p>Famoso pela alta qualidade artística e fotorrealismo...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>DALL-E 3 (OpenAI)</h3><p>Integrado ao ChatGPT Plus, é excelente em seguir prompts...</p><a href="https..." target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Adobe Firefly</h3><p>Integrada ao Photoshop e Illustrator, foca em...</p><a href="https..." target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Midjourney</h3><p>Famoso pela alta qualidade artística e fotorrealismo...</p><a href="https://www.midjourney.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>DALL-E 3 (OpenAI)</h3><p>Integrado ao ChatGPT Plus, é excelente em seguir prompts...</p><a href="https://openai.com/dall-e-3" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Adobe Firefly</h3><p>Integrada ao Photoshop e Illustrator, foca em...</p><a href="https://www.adobe.com/products/firefly.html" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>GitHub Copilot</h3><p>Uma IA "parceira" de programação que sugere linhas...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Tabnine</h3><p>Assistente de IA que autocompleta código em diversas...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Amazon CodeWhisperer</h3><p>Ferramenta da AWS que oferece sugestões de código...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>GitHub Copilot</h3><p>Uma IA "parceira" de programação que sugere linhas...</p><a href="https://github.com/features/copilot" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Tabnine</h3><p>Assistente de IA que autocompleta código em diversas...</p><a href="https://www.tabnine.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Amazon CodeWhisperer</h3><p>Ferramenta da AWS que oferece sugestões de código...</p><a href="https://aws.amazon.com/codewhisperer/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎙️ Geração de Áudio e Voz</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>ElevenLabs</h3><p>Plataforma líder em geração de voz sintética...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Murf.ai</h3><p>Ferramenta versátil para criar narrações com...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Play.ht</h3><p>Gera vozes de IA ultra-realistas e permite...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>ElevenLabs</h3><p>Plataforma líder em geração de voz sintética...</p><a href="https://elevenlabs.io/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Murf.ai</h3><p>Ferramenta versátil para criar narrações com...</p><a href="https://murf.ai/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Play.ht</h3><p>Gera vozes de IA ultra-realistas e permite...</p><a href="https://play.ht/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎬 Edição e Geração de Vídeo</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Runway (Gen-2)</h3><p>Pioneira na geração de vídeo a partir de texto...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Pika Labs</h3><p>Uma ferramenta poderosa e popular para criar...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Runway (Gen-2)</h3><p>Pioneira na geração de vídeo a partir de texto...</p><a href="https://runwayml.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Pika Labs</h3><p>Uma ferramenta poderosa e popular para criar...</p><a href="https://pika.art/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Descript</h3><p>Edita vídeo e áudio da mesma forma que se edita...</p><a href="https://www.descript.com/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">📊 Produtividade e Organização</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Motion</h3><p>Um assistente de IA que agenda automaticamente...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>ClickUp AI</h3><p>Ajuda a automatizar tarefas, resumir documentos...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>SaneBox</h3><p>Uma IA que aprende seus hábitos de e-mail...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Motion</h3><p>Um assistente de IA que agenda automaticamente...</p><a href="https://www.usemotion.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>ClickUp AI</h3><p>Ajuda a automatizar tarefas, resumir documentos...</p><a href="https://clickup.com/ai" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>SaneBox</h3><p>Uma IA que aprende seus hábitos de e-mail...</p><a href="https://www.sanebox.com/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
             <section class="categoria">
                 <h2 class="categoria-titulo">🎵 Geração de Música</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"><h3>Suno AI</h3><p>Gera músicas completas (vocais, instrumentais...)</p><a href="https..." target="_blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>Udio</h3><p>Concorrente direto do Suno, também cria...</p><a href="https..._blank">Visitar Site</a></div>
-                    <div class="ferramenta-card"><h3>AIVA</h3><p>Especializada em compor trilhas sonoras...</p><a href="https..._blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Suno AI</h3><p>Gera músicas completas (vocais, instrumentais...)</p><a href="https://suno.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>Udio</h3><p>Concorrente direto do Suno, também cria...</p><a href="https://www.udio.com/" target="_blank">Visitar Site</a></div>
+                    <div class="ferramenta-card"><h3>AIVA</h3><p>Especializada em compor trilhas sonoras...</p><a href="https://www.aiva.ai/" target="_blank">Visitar Site</a></div>
                 </div>
             </section>
         </section> 
@@ -569,13 +606,12 @@
         </section>
     </main>
     
-
     <main id="pagina-sobre" class="container hidden">
         <section class="info-card">
             <h2>Sobre este Projeto</h2>
-            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial...</p>
-            <p>Foi construído usando apenas HTML, CSS e JavaScript puro...</p>
-            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras...</p>
+            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial.</p>
+            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando como criar uma Single Page Application (SPA) simples sem frameworks pesados.</p>
+            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras para facilitar a descoberta.</p>
         </section>
     </main>
 
@@ -587,11 +623,13 @@
             const themeSwitch = document.getElementById('theme-switch');
             const searchBar = document.getElementById('search-bar');
             
-            // Elementos da Navegação de Página (3 páginas)
+            // Elementos da Navegação de Página (4 páginas)
+            const btnInicio = document.getElementById('btn-inicio');
             const btnCatalogo = document.getElementById('btn-catalogo');
             const btnPrompt = document.getElementById('btn-prompt');
             const btnSobre = document.getElementById('btn-sobre');
             
+            const paginaInicio = document.getElementById('pagina-inicio');
             const paginaCatalogo = document.getElementById('pagina-catalogo');
             const paginaPrompt = document.getElementById('pagina-prompt');
             const paginaSobre = document.getElementById('pagina-sobre');
@@ -620,34 +658,49 @@
 
 
             // --- LÓGICA DE NAVEGAÇÃO (TROCA DE PÁGINA) ---
-            btnCatalogo.addEventListener('click', () => {
-                btnCatalogo.classList.add('active');
+            
+            // Função auxiliar para resetar estados
+            function resetNavigation() {
+                // Remove active de todos os botões
+                btnInicio.classList.remove('active');
+                btnCatalogo.classList.remove('active');
                 btnPrompt.classList.remove('active');
                 btnSobre.classList.remove('active');
-                paginaCatalogo.classList.remove('hidden');
+                
+                // Esconde todas as páginas
+                paginaInicio.classList.add('hidden');
+                paginaCatalogo.classList.add('hidden');
                 paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.add('hidden');
-                searchBar.classList.remove('hidden');
+                
+                // Esconde a barra de busca (padrão)
+                searchBar.classList.add('hidden');
+            }
+
+            btnInicio.addEventListener('click', () => {
+                resetNavigation();
+                btnInicio.classList.add('active');
+                paginaInicio.classList.remove('hidden');
+                // Search bar continua hidden (padrão)
+            });
+
+            btnCatalogo.addEventListener('click', () => {
+                resetNavigation();
+                btnCatalogo.classList.add('active');
+                paginaCatalogo.classList.remove('hidden');
+                searchBar.classList.remove('hidden'); // Única página com busca
             });
 
             btnPrompt.addEventListener('click', () => {
-                btnCatalogo.classList.remove('active');
+                resetNavigation();
                 btnPrompt.classList.add('active');
-                btnSobre.classList.remove('active');
-                paginaCatalogo.classList.add('hidden');
                 paginaPrompt.classList.remove('hidden');
-                paginaSobre.classList.add('hidden');
-                searchBar.classList.add('hidden');
             });
 
             btnSobre.addEventListener('click', () => {
-                btnCatalogo.classList.remove('active');
-                btnPrompt.classList.remove('active');
+                resetNavigation();
                 btnSobre.classList.add('active');
-                paginaCatalogo.classList.add('hidden');
-                paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.remove('hidden');
-                searchBar.classList.add('hidden');
             });
 
 
@@ -691,7 +744,7 @@
             });
             
             
-            // --- NOVO: LÓGICA DO GERADOR DE PROMPT ---
+            // --- LÓGICA DO GERADOR DE PROMPT ---
             const btnGenerate = document.getElementById('btn-generate-prompt');
             const taskSelect = document.getElementById('prompt-task');
             const topicInput = document.getElementById('prompt-topic');
