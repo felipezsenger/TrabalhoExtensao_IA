@@ -23,7 +23,7 @@
             --h2-color: #1a5276;
             --h3-color: #21618C;
             --p-color: #566573;
-            --search-bg: #f0f2f5;
+            --search-bg: #ffffff; /* Mudado para branco para destacar no fundo cinza */
             --search-text: #333;
             --border-color: #aed6f1;
             --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
@@ -72,7 +72,7 @@
         header {
             background: var(--header-bg);
             color: var(--header-text);
-            padding: 20px 40px;
+            padding: 15px 40px; /* Reduzi um pouco o padding vertical */
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -88,7 +88,7 @@
         header h1 {
             margin: 0;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 1.5rem; /* Reduzi levemente para caber melhor em telas pequenas */
         }
         
         /* ============================================= */
@@ -99,8 +99,8 @@
             gap: 10px;
         }
         .nav-button {
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 8px 16px; /* Botões um pouco menores */
+            font-size: 0.95rem;
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
             border-radius: 20px;
@@ -127,21 +127,36 @@
             border-color: var(--h3-color);
         }
 
+        /* ============================================= */
+        /* 2c. NOVA BARRA DE BUSCA (Ajustada)            */
+        /* ============================================= */
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
 
-        /* Barra de Busca */
         #search-bar {
-            flex-grow: 1;
-            min-width: 250px;
-            max-width: 600px;
-            padding: 12px 15px;
-            font-size: 16px;
-            border-radius: 25px;
-            border: none;
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 45px; /* Espaço para ícone se quiser adicionar depois */
+            font-size: 1.1rem;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
             outline: none;
             background-color: var(--search-bg);
             color: var(--search-text);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='8'%3e%3c/circle%3e%3cline x1='21' y1='21' x2='16.65' y2='16.65'%3e%3c/line%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: 15px center;
         }
+
+        #search-bar:focus {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-color: var(--h3-color);
+        }
+
 
         /* Container Principal */
         .container {
@@ -205,6 +220,7 @@
         #catalogo h2 {
             border-bottom: 3px solid var(--border-color);
             padding-bottom: 10px;
+            margin-bottom: 25px; /* Mais espaço após a linha */
         }
         
         .categoria {
@@ -568,8 +584,6 @@
             <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
-
-        <input type="search" id="search-bar" class="hidden" placeholder="Buscar por nome ou descrição...">
         
         <div class="theme-switch-wrapper">
             <span>☀️</span>
@@ -605,6 +619,11 @@
 
     <main id="pagina-catalogo" class="container hidden">
         <section id="catalogo">
+            
+            <div class="search-container">
+                <input type="search" id="search-bar" placeholder="🔍 Buscar por nome, descrição ou categoria...">
+            </div>
+            
             <h2>Catálogo de Ferramentas</h2>
             
             <section class="categoria">
@@ -1232,7 +1251,7 @@
                 paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.add('hidden');
                 
-                searchBar.classList.add('hidden');
+                // searchBar.classList.add('hidden'); // REMOVIDO: Barra não está mais no header para ser escondida, ela faz parte da página catálogo
             }
 
             btnInicio.addEventListener('click', () => {
@@ -1245,7 +1264,6 @@
                 resetNavigation();
                 btnCatalogo.classList.add('active');
                 paginaCatalogo.classList.remove('hidden');
-                searchBar.classList.remove('hidden');
             });
 
             btnPrompt.addEventListener('click', () => {
@@ -1384,4 +1402,3 @@
 
 </body>
 </html>
-
