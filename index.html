@@ -23,7 +23,7 @@
             --h2-color: #1a5276;
             --h3-color: #21618C;
             --p-color: #566573;
-            --search-bg: #ffffff; /* Mudado para branco para destacar no fundo cinza */
+            --search-bg: #ffffff;
             --search-text: #333;
             --border-color: #aed6f1;
             --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
@@ -72,7 +72,7 @@
         header {
             background: var(--header-bg);
             color: var(--header-text);
-            padding: 15px 40px; /* Reduzi um pouco o padding vertical */
+            padding: 15px 40px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -88,7 +88,7 @@
         header h1 {
             margin: 0;
             font-weight: 700;
-            font-size: 1.5rem; /* Reduzi levemente para caber melhor em telas pequenas */
+            font-size: 1.5rem;
         }
         
         /* ============================================= */
@@ -99,7 +99,7 @@
             gap: 10px;
         }
         .nav-button {
-            padding: 8px 16px; /* Botões um pouco menores */
+            padding: 8px 16px;
             font-size: 0.95rem;
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
@@ -114,13 +114,11 @@
             background-color: var(--header-text);
             color: var(--h3-color);
         }
-        /* Estilo do botão ativo */
         .nav-button.active {
             background-color: #ffffff;
             color: #2c3e50;
             border-color: #ffffff;
         }
-        /* No modo escuro, o botão ativo inverte */
         body.dark-mode .nav-button.active {
             background-color: var(--h3-color);
             color: var(--header-text);
@@ -128,7 +126,7 @@
         }
 
         /* ============================================= */
-        /* 2c. NOVA BARRA DE BUSCA (Ajustada)            */
+        /* 2c. BARRA DE BUSCA (NOVA POSIÇÃO)             */
         /* ============================================= */
         .search-container {
             margin-bottom: 30px;
@@ -138,7 +136,7 @@
         #search-bar {
             width: 100%;
             padding: 15px 20px;
-            padding-left: 45px; /* Espaço para ícone se quiser adicionar depois */
+            padding-left: 45px;
             font-size: 1.1rem;
             border-radius: 30px;
             border: 1px solid var(--border-color);
@@ -147,6 +145,7 @@
             color: var(--search-text);
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
+            /* Ícone de lupa em SVG embutido */
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='8'%3e%3c/circle%3e%3cline x1='21' y1='21' x2='16.65' y2='16.65'%3e%3c/line%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: 15px center;
@@ -157,7 +156,6 @@
             border-color: var(--h3-color);
         }
 
-
         /* Container Principal */
         .container {
             max-width: 1200px;
@@ -165,7 +163,6 @@
             padding: 0 20px;
         }
 
-        /* Títulos H2 genéricos (para resumo) */
         h2 {
             color: var(--h2-color);
             margin-top: 20px;
@@ -174,7 +171,7 @@
         }
 
         /* ============================================= */
-        /* 3. SEÇÃO DE RESUMO, INICIO E "SOBRE"       */
+        /* 3. ESTILOS GERAIS DE CONTEÚDO                */
         /* ============================================= */
         .info-card {
             background-color: var(--card-bg-color);
@@ -201,7 +198,6 @@
              margin-bottom: 10px;
         }
         
-        /* Estilo Específico para o título de boas-vindas */
         .welcome-title {
             font-size: 2rem;
             color: var(--h2-color);
@@ -220,14 +216,13 @@
         #catalogo h2 {
             border-bottom: 3px solid var(--border-color);
             padding-bottom: 10px;
-            margin-bottom: 25px; /* Mais espaço após a linha */
+            margin-bottom: 25px;
         }
         
         .categoria {
             margin-bottom: 15px;
         }
 
-        /* Título da Categoria (Botão Clicável) */
         .categoria-titulo {
             background-color: var(--card-bg-color);
             color: var(--h2-color);
@@ -238,7 +233,7 @@
             font-size: 1.3rem;
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
-            position: relative; /* Para o ícone +/- */
+            position: relative;
         }
         
         .categoria-titulo:hover {
@@ -246,7 +241,6 @@
             transform: translateY(-2px);
         }
         
-        /* Ícone de +/- */
         .categoria-titulo::after {
             content: '+';
             font-family: monospace;
@@ -258,29 +252,22 @@
             color: var(--h3-color);
         }
         
-        /* Estilo da lista de cards (Escondida por padrão) */
         .ferramentas-lista {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
-            
-            /* A MÁGICA DO ACORDEÃO */
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
-            margin-top: 0; /* Sem margem quando fechado */
+            margin-top: 0;
         }
         
-        /* ============================================= */
-        /* 5. ESTADO ATIVO (QUANDO CLICADO)          */
-        /* ============================================= */
-        
         .categoria.active .categoria-titulo::after {
-            content: '−'; /* Muda para "menos" */
+            content: '−';
         }
         
         .categoria.active .ferramentas-lista {
-            max-height: 5000px; /* Aumentei para garantir que 9 cards caibam */
+            max-height: 5000px; /* Garante altura suficiente para 9 itens */
             margin-top: 20px;
         }
 
@@ -309,7 +296,6 @@
         
         .ferramenta-card:nth-child(2) { animation-delay: 0.1s; }
         .ferramenta-card:nth-child(3) { animation-delay: 0.2s; }
-        .ferramenta-card:nth-child(4) { animation-delay: 0.3s; }
 
         .ferramenta-card:hover {
             transform: translateY(-8px);
@@ -330,7 +316,6 @@
             flex-grow: 1;
         }
 
-        /* Área de botões do Card */
         .card-actions {
             display: flex;
             gap: 10px;
@@ -356,7 +341,6 @@
             transform: scale(1.05);
         }
 
-        /* NOVO: Botão Detalhes */
         .btn-detalhes {
             background-color: transparent;
             color: var(--h3-color);
@@ -376,9 +360,8 @@
             color: var(--text-color);
         }
         
-        /* Classe de utilidade para o JS */
         .hidden {
-            display: none !important; /* !important para garantir a sobreposição */
+            display: none !important;
         }
 
         /* ============================================= */
@@ -422,16 +405,14 @@
         input:checked + .slider { background-color: var(--toggle-bg); }
         input:checked + .slider:before { transform: translateX(24px); }
         
-        
         /* ============================================= */
-        /* 8. NOVO: ESTILOS DO GERADOR DE PROMPT     */
+        /* 8. GERADOR DE PROMPT                      */
         /* ============================================= */
         #prompt-generator h3 {
             margin-top: 20px;
             margin-bottom: 10px;
             color: var(--h3-color);
         }
-        /* Estilo para Select e Input */
         #prompt-generator select,
         #prompt-generator input[type="text"] {
             width: 100%;
@@ -442,7 +423,7 @@
             background-color: var(--search-bg);
             color: var(--search-text);
             font-family: 'Poppins', sans-serif;
-            appearance: none; /* Remove seta padrão */
+            appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 12px center;
@@ -453,7 +434,6 @@
              background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f0f0f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
         }
 
-        /* Botão de Gerar */
         #btn-generate-prompt {
             background-color: #3498db;
             color: #ffffff;
@@ -470,7 +450,6 @@
             background-color: #2980b9;
         }
         
-        /* Área de Resultado */
         #prompt-result {
             width: 100%;
             margin-top: 15px;
@@ -485,7 +464,7 @@
         }
 
         /* ============================================= */
-        /* 9. NOVO: ESTILOS DO MODAL (POPUP)          */
+        /* 9. MODAL (POPUP)                           */
         /* ============================================= */
         #modal-overlay {
             position: fixed;
@@ -621,7 +600,7 @@
         <section id="catalogo">
             
             <div class="search-container">
-                <input type="search" id="search-bar" placeholder="Buscar por nome, descrição ou categoria">
+                <input type="search" id="search-bar" placeholder="🔍 Buscar por nome, descrição ou categoria...">
             </div>
             
             <h2>Catálogo de Ferramentas</h2>
@@ -1197,7 +1176,7 @@
             const themeSwitch = document.getElementById('theme-switch');
             const searchBar = document.getElementById('search-bar');
             
-            // Elementos da Navegação de Página (4 páginas)
+            // Elementos da Navegação de Página
             const btnInicio = document.getElementById('btn-inicio');
             const btnCatalogo = document.getElementById('btn-catalogo');
             const btnPrompt = document.getElementById('btn-prompt');
@@ -1239,7 +1218,7 @@
             });
 
 
-            // --- LÓGICA DE NAVEGAÇÃO (TROCA DE PÁGINA) ---
+            // --- LÓGICA DE NAVEGAÇÃO ---
             function resetNavigation() {
                 btnInicio.classList.remove('active');
                 btnCatalogo.classList.remove('active');
@@ -1250,8 +1229,6 @@
                 paginaCatalogo.classList.add('hidden');
                 paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.add('hidden');
-                
-                // searchBar.classList.add('hidden'); // REMOVIDO: Barra não está mais no header para ser escondida, ela faz parte da página catálogo
             }
 
             btnInicio.addEventListener('click', () => {
@@ -1288,14 +1265,14 @@
             });
 
 
-            // --- LÓGICA DO FILTRO DE BUSCA ---
-            searchBar.addEventListener('keyup', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
+            // --- LÓGICA DO FILTRO DE BUSCA (CORRIGIDA) ---
+            function filterCards() {
+                const searchTerm = searchBar.value.toLowerCase();
                 
+                // 1. Filtra os Cards
                 allCards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     const description = card.querySelector('p').textContent.toLowerCase();
-                    // Também busca nos detalhes escondidos
                     const details = card.dataset.details ? card.dataset.details.toLowerCase() : '';
 
                     const cardText = title + description + details;
@@ -1307,20 +1284,30 @@
                     }
                 });
                 
+                // 2. Gerencia as Categorias (Abre/Fecha/Esconde)
                 allCategories.forEach(category => {
                     const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
                     if (searchTerm.length === 0) {
+                        // Se a busca está vazia -> Mostra categoria, fecha acordeão (estado inicial)
                         category.classList.remove('hidden');
                         category.classList.remove('active');
                     } else if (visibleCards > 0) {
+                        // Se tem cards encontrados -> Mostra categoria, ABRE acordeão
                         category.classList.remove('hidden');
                         category.classList.add('active');
                     } else {
+                        // Se não tem cards -> Esconde a categoria inteira
                         category.classList.add('hidden');
                         category.classList.remove('active');
                     }
                 });
-            });
+            }
+
+            // O evento 'input' captura digitação, colar texto e limpar via teclado
+            searchBar.addEventListener('input', filterCards);
+            
+            // O evento 'search' é específico para quando clica no "X" do input type="search"
+            searchBar.addEventListener('search', filterCards);
             
             
             // --- LÓGICA DO GERADOR DE PROMPT ---
@@ -1351,7 +1338,7 @@
                 resultTextarea.value = finalPrompt;
             });
 
-            // --- LÓGICA DO MODAL DE DETALHES (NOVO) ---
+            // --- LÓGICA DO MODAL DE DETALHES ---
             
             // 1. Abrir Modal
             const detailButtons = document.querySelectorAll('.btn-detalhes');
@@ -1402,4 +1389,3 @@
 
 </body>
 </html>
-
