@@ -30,6 +30,12 @@
             --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
             --toggle-bg: #ccc;
             --modal-overlay: rgba(0, 0, 0, 0.6);
+            
+            /* Cores dos Filtros */
+            --filter-bg: #e1ecf4;
+            --filter-text: #2c3e50;
+            --filter-active-bg: #3498db;
+            --filter-active-text: #ffffff;
         }
 
         /* Modo Escuro */
@@ -49,6 +55,12 @@
             --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.3);
             --toggle-bg: #5dade2;
             --modal-overlay: rgba(0, 0, 0, 0.8);
+            
+            /* Cores dos Filtros Dark */
+            --filter-bg: #3a3a3a;
+            --filter-text: #f0f0f0;
+            --filter-active-bg: #5dade2;
+            --filter-active-text: #1a1a1a;
         }
 
         /* ============================================= */
@@ -126,10 +138,10 @@
         }
 
         /* ============================================= */
-        /* 2c. BARRA DE BUSCA (NOVA POSIÇÃO)             */
+        /* 2c. BARRA DE BUSCA & FILTROS                  */
         /* ============================================= */
         .search-container {
-            margin-bottom: 30px;
+            margin-bottom: 15px; /* Reduzi a margem pois teremos os filtros */
             position: relative;
         }
 
@@ -145,7 +157,6 @@
             color: var(--search-text);
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
-            /* Ícone de lupa em SVG embutido */
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='8'%3e%3c/circle%3e%3cline x1='21' y1='21' x2='16.65' y2='16.65'%3e%3c/line%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: 15px center;
@@ -154,6 +165,40 @@
         #search-bar:focus {
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             border-color: var(--h3-color);
+        }
+
+        /* NOVO: BOTÕES DE FILTRO */
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--filter-bg);
+            color: var(--filter-text);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(95%);
+        }
+
+        .filter-btn.active {
+            background-color: var(--filter-active-bg);
+            color: var(--filter-active-text);
+            border-color: var(--filter-active-bg);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
 
         /* Container Principal */
@@ -267,7 +312,7 @@
         }
         
         .categoria.active .ferramentas-lista {
-            max-height: 5000px; /* Garante altura suficiente para 9 itens */
+            max-height: 5000px; 
             margin-top: 20px;
         }
 
@@ -600,7 +645,14 @@
         <section id="catalogo">
             
             <div class="search-container">
-                <input type="search" id="search-bar" placeholder="🔍 Buscar por nome, descrição ou categoria...">
+                <input type="search" id="search-bar" placeholder="Buscar por nome, descrição ou categoria">
+            </div>
+
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="grátis">Grátis</button>
+                <button class="filter-btn" data-filter="freemium">Freemium</button>
+                <button class="filter-btn" data-filter="pago">Pago</button>
             </div>
             
             <h2>Catálogo de Ferramentas</h2>
@@ -1175,6 +1227,7 @@
             // --- Referências de Elementos Principais ---
             const themeSwitch = document.getElementById('theme-switch');
             const searchBar = document.getElementById('search-bar');
+            const filterButtons = document.querySelectorAll('.filter-btn');
             
             // Elementos da Navegação de Página
             const btnInicio = document.getElementById('btn-inicio');
@@ -1265,7 +1318,9 @@
             });
 
 
-            // --- LÓGICA DO FILTRO DE BUSCA (CORRIGIDA) ---
+            // --- LÓGICA DO FILTRO DE BUSCA + FILTRO DE PREÇO ---
+            let currentFilter = 'all'; // Filtro de preço padrão
+
             function filterCards() {
                 const searchTerm = searchBar.value.toLowerCase();
                 
@@ -1274,40 +1329,70 @@
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     const description = card.querySelector('p').textContent.toLowerCase();
                     const details = card.dataset.details ? card.dataset.details.toLowerCase() : '';
-
+                    const pricing = card.dataset.pricing ? card.dataset.pricing.toLowerCase() : '';
+                    
                     const cardText = title + description + details;
                     
-                    if (cardText.includes(searchTerm)) {
+                    // Verifica se atende à busca de texto
+                    const matchesSearch = cardText.includes(searchTerm);
+                    
+                    // Verifica se atende ao filtro de preço
+                    let matchesFilter = false;
+                    if (currentFilter === 'all') {
+                        matchesFilter = true;
+                    } else if (currentFilter === 'grátis') {
+                        matchesFilter = pricing.includes('grátis') || pricing.includes('open source') || pricing.includes('free');
+                    } else if (currentFilter === 'freemium') {
+                        matchesFilter = pricing.includes('freemium');
+                    } else if (currentFilter === 'pago') {
+                        matchesFilter = pricing.includes('pago') || pricing.includes('incluso');
+                    }
+
+                    // Exibe se atender a AMBOS os critérios
+                    if (matchesSearch && matchesFilter) {
                         card.classList.remove('hidden');
                     } else {
                         card.classList.add('hidden');
                     }
                 });
                 
-                // 2. Gerencia as Categorias (Abre/Fecha/Esconde)
+                // 2. Gerencia as Categorias
                 allCategories.forEach(category => {
                     const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
-                    if (searchTerm.length === 0) {
-                        // Se a busca está vazia -> Mostra categoria, fecha acordeão (estado inicial)
+                    
+                    if (searchTerm.length === 0 && currentFilter === 'all') {
+                        // Estado padrão total
                         category.classList.remove('hidden');
                         category.classList.remove('active');
                     } else if (visibleCards > 0) {
-                        // Se tem cards encontrados -> Mostra categoria, ABRE acordeão
+                        // Se tem cards filtrados
                         category.classList.remove('hidden');
                         category.classList.add('active');
                     } else {
-                        // Se não tem cards -> Esconde a categoria inteira
+                        // Se não sobrou nada na categoria
                         category.classList.add('hidden');
                         category.classList.remove('active');
                     }
                 });
             }
 
-            // O evento 'input' captura digitação, colar texto e limpar via teclado
+            // Eventos da Barra de Pesquisa
             searchBar.addEventListener('input', filterCards);
-            
-            // O evento 'search' é específico para quando clica no "X" do input type="search"
             searchBar.addEventListener('search', filterCards);
+
+            // Eventos dos Botões de Filtro
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 1. Remove active de todos
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    // 2. Adiciona active no clicado
+                    btn.classList.add('active');
+                    // 3. Atualiza variável global
+                    currentFilter = btn.getAttribute('data-filter');
+                    // 4. Roda o filtro
+                    filterCards();
+                });
+            });
             
             
             // --- LÓGICA DO GERADOR DE PROMPT ---
