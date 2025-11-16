@@ -36,6 +36,12 @@
             --filter-text: #2c3e50;
             --filter-active-bg: #3498db;
             --filter-active-text: #ffffff;
+
+            /* Cores Específicas da Biblioteca */
+            --code-bg: #f8f9fa;
+            --code-text: #2c3e50;
+            --copy-btn-bg: #e1ecf4;
+            --copy-btn-text: #2c3e50;
         }
 
         /* Modo Escuro */
@@ -61,6 +67,12 @@
             --filter-text: #f0f0f0;
             --filter-active-bg: #5dade2;
             --filter-active-text: #1a1a1a;
+
+            /* Cores Específicas da Biblioteca Dark */
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --copy-btn-bg: #3a3a3a;
+            --copy-btn-text: #f0f0f0;
         }
 
         /* ============================================= */
@@ -109,6 +121,7 @@
         .main-nav {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap; /* Para telas menores */
         }
         .nav-button {
             padding: 8px 16px;
@@ -141,7 +154,7 @@
         /* 2c. BARRA DE BUSCA & FILTROS                  */
         /* ============================================= */
         .search-container {
-            margin-bottom: 15px; /* Reduzi a margem pois teremos os filtros */
+            margin-bottom: 15px;
             position: relative;
         }
 
@@ -167,7 +180,6 @@
             border-color: var(--h3-color);
         }
 
-        /* NOVO: BOTÕES DE FILTRO */
         .filters-container {
             display: flex;
             justify-content: center;
@@ -509,7 +521,97 @@
         }
 
         /* ============================================= */
-        /* 9. MODAL (POPUP)                           */
+        /* 9. BIBLIOTECA DE PROMPTS (NOVO)           */
+        /* ============================================= */
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .prompt-card {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .prompt-tags {
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background-color: var(--filter-bg);
+            color: var(--filter-text);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .prompt-card h3 {
+            color: var(--h3-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .prompt-content {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            white-space: pre-wrap; /* Mantém quebras de linha */
+            flex-grow: 1;
+            border: 1px solid var(--border-color);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .btn-copy {
+            background-color: var(--copy-btn-bg);
+            color: var(--copy-btn-text);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            filter: brightness(95%);
+        }
+        
+        .btn-copy.copied {
+            background-color: #d4efdf;
+            color: #145a32;
+            border-color: #a9dfbf;
+        }
+
+
+        /* ============================================= */
+        /* 10. MODAL (POPUP)                          */
         /* ============================================= */
         #modal-overlay {
             position: fixed;
@@ -605,7 +707,7 @@
         <nav class="main-nav">
             <button id="btn-inicio" class="nav-button active">Início</button>
             <button id="btn-catalogo" class="nav-button">Catálogo</button>
-            <button id="btn-prompt" class="nav-button">Prompt</button>
+            <button id="btn-biblioteca" class="nav-button">Biblioteca</button> <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
         
@@ -1125,6 +1227,76 @@
         </section>
     </main>
 
+    <main id="pagina-biblioteca" class="container hidden">
+        <section class="info-card">
+            <h2>Biblioteca de Prompts Prontos</h2>
+            <p>Copie e cole estes prompts testados para obter melhores resultados nas IAs.</p>
+            
+            <div class="library-grid">
+                <div class="prompt-card">
+                    <div class="prompt-tags">
+                        <span class="tag">Marketing</span>
+                        <span class="tag">Copywriting</span>
+                    </div>
+                    <h3>Estrutura AIDA para Vendas</h3>
+                    <div class="prompt-content">Atue como um especialista em copywriting de resposta direta. Escreva um texto de vendas persuasivo para [PRODUTO/SERVIÇO] usando a estrutura AIDA (Atenção, Interesse, Desejo, Ação). O público-alvo são [PÚBLICO]. O tom deve ser [TOM DE VOZ].</div>
+                    <button class="btn-copy">📋 Copiar Prompt</button>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-tags">
+                        <span class="tag">Programação</span>
+                        <span class="tag">Python</span>
+                    </div>
+                    <h3>Explique o Código (ELi5)</h3>
+                    <div class="prompt-content">Por favor, aja como um instrutor de programação sênior. Explique o seguinte trecho de código Python como se eu tivesse 10 anos de idade (ELI5). Use analogias do mundo real para explicar conceitos abstratos:
+[INSERIR CÓDIGO AQUI]</div>
+                    <button class="btn-copy">📋 Copiar Prompt</button>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-tags">
+                        <span class="tag">Imagem</span>
+                        <span class="tag">Midjourney</span>
+                    </div>
+                    <h3>Fotografia Realista</h3>
+                    <div class="prompt-content">Cinematic shot, ultra-realistic photography of a [SUJEITO] in [LOCAL], dramatic lighting, 8k resolution, shot on 35mm lens, depth of field, hyper-detailed, photorealistic, unreal engine 5 render style --ar 16:9 --v 6.0</div>
+                    <button class="btn-copy">📋 Copiar Prompt</button>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-tags">
+                        <span class="tag">Produtividade</span>
+                        <span class="tag">Resumo</span>
+                    </div>
+                    <h3>Resumo Executivo (TL;DR)</h3>
+                    <div class="prompt-content">Crie um resumo executivo do texto abaixo em formato de bullet points. Foque nos principais insights, dados numéricos e conclusões. Ao final, adicione uma seção "Ação Recomendada". Texto: [COLAR TEXTO]</div>
+                    <button class="btn-copy">📋 Copiar Prompt</button>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-tags">
+                        <span class="tag">Criatividade</span>
+                        <span class="tag">Brainstorming</span>
+                    </div>
+                    <h3>Método SCAMPER</h3>
+                    <div class="prompt-content">Vamos usar o método SCAMPER para fazer brainstorming de inovações para [PRODUTO/PROJETO]. Gere 3 ideias para cada letra do acrônimo: Substituir, Combinar, Adaptar, Modificar, Propor outro uso, Eliminar e Reorganizar.</div>
+                    <button class="btn-copy">📋 Copiar Prompt</button>
+                </div>
+                
+                <div class="prompt-card">
+                    <div class="prompt-tags">
+                        <span class="tag">Educação</span>
+                        <span class="tag">Aprendizado</span>
+                    </div>
+                    <h3>Tutor Socrático</h3>
+                    <div class="prompt-content">Quero que você atue como um tutor Socrático. Você não deve me dar as respostas diretamente. Em vez disso, faça perguntas que me guiem a encontrar a resposta por conta própria e entender o conceito de [TEMA DE ESTUDO]. Comece com uma pergunta simples.</div>
+                    <button class="btn-copy">📋 Copiar Prompt</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <main id="pagina-prompt" class="container hidden">
         <section class="info-card">
             <h2>O que é Engenharia de Prompt?</h2>
@@ -1217,11 +1389,13 @@
             // Elementos da Navegação de Página
             const btnInicio = document.getElementById('btn-inicio');
             const btnCatalogo = document.getElementById('btn-catalogo');
+            const btnBiblioteca = document.getElementById('btn-biblioteca'); // NOVO
             const btnPrompt = document.getElementById('btn-prompt');
             const btnSobre = document.getElementById('btn-sobre');
             
             const paginaInicio = document.getElementById('pagina-inicio');
             const paginaCatalogo = document.getElementById('pagina-catalogo');
+            const paginaBiblioteca = document.getElementById('pagina-biblioteca'); // NOVO
             const paginaPrompt = document.getElementById('pagina-prompt');
             const paginaSobre = document.getElementById('pagina-sobre');
 
@@ -1260,11 +1434,13 @@
             function resetNavigation() {
                 btnInicio.classList.remove('active');
                 btnCatalogo.classList.remove('active');
+                btnBiblioteca.classList.remove('active'); // NOVO
                 btnPrompt.classList.remove('active');
                 btnSobre.classList.remove('active');
                 
                 paginaInicio.classList.add('hidden');
                 paginaCatalogo.classList.add('hidden');
+                paginaBiblioteca.classList.add('hidden'); // NOVO
                 paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.add('hidden');
             }
@@ -1279,6 +1455,13 @@
                 resetNavigation();
                 btnCatalogo.classList.add('active');
                 paginaCatalogo.classList.remove('hidden');
+            });
+
+            // NOVO
+            btnBiblioteca.addEventListener('click', () => {
+                resetNavigation();
+                btnBiblioteca.classList.add('active');
+                paginaBiblioteca.classList.remove('hidden');
             });
 
             btnPrompt.addEventListener('click', () => {
@@ -1407,6 +1590,33 @@
                 
                 resultTextarea.value = finalPrompt;
             });
+
+            // --- LÓGICA DA BIBLIOTECA DE PROMPTS (NOVO) ---
+            const copyButtons = document.querySelectorAll('.btn-copy');
+            
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Acha o conteúdo de texto dentro do card pai
+                    const card = btn.closest('.prompt-card');
+                    const textToCopy = card.querySelector('.prompt-content').innerText;
+                    
+                    // API de Área de Transferência
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // Feedback Visual
+                        const originalText = btn.innerText;
+                        btn.innerText = '✅ Copiado!';
+                        btn.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            btn.innerText = originalText;
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Erro ao copiar: ', err);
+                    });
+                });
+            });
+
 
             // --- LÓGICA DO MODAL DE DETALHES ---
             
