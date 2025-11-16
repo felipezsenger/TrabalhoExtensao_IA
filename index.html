@@ -264,8 +264,8 @@
         }
         
         .categoria.active .ferramentas-lista {
-            max-height: 3000px; /* Aumentei para garantir */
-            margin-top: 20px; /* Espaço entre o título e os cards */
+            max-height: 5000px; /* Aumentei para garantir que 9 cards caibam */
+            margin-top: 20px;
         }
 
         /* ============================================= */
@@ -608,151 +608,486 @@
             <h2>Catálogo de Ferramentas</h2>
             
             <section class="categoria">
-                <h2 class="categoria-titulo">✍️ Geração de Texto</h2>
+                <h2 class="categoria-titulo">✍️ Texto & Escrita</h2>
                 <div class="ferramentas-lista">
                     <div class="ferramenta-card" 
                          data-nome="ChatGPT (OpenAI)"
-                         data-desc="Um modelo de linguagem avançado para conversação, capaz de responder perguntas, escrever textos, codificar e muito mais."
-                         data-details="O ChatGPT é baseado na arquitetura GPT (Generative Pre-trained Transformer). Ele é afinado usando aprendizado por reforço com feedback humano (RLHF). É ideal para brainstorming, redação, e resolução de problemas lógicos."
-                         data-pricing="Freemium (Grátis / Plus $20)"
-                         data-features="Chatbot, API, Plugins, Análise de Dados">
-                        <h3>ChatGPT (OpenAI)</h3>
-                        <p>Um modelo de linguagem avançado para conversação...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://openai.com/chatgpt" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                         data-desc="O chatbot mais famoso, capaz de criar textos, roteiros e responder dúvidas."
+                         data-details="Baseado na arquitetura GPT, é a referência em IA conversacional. Ótimo para brainstorming, resumos e criação de conteúdo variado."
+                         data-pricing="Freemium (Plus $20)"
+                         data-features="Chat, Análise de Dados, Vision">
+                        <h3>ChatGPT</h3>
+                        <p>O chatbot mais famoso, capaz de criar textos...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
-
-                    <div class="ferramenta-card"
+                    <div class="ferramenta-card" 
+                         data-nome="Claude 3 (Anthropic)"
+                         data-desc="Concorrente forte do GPT, focado em segurança e janelas de contexto enormes."
+                         data-details="O Claude se destaca por aceitar arquivos de texto gigantescos para análise (livros inteiros) e por ter uma escrita mais humana e menos robótica."
+                         data-pricing="Freemium (Pro $20)"
+                         data-features="Contexto Longo, Escrita Natural">
+                        <h3>Claude 3</h3>
+                        <p>Concorrente forte do GPT, focado em segurança...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
                          data-nome="Gemini (Google)"
-                         data-desc="A família de modelos de IA multimodal da Google, projetada para raciocinar através de texto, imagens e vídeo."
-                         data-details="O Gemini (antigo Bard) integra-se profundamente com o ecossistema Google (Docs, Gmail, Drive). Sua capacidade multimodal nativa permite entender vídeos e imagens melhor que concorrentes que usam modelos separados."
-                         data-pricing="Freemium (Grátis / Advanced)"
-                         data-features="Multimodal, Integração Google, Pesquisa em tempo real">
-                        <h3>Gemini (Google)</h3>
-                        <p>A família de modelos de IA multimodal da Google...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://gemini.google.com/" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                         data-desc="IA nativa do ecossistema Google, conectada à internet em tempo real."
+                         data-details="Integra-se com Google Docs, Gmail e Drive. É multimodal nativo, ou seja, entende vídeo e áudio tão bem quanto texto."
+                         data-pricing="Freemium (Advanced $20)"
+                         data-features="Ecossistema Google, Multimodal">
+                        <h3>Gemini</h3>
+                        <p>IA nativa do ecossistema Google, conectada...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
-
-                    <div class="ferramenta-card"
+                    <div class="ferramenta-card" 
+                         data-nome="Jasper AI"
+                         data-desc="Focado em marketing e copywriting para empresas."
+                         data-details="Diferente do ChatGPT genérico, o Jasper é treinado para escrever copy de vendas, posts de blog otimizados para SEO e campanhas de marketing."
+                         data-pricing="Pago (Trial disponível)"
+                         data-features="Marketing, SEO, Brand Voice">
+                        <h3>Jasper</h3>
+                        <p>Focado em marketing e copywriting para empresas...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Copy.ai"
+                         data-desc="Gerador de textos curtos e posts para redes sociais."
+                         data-details="Excelente para quem precisa de volume de conteúdo rápido: legendas de Instagram, assuntos de e-mail e descrições de produtos."
+                         data-pricing="Freemium"
+                         data-features="Social Media, E-mail Marketing">
+                        <h3>Copy.ai</h3>
+                        <p>Gerador de textos curtos e posts para redes...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Perplexity AI"
+                         data-desc="Um motor de busca conversacional que cita as fontes."
+                         data-details="Ao contrário do Google tradicional, ele responde sua pergunta com um texto resumido e links diretos para as fontes (papers, notícias, wikipédia)."
+                         data-pricing="Freemium"
+                         data-features="Pesquisa, Citação de Fontes">
+                        <h3>Perplexity</h3>
+                        <p>Um motor de busca conversacional que cita...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
                          data-nome="Notion AI"
-                         data-desc="Assistente de escrita integrado à ferramenta de produtividade Notion."
-                         data-details="O Notion AI ajuda a resumir anotações de reuniões, gerar ideias de conteúdo e melhorar a escrita diretamente no seu espaço de trabalho, sem precisar alternar abas."
-                         data-pricing="Pago (Add-on $10/mês)"
-                         data-features="Resumo, Tradução, Brainstorming, Edição">
+                         data-desc="Assistente de escrita dentro do app de produtividade Notion."
+                         data-details="Permite resumir anotações de reuniões, traduzir páginas inteiras e melhorar a escrita diretamente no seu workspace."
+                         data-pricing="Pago (Add-on)"
+                         data-features="Produtividade, Resumos">
                         <h3>Notion AI</h3>
-                        <p>Integrado à ferramenta de produtividade Notion...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://www.notion.so/product/ai" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                        <p>Assistente de escrita dentro do app de produtividade...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="GrammarlyGO"
+                         data-desc="Assistente de correção gramatical e tom de voz."
+                         data-details="Vai além da correção ortográfica, sugerindo mudanças de tom (mais formal, mais confiante) e reescrevendo frases inteiras."
+                         data-pricing="Freemium"
+                         data-features="Correção, Tom de Voz">
+                        <h3>GrammarlyGO</h3>
+                        <p>Assistente de correção gramatical e tom de voz...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Sudowrite"
+                         data-desc="Ferramenta especializada para escritores de ficção."
+                         data-details="Ajuda a superar o bloqueio criativo, sugerindo reviravoltas na trama, descrições sensoriais e diálogos para livros e roteiros."
+                         data-pricing="Pago"
+                         data-features="Ficção, Storytelling">
+                        <h3>Sudowrite</h3>
+                        <p>Ferramenta especializada para escritores de ficção...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
                 </div>
             </section>
 
             <section class="categoria">
-                <h2 class="categoria-titulo">🎨 Geração de Imagem</h2>
+                <h2 class="categoria-titulo">🎨 Imagem & Design</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"
+                    <div class="ferramenta-card" 
                          data-nome="Midjourney"
-                         data-desc="Famoso pela alta qualidade artística e fotorrealismo impressionante."
-                         data-details="O Midjourney opera principalmente através do Discord. É conhecido por ter uma 'personalidade' artística distinta, criando imagens com iluminação e composição cinematográficas."
-                         data-pricing="Pago (A partir de $10/mês)"
-                         data-features="Alta Resolução, Estilos Artísticos, Discord">
+                         data-desc="O rei do realismo e da qualidade artística via Discord."
+                         data-details="Gera as imagens mais impressionantes visualmente do mercado. Funciona através de comandos no Discord, embora esteja lançando uma versão web."
+                         data-pricing="Pago (a partir de $10)"
+                         data-features="Alta Fidelidade, Artístico">
                         <h3>Midjourney</h3>
-                        <p>Famoso pela alta qualidade artística e fotorrealismo...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://www.midjourney.com/" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                        <p>O rei do realismo e da qualidade artística...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
-
-                    <div class="ferramenta-card"
-                         data-nome="DALL-E 3 (OpenAI)"
-                         data-desc="Integrado ao ChatGPT, excelente em seguir prompts complexos."
-                         data-details="O DALL-E 3 entende nuances linguísticas muito bem. Você pode conversar com o ChatGPT para refinar a imagem, tornando o processo de criação mais intuitivo e menos dependente de 'engenharia de prompt' complexa."
+                    <div class="ferramenta-card" 
+                         data-nome="DALL-E 3"
+                         data-desc="Fácil de usar, integrado nativamente ao ChatGPT."
+                         data-details="Excelente em seguir instruções complexas e incluir texto dentro das imagens (coisa que outras IAs falham)."
                          data-pricing="Incluso no ChatGPT Plus"
-                         data-features="Conversacional, Preciso, Seguro">
-                        <h3>DALL-E 3 (OpenAI)</h3>
-                        <p>Integrado ao ChatGPT Plus, é excelente em seguir prompts...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://openai.com/dall-e-3" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                         data-features="Texto na Imagem, Fácil uso">
+                        <h3>DALL-E 3</h3>
+                        <p>Fácil de usar, integrado nativamente ao ChatGPT...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
-
-                    <div class="ferramenta-card"
+                    <div class="ferramenta-card" 
+                         data-nome="Stable Diffusion"
+                         data-desc="Modelo open-source que você pode rodar no seu próprio PC."
+                         data-details="A opção preferida para quem quer controle total, sem censura e customização infinita. Requer placa de vídeo potente."
+                         data-pricing="Grátis (Open Source)"
+                         data-features="Local, Customizável">
+                        <h3>Stable Diffusion</h3>
+                        <p>Modelo open-source que você pode rodar localmente...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
                          data-nome="Adobe Firefly"
-                         data-desc="IA generativa focada em uso comercial seguro e integração com Creative Cloud."
-                         data-details="O Firefly foi treinado em imagens de banco de dados da Adobe Stock, o que o torna 'seguro para uso comercial' (sem problemas de direitos autorais). Possui recursos incríveis como Preenchimento Generativo no Photoshop."
-                         data-pricing="Créditos Mensais (Freemium)"
-                         data-features="Uso Comercial, Photoshop, Vetores">
+                         data-desc="Integrado ao Photoshop, seguro para uso comercial."
+                         data-details="Treinado apenas com imagens de banco de dados legalizados. Possui a incrível ferramenta 'Generative Fill' para expandir fotos."
+                         data-pricing="Créditos Mensais"
+                         data-features="Photoshop, Uso Comercial">
                         <h3>Adobe Firefly</h3>
-                        <p>Integrada ao Photoshop e Illustrator, foca em...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://www.adobe.com/products/firefly.html" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                        <p>Integrado ao Photoshop, seguro para uso comercial...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Leonardo.ai"
+                         data-desc="Interface web completa para criar assets de jogos e arte."
+                         data-details="Uma das melhores interfaces web gratuitas. Permite treinar seus próprios modelos com suas fotos (ex: criar avatares seus)."
+                         data-pricing="Freemium"
+                         data-features="Assets de Games, Treinamento">
+                        <h3>Leonardo.ai</h3>
+                        <p>Interface web completa para criar assets de jogos...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Canva Magic"
+                         data-desc="Ferramentas de IA dentro do design fácil do Canva."
+                         data-details="Permite gerar imagens, apagar fundos, expandir fotos e criar vídeos simples diretamente no editor do Canva."
+                         data-pricing="Incluso no Canva Pro"
+                         data-features="Design Rápido, Social Media">
+                        <h3>Canva Magic</h3>
+                        <p>Ferramentas de IA dentro do design fácil do Canva...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Ideogram"
+                         data-desc="Especialista absoluto em gerar textos e tipografia."
+                         data-details="Se você precisa de uma logo, uma estampa de camiseta ou um poster com letras perfeitas, o Ideogram é a melhor escolha atual."
+                         data-pricing="Freemium"
+                         data-features="Tipografia, Logos">
+                        <h3>Ideogram</h3>
+                        <p>Especialista absoluto em gerar textos e tipografia...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Bing Create"
+                         data-desc="Versão gratuita do DALL-E 3 da Microsoft."
+                         data-details="A maneira mais fácil e rápida de usar o DALL-E 3 gratuitamente. Basta ter uma conta Microsoft."
+                         data-pricing="Grátis"
+                         data-features="Rápido, Acessível">
+                        <h3>Bing Create</h3>
+                        <p>Versão gratuita do DALL-E 3 da Microsoft...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Magnific AI"
+                         data-desc="Upscaler e 'alucinador' de detalhes."
+                         data-details="Pega uma imagem de baixa resolução e a transforma em 4K, inventando detalhes realistas que não existiam no original."
+                         data-pricing="Pago (Alto custo)"
+                         data-features="Upscale, Restauração">
+                        <h3>Magnific AI</h3>
+                        <p>Upscaler que transforma imagens borradas em 4K...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
                 </div>
             </section>
 
             <section class="categoria">
-                <h2 class="categoria-titulo">💻 Assistentes de Código</h2>
+                <h2 class="categoria-titulo">💻 Código & Dev</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card"
+                    <div class="ferramenta-card" 
                          data-nome="GitHub Copilot"
-                         data-desc="Seu par programador com IA."
-                         data-details="Desenvolvido pelo GitHub e OpenAI, o Copilot sugere linhas inteiras ou funções completas diretamente no seu editor de código (VS Code). Aprende com o contexto do seu projeto."
+                         data-desc="O padrão da indústria para autocompletar código."
+                         data-details="Vive dentro do VS Code. Sugere funções inteiras, escreve testes unitários e explica trechos de código complexos."
                          data-pricing="Pago ($10/mês)"
-                         data-features="Autocompletar, Chat no Editor, Refatoração">
+                         data-features="Autocompletar, Chat">
                         <h3>GitHub Copilot</h3>
-                        <p>Uma IA "parceira" de programação que sugere linhas...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://github.com/features/copilot" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                        <p>O padrão da indústria para autocompletar código...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card"
+                    <div class="ferramenta-card" 
                          data-nome="Tabnine"
-                         data-desc="Autocompletar de código com foco em privacidade e empresas."
-                         data-details="O Tabnine foca em privacidade, permitindo rodar modelos localmente ou em servidores privados. Oferece sugestões baseadas em contexto para diversas linguagens."
+                         data-desc="Foco em privacidade e execução local."
+                         data-details="Ideal para empresas que não podem enviar código para a nuvem. Aprende especificamente com o repositório da sua empresa."
                          data-pricing="Freemium"
-                         data-features="Privacidade, Local, Enterprise">
+                         data-features="Privacidade, Local">
                         <h3>Tabnine</h3>
-                        <p>Assistente de IA que autocompleta código em diversas...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://www.tabnine.com/" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                        <p>Foco em privacidade e execução local de código...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
-                </div>
-            </section>
-
-             <section class="categoria">
-                <h2 class="categoria-titulo">🎙️ Geração de Áudio e Voz</h2>
-                <div class="ferramentas-lista">
-                    <div class="ferramenta-card"
-                         data-nome="ElevenLabs"
-                         data-desc="Vozes sintéticas indistinguíveis da realidade."
-                         data-details="A ferramenta líder para Text-to-Speech (TTS) e clonagem de voz. Capaz de gerar entonação emocional, risadas e pausas naturais em dezenas de idiomas."
+                    <div class="ferramenta-card" 
+                         data-nome="Cursor"
+                         data-desc="Um editor de código (fork do VS Code) feito para IA."
+                         data-details="Não é apenas um plugin, é um editor inteiro. Você pode selecionar um código e teclar 'Ctrl+K' para pedir mudanças em linguagem natural."
                          data-pricing="Freemium"
-                         data-features="Clonagem de Voz, Dublagem, Alta Qualidade">
-                        <h3>ElevenLabs</h3>
-                        <p>Plataforma líder em geração de voz sintética...</p>
-                        <div class="card-actions">
-                            <button class="btn-detalhes">Detalhes</button>
-                            <a href="https://elevenlabs.io/" class="btn-visitar" target="_blank">Visitar</a>
-                        </div>
+                         data-features="Editor Completo, Chat">
+                        <h3>Cursor</h3>
+                        <p>Um editor de código inteiro construído para IA...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Amazon Q Developer"
+                         data-desc="O assistente de código da AWS."
+                         data-details="Antigo CodeWhisperer. É gratuito para uso individual e especializado em serviços da nuvem AWS e Java/Python."
+                         data-pricing="Grátis (Individual)"
+                         data-features="AWS, Segurança">
+                        <h3>Amazon Q</h3>
+                        <p>O assistente de código especializado em AWS...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Replit AI"
+                         data-desc="IA integrada à IDE online mais popular."
+                         data-details="Permite gerar, explicar e corrigir código diretamente no navegador, sem instalar nada. Ótimo para prototipagem rápida."
+                         data-pricing="Freemium"
+                         data-features="Web-based, Colaborativo">
+                        <h3>Replit AI</h3>
+                        <p>IA integrada à IDE online, roda no navegador...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Codeium"
+                         data-desc="Uma alternativa gratuita e muito rápida ao Copilot."
+                         data-details="Oferece um plano gratuito muito generoso para indivíduos, com chat e autocompletar de alta velocidade."
+                         data-pricing="Grátis (Individual)"
+                         data-features="Rápido, Gratuito">
+                        <h3>Codeium</h3>
+                        <p>Uma alternativa gratuita e muito rápida ao Copilot...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Blackbox AI"
+                         data-desc="Especializado em copiar código de vídeos e imagens."
+                         data-details="Consegue extrair código de screenshots ou vídeos do YouTube, além de ter um ótimo chat de programação."
+                         data-pricing="Freemium"
+                         data-features="OCR de Código, Chat">
+                        <h3>Blackbox AI</h3>
+                        <p>Especializado em copiar código de vídeos e imagens...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Cody"
+                         data-desc="IA que entende toda a sua base de código (Codebase)."
+                         data-details="O diferencial do Cody é que ele lê todos os arquivos do seu projeto para dar respostas contextualizadas, não apenas o arquivo aberto."
+                         data-pricing="Freemium"
+                         data-features="Contexto Global, Busca">
+                        <h3>Cody</h3>
+                        <p>IA que entende e lê toda a sua base de código...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Mutable.ai"
+                         data-desc="Focado em refatoração de arquivos inteiros."
+                         data-details="Tenta automatizar a parte chata do desenvolvimento: documentação, testes e refatoração de grandes blocos."
+                         data-pricing="Pago"
+                         data-features="Refatoração, Documentação">
+                        <h3>Mutable.ai</h3>
+                        <p>Focado em refatoração e documentação automática...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
                     </div>
                 </div>
             </section>
 
-        </section> 
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎙️ Áudio & Música</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" 
+                         data-nome="ElevenLabs"
+                         data-desc="Líder em clonagem de voz e TTS realista."
+                         data-details="Gera falas com emoção (sussurros, gritos, risadas) indistinguíveis de humanos. Suporta dezenas de idiomas."
+                         data-pricing="Freemium"
+                         data-features="Voz, Clonagem, Dublagem">
+                        <h3>ElevenLabs</h3>
+                        <p>Líder em clonagem de voz e TTS realista...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Suno AI"
+                         data-desc="Cria músicas completas (letra e voz) via prompt."
+                         data-details="Você digita 'um pagode triste sobre perder o ônibus' e ele gera uma música de rádio completa. Impressionante qualidade musical."
+                         data-pricing="Freemium"
+                         data-features="Música Completa, Vocais">
+                        <h3>Suno AI</h3>
+                        <p>Cria músicas completas (letra e voz) via prompt...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Udio"
+                         data-desc="O grande concorrente do Suno, com alta fidelidade."
+                         data-details="Famoso por gerar músicas com qualidade de estúdio e vocais muito limpos. Permite estender as faixas e remixar."
+                         data-pricing="Grátis (Beta)"
+                         data-features="Música, Alta Fidelidade">
+                        <h3>Udio</h3>
+                        <p>O grande concorrente do Suno, com alta fidelidade...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Murf.ai"
+                         data-desc="Studio de voz focado em apresentações e e-learning."
+                         data-details="Permite sincronizar a voz gerada com vídeos ou slides. Ótimo para criar tutoriais corporativos."
+                         data-pricing="Pago"
+                         data-features="Voz Corporativa, Slides">
+                        <h3>Murf.ai</h3>
+                        <p>Studio de voz focado em apresentações e e-learning...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Play.ht"
+                         data-desc="Gerador de voz ultra-rápido e realista."
+                         data-details="Conhecido pela baixa latência e clonagem de voz instantânea. Muito usado para ler artigos de blog em áudio."
+                         data-pricing="Freemium"
+                         data-features="TTS, Clonagem">
+                        <h3>Play.ht</h3>
+                        <p>Gerador de voz ultra-rápido e realista...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="AIVA"
+                         data-desc="Compositor de trilhas sonoras instrumentais."
+                         data-details="Focado em música clássica, eletrônica e trilhas para filmes/games. Permite editar a partitura MIDI gerada."
+                         data-pricing="Freemium"
+                         data-features="Instrumental, MIDI">
+                        <h3>AIVA</h3>
+                        <p>Compositor de trilhas sonoras instrumentais...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Speechify"
+                         data-desc="Lê qualquer texto (PDFs, livros) em voz alta."
+                         data-details="Focado em acessibilidade e produtividade. Tem vozes famosas (como Snoop Dogg e Gwyneth Paltrow) licenciadas."
+                         data-pricing="Freemium"
+                         data-features="Leitura, Acessibilidade">
+                        <h3>Speechify</h3>
+                        <p>Lê qualquer texto, PDF ou livro em voz alta...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Soundraw"
+                         data-desc="Música livre de royalties para criadores de vídeo."
+                         data-details="Você escolhe o humor, tempo e duração, e ele gera uma música única que você pode usar no YouTube sem levar strike."
+                         data-pricing="Pago"
+                         data-features="Sem Copyright, Vídeos">
+                        <h3>Soundraw</h3>
+                        <p>Música livre de royalties para criadores de vídeo...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Adobe Podcast"
+                         data-desc="Limpa áudios ruins e faz parecer estúdio."
+                         data-details="A ferramenta 'Enhance Speech' remove ruído de fundo e eco, fazendo uma gravação de celular parecer feita em microfone profissional."
+                         data-pricing="Grátis (Ferramentas básicas)"
+                         data-features="Limpeza de Áudio, Podcast">
+                        <h3>Adobe Podcast</h3>
+                        <p>Limpa áudios ruins e faz parecer estúdio...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎬 Vídeo & Animação</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" 
+                         data-nome="Runway (Gen-2)"
+                         data-desc="Pioneiro em criar vídeo a partir de texto."
+                         data-details="Uma suíte criativa completa. Permite usar o 'Motion Brush' para pintar uma área de uma foto e dizer para a IA mover apenas aquela parte."
+                         data-pricing="Freemium"
+                         data-features="Texto para Vídeo, Edição">
+                        <h3>Runway</h3>
+                        <p>Pioneiro em criar vídeo a partir de texto...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Pika Labs"
+                         data-desc="Especialista em animações fluidas e estilo anime/3D."
+                         data-details="Funciona via Discord e Web. É excelente para animar personagens e criar efeitos de lip-sync (sincronia labial)."
+                         data-pricing="Freemium"
+                         data-features="Animação, Lip Sync">
+                        <h3>Pika Labs</h3>
+                        <p>Especialista em animações fluidas e estilo anime...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="HeyGen"
+                         data-desc="Cria avatares falantes ultra-realistas."
+                         data-details="Você sobe uma foto ou vídeo seu, digita um texto, e ele cria um vídeo seu falando aquilo em qualquer idioma, movendo a boca perfeitamente."
+                         data-pricing="Freemium"
+                         data-features="Avatares, Tradução de Vídeo">
+                        <h3>HeyGen</h3>
+                        <p>Cria avatares falantes ultra-realistas para negócios...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Sora (OpenAI)"
+                         data-desc="O modelo mais avançado de vídeo (em breve)."
+                         data-details="Capaz de criar vídeos de até 1 minuto com consistência física incrível. Atualmente disponível apenas para testadores selecionados."
+                         data-pricing="Não divulgado"
+                         data-features="Realismo Físico, Alta Resolução">
+                        <h3>Sora</h3>
+                        <p>O modelo mais avançado de vídeo (em testes)...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Descript"
+                         data-desc="Edita vídeo editando o texto."
+                         data-details="Ele transcreve seu vídeo. Se você apagar uma palavra no texto, ele corta aquela parte do vídeo automaticamente. Remove 'hums' e 'ehs' com um clique."
+                         data-pricing="Freemium"
+                         data-features="Edição por Texto, Podcast">
+                        <h3>Descript</h3>
+                        <p>Edita vídeo editando o texto da transcrição...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="InVideo AI"
+                         data-desc="Cria vídeos explicativos para YouTube do zero."
+                         data-details="Você dá um tema, ele escreve o roteiro, escolhe cenas de bancos de imagem, coloca narração e legendas. Tudo automático."
+                         data-pricing="Freemium"
+                         data-features="YouTube, Automação">
+                        <h3>InVideo AI</h3>
+                        <p>Cria vídeos explicativos completos para YouTube...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Synthesia"
+                         data-desc="Avatares de IA para treinamento corporativo."
+                         data-details="Focado em empresas. Substitui a necessidade de contratar atores e estúdios para fazer vídeos de treinamento interno."
+                         data-pricing="Pago"
+                         data-features="Corporativo, Avatares">
+                        <h3>Synthesia</h3>
+                        <p>Avatares de IA para treinamento corporativo...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Kaiber"
+                         data-desc="Transforma vídeos reais em animações estilizadas."
+                         data-details="Ficou famoso por fazer clipes do Linkin Park. Você sobe um vídeo seu dançando e pede para transformar em 'anime futurista'."
+                         data-pricing="Pago"
+                         data-features="Estilização, Music Video">
+                        <h3>Kaiber</h3>
+                        <p>Transforma vídeos reais em animações estilizadas...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" 
+                         data-nome="Opus Clip"
+                         data-desc="Corta vídeos longos em Shorts virais."
+                         data-details="Pega um podcast de 1 hora, identifica os momentos mais engajadores, corta na vertical, adiciona legendas coloridas e dá uma nota de viralidade."
+                         data-pricing="Freemium"
+                         data-features="Cortes, Viralidade, Shorts">
+                        <h3>Opus Clip</h3>
+                        <p>Corta vídeos longos em Shorts virais automaticamente...</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="#" class="btn-visitar">Visitar</a></div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
     </main>
 
     <main id="pagina-prompt" class="container hidden">
@@ -1049,3 +1384,4 @@
 
 </body>
 </html>
+
