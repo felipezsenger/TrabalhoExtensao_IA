@@ -121,7 +121,7 @@
         .main-nav {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap; /* Para telas menores */
+            flex-wrap: wrap;
         }
         .nav-button {
             padding: 8px 16px;
@@ -151,14 +151,16 @@
         }
 
         /* ============================================= */
-        /* 2c. BARRA DE BUSCA & FILTROS                  */
+        /* 2c. BARRA DE BUSCA (Estilos Compartilhados)   */
         /* ============================================= */
         .search-container {
             margin-bottom: 15px;
             position: relative;
         }
 
-        #search-bar {
+        /* APLICANDO O MESMO ESTILO PARA AMBAS AS BARRAS DE BUSCA */
+        #search-bar, 
+        #search-library {
             width: 100%;
             padding: 15px 20px;
             padding-left: 45px;
@@ -175,7 +177,8 @@
             background-position: 15px center;
         }
 
-        #search-bar:focus {
+        #search-bar:focus,
+        #search-library:focus {
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             border-color: var(--h3-color);
         }
@@ -707,7 +710,8 @@
         <nav class="main-nav">
             <button id="btn-inicio" class="nav-button active">Início</button>
             <button id="btn-catalogo" class="nav-button">Catálogo</button>
-            <button id="btn-biblioteca" class="nav-button">Biblioteca</button> <button id="btn-prompt" class="nav-button">Prompt</button>
+            <button id="btn-biblioteca" class="nav-button">Biblioteca</button>
+            <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
         
@@ -1232,6 +1236,10 @@
             <h2>Biblioteca de Prompts Prontos</h2>
             <p>Copie e cole estes prompts testados para obter melhores resultados nas IAs.</p>
             
+            <div class="search-container">
+                <input type="search" id="search-library" placeholder="Buscar prompts por tema, tag ou conteúdo...">
+            </div>
+
             <div class="library-grid">
                 <div class="prompt-card">
                     <div class="prompt-tags">
@@ -1389,13 +1397,13 @@
             // Elementos da Navegação de Página
             const btnInicio = document.getElementById('btn-inicio');
             const btnCatalogo = document.getElementById('btn-catalogo');
-            const btnBiblioteca = document.getElementById('btn-biblioteca'); // NOVO
+            const btnBiblioteca = document.getElementById('btn-biblioteca');
             const btnPrompt = document.getElementById('btn-prompt');
             const btnSobre = document.getElementById('btn-sobre');
             
             const paginaInicio = document.getElementById('pagina-inicio');
             const paginaCatalogo = document.getElementById('pagina-catalogo');
-            const paginaBiblioteca = document.getElementById('pagina-biblioteca'); // NOVO
+            const paginaBiblioteca = document.getElementById('pagina-biblioteca');
             const paginaPrompt = document.getElementById('pagina-prompt');
             const paginaSobre = document.getElementById('pagina-sobre');
 
@@ -1434,13 +1442,13 @@
             function resetNavigation() {
                 btnInicio.classList.remove('active');
                 btnCatalogo.classList.remove('active');
-                btnBiblioteca.classList.remove('active'); // NOVO
+                btnBiblioteca.classList.remove('active'); 
                 btnPrompt.classList.remove('active');
                 btnSobre.classList.remove('active');
                 
                 paginaInicio.classList.add('hidden');
                 paginaCatalogo.classList.add('hidden');
-                paginaBiblioteca.classList.add('hidden'); // NOVO
+                paginaBiblioteca.classList.add('hidden'); 
                 paginaPrompt.classList.add('hidden');
                 paginaSobre.classList.add('hidden');
             }
@@ -1457,7 +1465,6 @@
                 paginaCatalogo.classList.remove('hidden');
             });
 
-            // NOVO
             btnBiblioteca.addEventListener('click', () => {
                 resetNavigation();
                 btnBiblioteca.classList.add('active');
@@ -1477,7 +1484,7 @@
             });
 
 
-            // --- LÓGICA DO ACORDEÃO ---
+            // --- LÓGICA DO ACORDEÃO (CATÁLOGO) ---
             allCategoryTitles.forEach(title => {
                 title.addEventListener('click', () => {
                     const category = title.parentElement;
@@ -1486,13 +1493,12 @@
             });
 
 
-            // --- LÓGICA DO FILTRO DE BUSCA + FILTRO DE PREÇO ---
+            // --- LÓGICA DE BUSCA E FILTRO (CATÁLOGO) ---
             let currentFilter = 'all'; // Filtro de preço padrão
 
             function filterCards() {
                 const searchTerm = searchBar.value.toLowerCase();
                 
-                // 1. Filtra os Cards
                 allCards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     const description = card.querySelector('p').textContent.toLowerCase();
@@ -1501,10 +1507,8 @@
                     
                     const cardText = title + description + details;
                     
-                    // Verifica se atende à busca de texto
                     const matchesSearch = cardText.includes(searchTerm);
                     
-                    // Verifica se atende ao filtro de preço
                     let matchesFilter = false;
                     if (currentFilter === 'all') {
                         matchesFilter = true;
@@ -1516,7 +1520,6 @@
                         matchesFilter = pricing.includes('pago') || pricing.includes('incluso');
                     }
 
-                    // Exibe se atender a AMBOS os critérios
                     if (matchesSearch && matchesFilter) {
                         card.classList.remove('hidden');
                     } else {
@@ -1524,44 +1527,55 @@
                     }
                 });
                 
-                // 2. Gerencia as Categorias
                 allCategories.forEach(category => {
                     const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
                     
                     if (searchTerm.length === 0 && currentFilter === 'all') {
-                        // Estado padrão total
                         category.classList.remove('hidden');
                         category.classList.remove('active');
                     } else if (visibleCards > 0) {
-                        // Se tem cards filtrados
                         category.classList.remove('hidden');
                         category.classList.add('active');
                     } else {
-                        // Se não sobrou nada na categoria
                         category.classList.add('hidden');
                         category.classList.remove('active');
                     }
                 });
             }
 
-            // Eventos da Barra de Pesquisa
             searchBar.addEventListener('input', filterCards);
             searchBar.addEventListener('search', filterCards);
 
-            // Eventos dos Botões de Filtro
             filterButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // 1. Remove active de todos
                     filterButtons.forEach(b => b.classList.remove('active'));
-                    // 2. Adiciona active no clicado
                     btn.classList.add('active');
-                    // 3. Atualiza variável global
                     currentFilter = btn.getAttribute('data-filter');
-                    // 4. Roda o filtro
                     filterCards();
                 });
             });
             
+            // --- LÓGICA DE BUSCA (BIBLIOTECA) [NOVO] ---
+            const searchBarLibrary = document.getElementById('search-library');
+            const allPromptCards = document.querySelectorAll('.prompt-card');
+
+            if(searchBarLibrary) {
+                searchBarLibrary.addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase();
+                    
+                    allPromptCards.forEach(card => {
+                        // Busca em todo o conteúdo textual do card (titulo, tags, prompt)
+                        const content = card.innerText.toLowerCase();
+                        
+                        if(content.includes(term)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            }
+
             
             // --- LÓGICA DO GERADOR DE PROMPT ---
             const btnGenerate = document.getElementById('btn-generate-prompt');
@@ -1591,18 +1605,15 @@
                 resultTextarea.value = finalPrompt;
             });
 
-            // --- LÓGICA DA BIBLIOTECA DE PROMPTS (NOVO) ---
+            // --- LÓGICA DO BOTÃO COPIAR (BIBLIOTECA) ---
             const copyButtons = document.querySelectorAll('.btn-copy');
             
             copyButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Acha o conteúdo de texto dentro do card pai
                     const card = btn.closest('.prompt-card');
                     const textToCopy = card.querySelector('.prompt-content').innerText;
                     
-                    // API de Área de Transferência
                     navigator.clipboard.writeText(textToCopy).then(() => {
-                        // Feedback Visual
                         const originalText = btn.innerText;
                         btn.innerText = '✅ Copiado!';
                         btn.classList.add('copied');
@@ -1620,44 +1631,36 @@
 
             // --- LÓGICA DO MODAL DE DETALHES ---
             
-            // 1. Abrir Modal
             const detailButtons = document.querySelectorAll('.btn-detalhes');
             
             detailButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // O botão está dentro de .card-actions, que está dentro de .ferramenta-card
                     const card = e.target.closest('.ferramenta-card');
                     
-                    // Pega os dados dos atributos data-
                     const nome = card.getAttribute('data-nome');
                     const details = card.getAttribute('data-details') || "Descrição detalhada não disponível.";
                     const pricing = card.getAttribute('data-pricing') || "Sob consulta";
                     const features = card.getAttribute('data-features') || "Geral";
 
-                    // Preenche o Modal
                     modalTitle.textContent = nome;
                     modalDesc.textContent = details;
                     modalPricing.textContent = pricing;
                     modalFeatures.textContent = features;
 
-                    // Mostra o Modal
                     modalOverlay.classList.remove('hidden');
                 });
             });
 
-            // 2. Fechar Modal (Clicando no X)
             closeModalBtn.addEventListener('click', () => {
                 modalOverlay.classList.add('hidden');
             });
 
-            // 3. Fechar Modal (Clicando fora da caixa branca)
             modalOverlay.addEventListener('click', (e) => {
                 if (e.target === modalOverlay) {
                     modalOverlay.classList.add('hidden');
                 }
             });
 
-            // 4. Fechar com ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
                     modalOverlay.classList.add('hidden');
