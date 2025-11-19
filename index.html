@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Ferramentas de IA</title>
+    <title>Catálogo Completo de IA</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,10 +11,9 @@
     
     <style>
         /* ============================================= */
-        /* 1. VARIÁVEIS DE COR (TEMA)                */
+        /* 1. ESTILOS E TEMA (CSS)                    */
         /* ============================================= */
         :root {
-            /* Modo Claro (Default) */
             --bg-color: #f0f2f5;
             --card-bg-color: #ffffff;
             --text-color: #333;
@@ -30,25 +29,18 @@
             --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
             --toggle-bg: #ccc;
             --modal-overlay: rgba(0, 0, 0, 0.6);
-            
-            /* Cores dos Filtros */
             --filter-bg: #e1ecf4;
             --filter-text: #2c3e50;
             --filter-active-bg: #3498db;
             --filter-active-text: #ffffff;
-
-            /* Cores Específicas da Biblioteca */
             --code-bg: #f8f9fa;
             --code-text: #2c3e50;
             --copy-btn-bg: #e1ecf4;
             --copy-btn-text: #2c3e50;
-
-            /* Cores dos Conceitos (Inicio) */
             --concept-icon-bg: #e8f6f3;
             --concept-icon-color: #16a085;
         }
 
-        /* Modo Escuro */
         body.dark-mode {
             --bg-color: #1a1a1a;
             --card-bg-color: #2c2c2c;
@@ -65,704 +57,96 @@
             --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.3);
             --toggle-bg: #5dade2;
             --modal-overlay: rgba(0, 0, 0, 0.8);
-            
-            /* Cores dos Filtros Dark */
             --filter-bg: #3a3a3a;
             --filter-text: #f0f0f0;
             --filter-active-bg: #5dade2;
             --filter-active-text: #1a1a1a;
-
-            /* Cores Específicas da Biblioteca Dark */
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --copy-btn-bg: #3a3a3a;
             --copy-btn-text: #f0f0f0;
-
-             /* Cores dos Conceitos (Inicio) Dark */
              --concept-icon-bg: #145a32;
              --concept-icon-color: #a9dfbf;
         }
 
-        /* ============================================= */
-        /* 2. ESTILOS GERAIS                          */
-        /* ============================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Cabeçalho Fixo */
-        header {
-            background: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 40px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        header h1 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.6; background-color: var(--bg-color); color: var(--text-color); transition: all 0.3s ease; }
         
-        /* ============================================= */
-        /* 2b. ESTILOS DE NAVEGAÇÃO                      */
-        /* ============================================= */
-        .main-nav {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .nav-button {
-            padding: 8px 16px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            border-radius: 20px;
-            border: 2px solid var(--header-text);
-            background-color: transparent;
-            color: var(--header-text);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .nav-button:hover {
-            background-color: var(--header-text);
-            color: var(--h3-color);
-        }
-        .nav-button.active {
-            background-color: #ffffff;
-            color: #2c3e50;
-            border-color: #ffffff;
-        }
-        body.dark-mode .nav-button.active {
-            background-color: var(--h3-color);
-            color: var(--header-text);
-            border-color: var(--h3-color);
-        }
-
-        /* ============================================= */
-        /* 2c. BARRA DE BUSCA (Estilos Compartilhados)   */
-        /* ============================================= */
-        .search-container {
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        #search-bar, 
-        #search-library {
-            width: 100%;
-            padding: 15px 20px;
-            padding-left: 45px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            outline: none;
-            background-color: var(--search-bg);
-            color: var(--search-text);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='8'%3e%3c/circle%3e%3cline x1='21' y1='21' x2='16.65' y2='16.65'%3e%3c/line%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: 15px center;
-        }
-
-        #search-bar:focus,
-        #search-library:focus {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            border-color: var(--h3-color);
-        }
-
-        .filters-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background-color: var(--filter-bg);
-            color: var(--filter-text);
-            border: 1px solid var(--border-color);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .filter-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(95%);
-        }
-
-        .filter-btn.active {
-            background-color: var(--filter-active-bg);
-            color: var(--filter-active-text);
-            border-color: var(--filter-active-bg);
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-        }
-
-        /* Container Principal */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        h2 {
-            color: var(--h2-color);
-            margin-top: 20px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        /* ============================================= */
-        /* 3. ESTILOS GERAIS DE CONTEÚDO                */
-        /* ============================================= */
-        .info-card {
-            background-color: var(--card-bg-color);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            box-shadow: var(--card-shadow);
-        }
+        header { background: var(--header-bg); color: var(--header-text); padding: 15px 40px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }
+        header h1 { font-weight: 700; font-size: 1.5rem; }
         
-        .info-card p, .info-card li {
-            color: var(--p-color);
-            margin-bottom: 15px;
-        }
+        .main-nav { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-button { padding: 8px 16px; font-size: 0.95rem; font-weight: 600; border-radius: 20px; border: 2px solid var(--header-text); background: transparent; color: var(--header-text); cursor: pointer; transition: 0.3s; font-family: inherit; }
+        .nav-button:hover { background: var(--header-text); color: var(--h3-color); }
+        .nav-button.active { background: #fff; color: #2c3e50; border-color: #fff; }
+        body.dark-mode .nav-button.active { background: var(--h3-color); color: #fff; border-color: var(--h3-color); }
+
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .hidden { display: none !important; }
         
-        .info-card ul {
-            list-style-position: inside;
-            color: var(--p-color);
-            margin-left: 10px;
-        }
+        /* Cards e Layout */
+        .info-card { background: var(--card-bg-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; box-shadow: var(--card-shadow); }
+        .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .concept-card { background: var(--bg-color); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); transition: 0.2s; }
+        .concept-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); background: var(--card-bg-color); }
+        .concept-icon { font-size: 2rem; display: inline-block; background: var(--concept-icon-bg); color: var(--concept-icon-color); width: 60px; height: 60px; line-height: 60px; text-align: center; border-radius: 12px; margin-bottom: 15px; }
         
-        .info-card h3 {
-             color: var(--h3-color);
-             margin-top: 20px;
-             margin-bottom: 10px;
-        }
+        /* Catálogo */
+        .search-container { margin-bottom: 15px; }
+        input[type="search"], input[type="text"], select { width: 100%; padding: 15px 20px; border-radius: 30px; border: 1px solid var(--border-color); background: var(--search-bg); color: var(--search-text); font-size: 1rem; margin-bottom: 10px; font-family: inherit; }
+        .filters-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+        .filter-btn { background: var(--filter-bg); color: var(--filter-text); border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .filter-btn.active { background: var(--filter-active-bg); color: #fff; border-color: var(--filter-active-bg); }
         
-        .welcome-title {
-            font-size: 2rem;
-            color: var(--h2-color);
-            margin-bottom: 10px;
-        }
-        .welcome-subtitle {
-            font-size: 1.1rem;
-            color: var(--p-color);
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        /* ESTILOS DOS CONCEITOS (INICIO) - NOVO */
-        .concepts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .concept-card {
-            background-color: var(--bg-color);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .concept-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-            background-color: var(--card-bg-color); /* Destaca a cor ao passar o mouse */
-        }
-
-        .concept-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            background: var(--concept-icon-bg);
-            color: var(--concept-icon-color);
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            text-align: center;
-            border-radius: 12px;
-        }
+        .categoria-titulo { background: var(--card-bg-color); color: var(--h2-color); padding: 15px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 15px; box-shadow: var(--card-shadow); position: relative; }
+        .categoria-titulo::after { content: '+'; position: absolute; right: 20px; font-family: monospace; font-size: 1.5rem; }
+        .categoria.active .categoria-titulo::after { content: '-'; }
         
-        .concept-card h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            color: var(--h3-color);
-            margin-bottom: 10px;
-        }
+        .ferramentas-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .categoria.active .ferramentas-lista { max-height: 6000px; margin-top: 20px; padding-bottom: 20px; }
         
-        .concept-card p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-            line-height: 1.5;
-        }
-
-
-        /* ============================================= */
-        /* 4. ESTILOS DO CATÁLOGO (ACORDEÃO)         */
-        /* ============================================= */
-        #catalogo h2 {
-            border-bottom: 3px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-        }
+        .ferramenta-card { background: var(--card-bg-color); padding: 25px; border-radius: 12px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; animation: fadeIn 0.5s ease forwards; }
+        .ferramenta-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow-hover); }
+        .ferramenta-card h3 { color: var(--h3-color); margin-bottom: 10px; }
+        .ferramenta-card p { color: var(--p-color); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
         
-        .categoria {
-            margin-bottom: 15px;
-        }
+        .card-actions { display: flex; gap: 10px; margin-top: auto; }
+        .btn-visitar { background: #3498db; color: #fff; text-decoration: none; padding: 10px; border-radius: 8px; text-align: center; flex: 1; font-weight: 600; transition: 0.2s; }
+        .btn-visitar:hover { background: #2980b9; transform: scale(1.02); }
+        .btn-detalhes { background: transparent; color: var(--h3-color); border: 2px solid var(--border-color); padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: 600; font-family: inherit; }
+        .btn-detalhes:hover { background: var(--border-color); }
 
-        .categoria-titulo {
-            background-color: var(--card-bg-color);
-            color: var(--h2-color);
-            padding: 15px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.3rem;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .categoria-titulo:hover {
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-2px);
-        }
-        
-        .categoria-titulo::after {
-            content: '+';
-            font-family: monospace;
-            font-size: 1.8rem;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--h3-color);
-        }
-        
-        .ferramentas-lista {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
-            margin-top: 0;
-        }
-        
-        .categoria.active .categoria-titulo::after {
-            content: '−';
-        }
-        
-        .categoria.active .ferramentas-lista {
-            max-height: 5000px; 
-            margin-top: 20px;
-        }
+        /* Modal */
+        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); z-index: 2000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(3px); }
+        .modal-content { background: var(--card-bg-color); padding: 40px; width: 90%; max-width: 600px; border-radius: 15px; position: relative; max-height: 90vh; overflow-y: auto; border-top: 5px solid var(--h3-color); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--p-color); }
+        .modal-meta { display: flex; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px; flex-wrap: wrap; }
+        .modal-badge { padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--border-color); color: var(--h3-color); }
+        .modal-pricing { background: #d4efdf; color: #145a32; border-color: #a9dfbf; }
+        body.dark-mode .modal-pricing { background: #145a32; color: #d4efdf; border-color: #1e8449; }
 
-        /* ============================================= */
-        /* 6. ESTILOS DOS CARDS                      */
-        /* ============================================= */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .ferramenta-card {
-            border: none;
-            border-radius: 12px;
-            padding: 25px;
-            background-color: var(--card-bg-color);
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            overflow: hidden;
-            animation: fadeIn 0.5s ease-out forwards;
-            opacity: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .ferramenta-card:nth-child(2) { animation-delay: 0.1s; }
-        .ferramenta-card:nth-child(3) { animation-delay: 0.2s; }
-
-        .ferramenta-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--card-shadow-hover);
-        }
-
-        .ferramenta-card h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: var(--h3-color);
-            font-weight: 600;
-        }
-
-        .ferramenta-card p {
-            font-size: 0.95em;
-            color: var(--p-color);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: auto;
-        }
-
-        .btn-visitar {
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.9em;
-            background-color: #3498db;
-            padding: 10px 15px;
-            border-radius: 8px;
-            display: inline-block;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            text-align: center;
-            flex: 1;
-        }
-
-        .btn-visitar:hover {
-            background-color: #2980b9;
-            transform: scale(1.05);
-        }
-
-        .btn-detalhes {
-            background-color: transparent;
-            color: var(--h3-color);
-            border: 2px solid var(--border-color);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9em;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            flex: 1;
-        }
-
-        .btn-detalhes:hover {
-            background-color: var(--border-color);
-            color: var(--text-color);
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-
-        /* ============================================= */
-        /* 7. TOGGLE DE TEMA                          */
-        /* ============================================= */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--header-text);
-        }
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
+        /* Toggle Dark Mode */
+        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; }
+        .theme-switch { position: relative; width: 50px; height: 26px; }
         .theme-switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--toggle-bg);
-            transition: .4s;
-            border-radius: 26px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--toggle-bg); }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--toggle-bg); transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background: var(--h3-color); }
         input:checked + .slider:before { transform: translateX(24px); }
         
-        /* ============================================= */
-        /* 8. GERADOR DE PROMPT                      */
-        /* ============================================= */
-        #prompt-generator h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: var(--h3-color);
-        }
-        #prompt-generator select,
-        #prompt-generator input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-            background-color: var(--search-bg);
-            color: var(--search-text);
-            font-family: 'Poppins', sans-serif;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 1.2em;
-        }
-        body.dark-mode #prompt-generator select,
-        body.dark-mode #prompt-generator input[type="text"] {
-             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f0f0f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        }
-
-        #btn-generate-prompt {
-            background-color: #3498db;
-            color: #ffffff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 25px;
-            transition: all 0.2s ease;
-        }
-        #btn-generate-prompt:hover {
-            background-color: #2980b9;
-        }
+        /* Biblioteca de Prompts */
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .prompt-card { background: var(--card-bg-color); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); }
+        .prompt-content { background: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; margin: 15px 0; border: 1px solid var(--border-color); max-height: 150px; overflow-y: auto; }
+        .tag { font-size: 0.75rem; background: var(--filter-bg); padding: 3px 8px; border-radius: 10px; font-weight: bold; text-transform: uppercase; margin-right: 5px; }
         
-        #prompt-result {
-            width: 100%;
-            margin-top: 15px;
-            padding: 15px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            border: 2px dashed var(--border-color);
-            border-radius: 8px;
-            resize: none;
-        }
-
-        /* ============================================= */
-        /* 9. BIBLIOTECA DE PROMPTS                  */
-        /* ============================================= */
-        .library-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .prompt-card {
-            background-color: var(--card-bg-color);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s ease;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .prompt-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .prompt-tags {
-            margin-bottom: 15px;
-        }
-
-        .tag {
-            background-color: var(--filter-bg);
-            color: var(--filter-text);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-right: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .prompt-card h3 {
-            color: var(--h3-color);
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .prompt-content {
-            background-color: var(--code-bg);
-            color: var(--code-text);
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            white-space: pre-wrap; /* Mantém quebras de linha */
-            flex-grow: 1;
-            border: 1px solid var(--border-color);
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .btn-copy {
-            background-color: var(--copy-btn-bg);
-            color: var(--copy-btn-text);
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-copy:hover {
-            filter: brightness(95%);
-        }
-        
-        .btn-copy.copied {
-            background-color: #d4efdf;
-            color: #145a32;
-            border-color: #a9dfbf;
-        }
-
-
-        /* ============================================= */
-        /* 10. MODAL (POPUP)                          */
-        /* ============================================= */
-        #modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--modal-overlay);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(3px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background-color: var(--card-bg-color);
-            padding: 40px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            max-height: 90vh;
-            overflow-y: auto;
-            border-top: 5px solid var(--h3-color);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--p-color);
-            cursor: pointer;
-            transition: color 0.2s;
-            line-height: 1;
-        }
-
-        .close-modal:hover {
-            color: var(--h3-color);
-        }
-
-        #modal-title {
-            margin-top: 0;
-            color: var(--h2-color);
-        }
-
-        #modal-desc-full {
-            margin-top: 15px;
-            color: var(--text-color);
-            line-height: 1.7;
-        }
-
-        .modal-meta {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .modal-badge {
-            background-color: var(--bg-color);
-            color: var(--h3-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-        }
-        .modal-pricing {
-            background-color: #d4efdf;
-            color: #145a32;
-            border-color: #a9dfbf;
-        }
-        body.dark-mode .modal-pricing {
-             background-color: #145a32;
-             color: #d4efdf;
-             border-color: #1e8449;
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Catálogo de IA</h1>
-        
         <nav class="main-nav">
             <button id="btn-inicio" class="nav-button active">Início</button>
             <button id="btn-catalogo" class="nav-button">Catálogo</button>
@@ -770,7 +154,6 @@
             <button id="btn-prompt" class="nav-button">Prompt</button>
             <button id="btn-sobre" class="nav-button">Sobre</button>
         </nav>
-        
         <div class="theme-switch-wrapper">
             <span>☀️</span>
             <label class="theme-switch" for="theme-switch">
@@ -783,570 +166,351 @@
 
     <main id="pagina-inicio" class="container">
         <section class="info-card">
-            <h1 class="welcome-title">Bem-vindo ao Hub de Inteligência Artificial</h1>
-            <p class="welcome-subtitle">Explore ferramentas, aprenda conceitos e otimize sua produtividade.</p>
+            <h1 style="color: var(--h2-color); margin-bottom: 10px;">Bem-vindo ao Hub de Inteligência Artificial</h1>
+            <p>Explore as ferramentas mais avançadas, aprenda conceitos fundamentais e otimize sua produtividade.</p>
             
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 30px 0;">
-
-            <h2>IA Discriminativa vs. Generativa</h2>
-            <p>
-                Antes da revolução atual, a maioria das IAs eram <strong>Discriminativas</strong> (focadas em classificar: "isso é um gato ou um cachorro?"). 
-                A nova era é da <strong>IA Generativa</strong>, focada em criar algo novo a partir do aprendizado de padrões.
-            </p>
-
-            <h2 style="margin-top: 40px;">Glossário Visual de Conceitos</h2>
+            <h2 style="margin-top: 40px;">Conceitos Fundamentais</h2>
             <div class="concepts-grid">
-                
-                <div class="concept-card">
-                    <span class="concept-icon">🧠</span>
-                    <h3>LLMs (Large Language Models)</h3>
-                    <p>Modelos como GPT-4 e Claude, treinados em vastos volumes de texto para prever a próxima palavra e gerar linguagem humana fluida.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">🎨</span>
-                    <h3>Difusão (Diffusion)</h3>
-                    <p>A tecnologia por trás de geradores de imagem como Midjourney. Começa com "ruído" (estática visual) e o refina até formar uma imagem nítida.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">📚</span>
-                    <h3>RAG (Retrieval-Augmented Generation)</h3>
-                    <p>Técnica que conecta a IA aos seus próprios dados (PDFs, banco de dados) antes de responder, garantindo respostas precisas e sem alucinações.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">🤖</span>
-                    <h3>Agentes Autônomos</h3>
-                    <p>O próximo passo da IA. Sistemas que não apenas conversam, mas usam ferramentas (navegador, e-mail, planilhas) para executar tarefas completas sozinhos.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">👁️</span>
-                    <h3>Multimodalidade</h3>
-                    <p>Capacidade de um modelo processar diferentes tipos de dados simultaneamente. Ex: o ChatGPT 'ver' uma foto, 'ouvir' sua voz e responder com texto.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">🤥</span>
-                    <h3>Alucinação</h3>
-                    <p>Quando a IA gera uma resposta incorreta ou inventa fatos com total confiança. Acontece porque ela é probabilística, não um banco de fatos.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">⚡</span>
-                    <h3>Tokenização</h3>
-                    <p>A IA não lê palavras, lê "tokens" (pedaços de caracteres). É a unidade fundamental de custo e processamento. 1000 tokens ≈ 750 palavras.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">⚙️</span>
-                    <h3>Fine-Tuning</h3>
-                    <p>O processo de pegar um modelo genérico e treiná-lo adicionalmente com um conjunto de dados específico (ex: leis brasileiras) para torná-lo especialista.</p>
-                </div>
-
-                <div class="concept-card">
-                    <span class="concept-icon">🏗️</span>
-                    <h3>Transformers</h3>
-                    <p>A arquitetura de rede neural (o "T" do GPT) criada pelo Google em 2017 que permitiu à IA prestar "atenção" a todo o contexto de uma frase ao mesmo tempo.</p>
-                </div>
-
+                <div class="concept-card"><span class="concept-icon">🧠</span><h3>LLMs</h3><p>Modelos de linguagem treinados em vastos volumes de texto (ex: GPT-4, Claude).</p></div>
+                <div class="concept-card"><span class="concept-icon">🎨</span><h3>Difusão</h3><p>Tecnologia que cria imagens a partir de ruído estático (ex: Midjourney).</p></div>
+                <div class="concept-card"><span class="concept-icon">📚</span><h3>RAG</h3><p>Conecta a IA aos seus próprios dados/PDFs para respostas precisas.</p></div>
+                <div class="concept-card"><span class="concept-icon">🤖</span><h3>Agentes</h3><p>Sistemas que usam ferramentas (web, email) para executar tarefas autônomas.</p></div>
+                <div class="concept-card"><span class="concept-icon">👁️</span><h3>Multimodal</h3><p>IAs que veem, ouvem e falam simultaneamente.</p></div>
+                <div class="concept-card"><span class="concept-icon">⚡</span><h3>Tokenização</h3><p>Como a IA lê texto. 1000 tokens equivalem a aprox. 750 palavras.</p></div>
             </div>
         </section>
     </main>
 
     <main id="pagina-catalogo" class="container hidden">
-        <section id="catalogo">
-            
-            <div class="search-container">
-                <input type="search" id="search-bar" placeholder="Buscar por nome, descrição ou categoria">
-            </div>
+        <div class="search-container">
+            <input type="search" id="search-bar" placeholder="Buscar ferramenta, categoria ou função...">
+        </div>
+        <div class="filters-container">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="grátis">Grátis</button>
+            <button class="filter-btn" data-filter="freemium">Freemium</button>
+            <button class="filter-btn" data-filter="pago">Pago</button>
+        </div>
 
-            <div class="filters-container">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="grátis">Grátis</button>
-                <button class="filter-btn" data-filter="freemium">Freemium</button>
-                <button class="filter-btn" data-filter="pago">Pago</button>
-            </div>
-            
-            <h2>Catálogo de Ferramentas</h2>
+        <section id="catalogo-content">
             
             <section class="categoria">
                 <h2 class="categoria-titulo">✍️ Texto & Escrita</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card" 
-                         data-nome="ChatGPT (OpenAI)"
-                         data-desc="O chatbot mais famoso, capaz de criar textos, roteiros e responder dúvidas."
-                         data-details="Baseado na arquitetura GPT, é a referência em IA conversacional. Ótimo para brainstorming, resumos e criação de conteúdo variado."
-                         data-pricing="Freemium (Plus $20)"
-                         data-features="Chat, Análise de Dados, Vision">
-                        <h3>ChatGPT</h3>
-                        <p>O chatbot mais famoso, capaz de criar textos...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://chat.openai.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Claude 3 (Anthropic)"
-                         data-desc="Concorrente forte do GPT, focado em segurança e janelas de contexto enormes."
-                         data-details="O Claude se destaca por aceitar arquivos de texto gigantescos para análise (livros inteiros) e por ter uma escrita mais humana e menos robótica."
-                         data-pricing="Freemium (Pro $20)"
-                         data-features="Contexto Longo, Escrita Natural">
-                        <h3>Claude 3</h3>
-                        <p>Concorrente forte do GPT, focado em segurança...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://claude.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Gemini (Google)"
-                         data-desc="IA nativa do ecossistema Google, conectada à internet em tempo real."
-                         data-details="Integra-se com Google Docs, Gmail e Drive. É multimodal nativo, ou seja, entende vídeo e áudio tão bem quanto texto."
-                         data-pricing="Freemium (Advanced $20)"
-                         data-features="Ecossistema Google, Multimodal">
-                        <h3>Gemini</h3>
-                        <p>IA nativa do ecossistema Google, conectada...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://gemini.google.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Jasper AI"
-                         data-desc="Focado em marketing e copywriting para empresas."
-                         data-details="Diferente do ChatGPT genérico, o Jasper é treinado para escrever copy de vendas, posts de blog otimizados para SEO e campanhas de marketing."
-                         data-pricing="Pago (Trial disponível)"
-                         data-features="Marketing, SEO, Brand Voice">
-                        <h3>Jasper</h3>
-                        <p>Focado em marketing e copywriting para empresas...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.jasper.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Copy.ai"
-                         data-desc="Gerador de textos curtos e posts para redes sociais."
-                         data-details="Excelente para quem precisa de volume de conteúdo rápido: legendas de Instagram, assuntos de e-mail e descrições de produtos."
-                         data-pricing="Freemium"
-                         data-features="Social Media, E-mail Marketing">
-                        <h3>Copy.ai</h3>
-                        <p>Gerador de textos curtos e posts para redes...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.copy.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Perplexity AI"
-                         data-desc="Um motor de busca conversacional que cita as fontes."
-                         data-details="Ao contrário do Google tradicional, ele responde sua pergunta com um texto resumido e links diretos para as fontes (papers, notícias, wikipédia)."
-                         data-pricing="Freemium"
-                         data-features="Pesquisa, Citação de Fontes">
-                        <h3>Perplexity</h3>
-                        <p>Um motor de busca conversacional que cita...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.perplexity.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Notion AI"
-                         data-desc="Assistente de escrita dentro do app de produtividade Notion."
-                         data-details="Permite resumir anotações de reuniões, traduzir páginas inteiras e melhorar a escrita diretamente no seu workspace."
-                         data-pricing="Pago (Add-on)"
-                         data-features="Produtividade, Resumos">
-                        <h3>Notion AI</h3>
-                        <p>Assistente de escrita dentro do app de produtividade...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.notion.so/product/ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="GrammarlyGO"
-                         data-desc="Assistente de correção gramatical e tom de voz."
-                         data-details="Vai além da correção ortográfica, sugerindo mudanças de tom (mais formal, mais confiante) e reescrevendo frases inteiras."
-                         data-pricing="Freemium"
-                         data-features="Correção, Tom de Voz">
-                        <h3>GrammarlyGO</h3>
-                        <p>Assistente de correção gramatical e tom de voz...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.grammarly.com/" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Sudowrite"
-                         data-desc="Ferramenta especializada para escritores de ficção."
-                         data-details="Ajuda a superar o bloqueio criativo, sugerindo reviravoltas na trama, descrições sensoriais e diálogos para livros e roteiros."
-                         data-pricing="Pago"
-                         data-features="Ficção, Storytelling">
-                        <h3>Sudowrite</h3>
-                        <p>Ferramenta especializada para escritores de ficção...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.sudowrite.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
+                    <div class="ferramenta-card" data-nome="ChatGPT" data-desc="Chatbot líder da OpenAI." data-details="GPT-4o é o modelo mais versátil." data-pricing="Freemium" data-features="Chat, Code"><h3>ChatGPT</h3><p>O chatbot mais famoso e versátil.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://chat.openai.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Claude 3" data-desc="IA da Anthropic, enorme contexto." data-details="Melhor para análise de textos longos e escrita natural." data-pricing="Freemium" data-features="Contexto, Escrita"><h3>Claude 3</h3><p>Concorrente forte, escrita humana.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://claude.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Gemini" data-desc="IA do Google." data-details="Integrado ao ecossistema Google Workspace." data-pricing="Freemium" data-features="Google, Web"><h3>Gemini</h3><p>IA nativa do Google.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://gemini.google.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Perplexity" data-desc="Motor de busca com IA." data-details="Responde citando fontes reais." data-pricing="Freemium" data-features="Pesquisa, Fontes"><h3>Perplexity</h3><p>Busca inteligente com fontes.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.perplexity.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Jasper" data-desc="Marketing e Copywriting." data-details="Especializado em tom de voz de marca." data-pricing="Pago" data-features="Marketing, SEO"><h3>Jasper</h3><p>Especialista em Marketing.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.jasper.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Copy.ai" data-desc="Geração de copy rápida." data-details="Ótimo para social media e e-mail." data-pricing="Freemium" data-features="Social Media"><h3>Copy.ai</h3><p>Posts e legendas rápidas.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.copy.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Notion AI" data-desc="IA no seu workspace." data-details="Resume e escreve dentro do Notion." data-pricing="Pago" data-features="Produtividade"><h3>Notion AI</h3><p>Escrita dentro do Notion.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.notion.so" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Grammarly" data-desc="Correção e tom de voz." data-details="Melhora sua gramática e estilo." data-pricing="Freemium" data-features="Correção"><h3>Grammarly</h3><p>Seu editor de texto pessoal.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.grammarly.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Sudowrite" data-desc="Para escritores de ficção." data-details="Ajuda em bloqueio criativo e tramas." data-pricing="Pago" data-features="Ficção, Livros"><h3>Sudowrite</h3><p>Para escrever livros e histórias.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.sudowrite.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
                 </div>
             </section>
 
             <section class="categoria">
                 <h2 class="categoria-titulo">🎨 Imagem & Design</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card" 
-                         data-nome="Midjourney"
-                         data-desc="O rei do realismo e da qualidade artística via Discord."
-                         data-details="Gera as imagens mais impressionantes visualmente do mercado. Funciona através de comandos no Discord, embora esteja lançando uma versão web."
-                         data-pricing="Pago (a partir de $10)"
-                         data-features="Alta Fidelidade, Artístico">
-                        <h3>Midjourney</h3>
-                        <p>O rei do realismo e da qualidade artística...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.midjourney.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="DALL-E 3"
-                         data-desc="Fácil de usar, integrado nativamente ao ChatGPT."
-                         data-details="Excelente em seguir instruções complexas e incluir texto dentro das imagens (coisa que outras IAs falham)."
-                         data-pricing="Incluso no ChatGPT Plus"
-                         data-features="Texto na Imagem, Fácil uso">
-                        <h3>DALL-E 3</h3>
-                        <p>Fácil de usar, integrado nativamente ao ChatGPT...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://openai.com/dall-e-3" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Stable Diffusion"
-                         data-desc="Modelo open-source que você pode rodar no seu próprio PC."
-                         data-details="A opção preferida para quem quer controle total, sem censura e customização infinita. Requer placa de vídeo potente."
-                         data-pricing="Grátis (Open Source)"
-                         data-features="Local, Customizável">
-                        <h3>Stable Diffusion</h3>
-                        <p>Modelo open-source que você pode rodar localmente...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://stability.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Adobe Firefly"
-                         data-desc="Integrado ao Photoshop, seguro para uso comercial."
-                         data-details="Treinado apenas com imagens de banco de dados legalizados. Possui a incrível ferramenta 'Generative Fill' para expandir fotos."
-                         data-pricing="Créditos Mensais"
-                         data-features="Photoshop, Uso Comercial">
-                        <h3>Adobe Firefly</h3>
-                        <p>Integrado ao Photoshop, seguro para uso comercial...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://firefly.adobe.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Leonardo.ai"
-                         data-desc="Interface web completa para criar assets de jogos e arte."
-                         data-details="Uma das melhores interfaces web gratuitas. Permite treinar seus próprios modelos com suas fotos (ex: criar avatares seus)."
-                         data-pricing="Freemium"
-                         data-features="Assets de Games, Treinamento">
-                        <h3>Leonardo.ai</h3>
-                        <p>Interface web completa para criar assets de jogos...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://leonardo.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Canva Magic"
-                         data-desc="Ferramentas de IA dentro do design fácil do Canva."
-                         data-details="Permite gerar imagens, apagar fundos, expandir fotos e criar vídeos simples diretamente no editor do Canva."
-                         data-pricing="Incluso no Canva Pro"
-                         data-features="Design Rápido, Social Media">
-                        <h3>Canva Magic</h3>
-                        <p>Ferramentas de IA dentro do design fácil do Canva...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.canva.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Ideogram"
-                         data-desc="Especialista absoluto em gerar textos e tipografia."
-                         data-details="Se você precisa de uma logo, uma estampa de camiseta ou um poster com letras perfeitas, o Ideogram é a melhor escolha atual."
-                         data-pricing="Freemium"
-                         data-features="Tipografia, Logos">
-                        <h3>Ideogram</h3>
-                        <p>Especialista absoluto em gerar textos e tipografia...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://ideogram.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Bing Create"
-                         data-desc="Versão gratuita do DALL-E 3 da Microsoft."
-                         data-details="A maneira mais fácil e rápida de usar o DALL-E 3 gratuitamente. Basta ter uma conta Microsoft."
-                         data-pricing="Grátis"
-                         data-features="Rápido, Acessível">
-                        <h3>Bing Create</h3>
-                        <p>Versão gratuita do DALL-E 3 da Microsoft...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.bing.com/images/create" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Magnific AI"
-                         data-desc="Upscaler e 'alucinador' de detalhes."
-                         data-details="Pega uma imagem de baixa resolução e a transforma em 4K, inventando detalhes realistas que não existiam no original."
-                         data-pricing="Pago (Alto custo)"
-                         data-features="Upscale, Restauração">
-                        <h3>Magnific AI</h3>
-                        <p>Upscaler que transforma imagens borradas em 4K...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://magnific.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
+                    <div class="ferramenta-card" data-nome="Midjourney" data-desc="Gerador de arte realista." data-details="Qualidade artística superior via Discord." data-pricing="Pago" data-features="Arte, Realismo"><h3>Midjourney</h3><p>O rei da qualidade artística.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.midjourney.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="DALL-E 3" data-desc="IA de imagem da OpenAI." data-details="Ótimo em seguir instruções exatas." data-pricing="Pago" data-features="Fácil uso"><h3>DALL-E 3</h3><p>Integrado ao ChatGPT.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://openai.com/dall-e-3" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Stable Diffusion" data-desc="Open Source e Local." data-details="Roda no seu PC, controle total." data-pricing="Grátis" data-features="Local, Custom"><h3>Stable Diffusion</h3><p>Controle total e Open Source.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://stability.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Adobe Firefly" data-desc="IA segura para comercial." data-details="Integrado ao Photoshop." data-pricing="Pago" data-features="Photoshop"><h3>Firefly</h3><p>Seguro para uso comercial.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://firefly.adobe.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Leonardo.ai" data-desc="Assets de jogos e arte." data-details="Interface web excelente." data-pricing="Freemium" data-features="Games, Assets"><h3>Leonardo.ai</h3><p>Ótimo para assets de jogos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://leonardo.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Canva Magic" data-desc="Design fácil com IA." data-details="Integrado ao editor do Canva." data-pricing="Freemium" data-features="Social Media"><h3>Canva Magic</h3><p>Design simples para todos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.canva.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Ideogram" data-desc="Texto dentro da imagem." data-details="Especialista em tipografia." data-pricing="Freemium" data-features="Tipografia"><h3>Ideogram</h3><p>Gera textos perfeitos em imagens.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://ideogram.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Magnific AI" data-desc="Upscaler e Detalhes." data-details="Aumenta resolução criando detalhes." data-pricing="Pago" data-features="Upscale"><h3>Magnific</h3><p>Transforma baixa resolução em 4K.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://magnific.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Krea" data-desc="Geração em tempo real." data-details="Desenhe e a IA melhora ao vivo." data-pricing="Freemium" data-features="Real-time"><h3>Krea</h3><p>Pintura e geração em tempo real.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.krea.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
                 </div>
             </section>
 
             <section class="categoria">
                 <h2 class="categoria-titulo">💻 Código & Dev</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card" 
-                         data-nome="GitHub Copilot"
-                         data-desc="O padrão da indústria para autocompletar código."
-                         data-details="Vive dentro do VS Code. Sugere funções inteiras, escreve testes unitários e explica trechos de código complexos."
-                         data-pricing="Pago ($10/mês)"
-                         data-features="Autocompletar, Chat">
-                        <h3>GitHub Copilot</h3>
-                        <p>O padrão da indústria para autocompletar código...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://github.com/features/copilot" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Tabnine"
-                         data-desc="Foco em privacidade e execução local."
-                         data-details="Ideal para empresas que não podem enviar código para a nuvem. Aprende especificamente com o repositório da sua empresa."
-                         data-pricing="Freemium"
-                         data-features="Privacidade, Local">
-                        <h3>Tabnine</h3>
-                        <p>Foco em privacidade e execução local de código...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.tabnine.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Cursor"
-                         data-desc="Um editor de código (fork do VS Code) feito para IA."
-                         data-details="Não é apenas um plugin, é um editor inteiro. Você pode selecionar um código e teclar 'Ctrl+K' para pedir mudanças em linguagem natural."
-                         data-pricing="Freemium"
-                         data-features="Editor Completo, Chat">
-                        <h3>Cursor</h3>
-                        <p>Um editor de código inteiro construído para IA...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://cursor.sh" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Amazon Q Developer"
-                         data-desc="O assistente de código da AWS."
-                         data-details="Antigo CodeWhisperer. É gratuito para uso individual e especializado em serviços da nuvem AWS e Java/Python."
-                         data-pricing="Grátis (Individual)"
-                         data-features="AWS, Segurança">
-                        <h3>Amazon Q</h3>
-                        <p>O assistente de código especializado em AWS...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://aws.amazon.com/q/" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Replit AI"
-                         data-desc="IA integrada à IDE online mais popular."
-                         data-details="Permite gerar, explicar e corrigir código diretamente no navegador, sem instalar nada. Ótimo para prototipagem rápida."
-                         data-pricing="Freemium"
-                         data-features="Web-based, Colaborativo">
-                        <h3>Replit AI</h3>
-                        <p>IA integrada à IDE online, roda no navegador...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://replit.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Codeium"
-                         data-desc="Uma alternativa gratuita e muito rápida ao Copilot."
-                         data-details="Oferece um plano gratuito muito generoso para indivíduos, com chat e autocompletar de alta velocidade."
-                         data-pricing="Grátis (Individual)"
-                         data-features="Rápido, Gratuito">
-                        <h3>Codeium</h3>
-                        <p>Uma alternativa gratuita e muito rápida ao Copilot...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://codeium.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Blackbox AI"
-                         data-desc="Especializado em copiar código de vídeos e imagens."
-                         data-details="Consegue extrair código de screenshots ou vídeos do YouTube, além de ter um ótimo chat de programação."
-                         data-pricing="Freemium"
-                         data-features="OCR de Código, Chat">
-                        <h3>Blackbox AI</h3>
-                        <p>Especializado em copiar código de vídeos e imagens...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.blackbox.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Cody"
-                         data-desc="IA que entende toda a sua base de código (Codebase)."
-                         data-details="O diferencial do Cody é que ele lê todos os arquivos do seu projeto para dar respostas contextualizadas, não apenas o arquivo aberto."
-                         data-pricing="Freemium"
-                         data-features="Contexto Global, Busca">
-                        <h3>Cody</h3>
-                        <p>IA que entende e lê toda a sua base de código...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://sourcegraph.com/cody" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Mutable.ai"
-                         data-desc="Focado em refatoração de arquivos inteiros."
-                         data-details="Tenta automatizar a parte chata do desenvolvimento: documentação, testes e refatoração de grandes blocos."
-                         data-pricing="Pago"
-                         data-features="Refatoração, Documentação">
-                        <h3>Mutable.ai</h3>
-                        <p>Focado em refatoração e documentação automática...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://mutable.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
+                    <div class="ferramenta-card" data-nome="GitHub Copilot" data-desc="Autocompletar de código." data-details="Padrão da indústria." data-pricing="Pago" data-features="Autocomplete"><h3>Copilot</h3><p>O par programador mais usado.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://github.com/features/copilot" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Cursor" data-desc="Editor de código com IA." data-details="Fork do VS Code focado em IA." data-pricing="Freemium" data-features="IDE, Chat"><h3>Cursor</h3><p>O editor de código do futuro.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://cursor.sh" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Replit AI" data-desc="IDE no navegador." data-details="Prototipagem rápida online." data-pricing="Freemium" data-features="Web IDE"><h3>Replit</h3><p>Codifique direto do navegador.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://replit.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Tabnine" data-desc="Privacidade e Local." data-details="Roda localmente, seguro." data-pricing="Freemium" data-features="Privacidade"><h3>Tabnine</h3><p>Focado em privacidade corporativa.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.tabnine.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Amazon Q" data-desc="IA da AWS." data-details="Especialista em nuvem AWS." data-pricing="Grátis" data-features="AWS, Cloud"><h3>Amazon Q</h3><p>Especialista em AWS.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://aws.amazon.com/q/" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Codeium" data-desc="Alternativa grátis." data-details="Muito rápido e generoso." data-pricing="Grátis" data-features="Rápido"><h3>Codeium</h3><p>Ótima alternativa gratuita.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://codeium.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Blackbox" data-desc="Copia código de vídeo." data-details="Extrai código de imagens." data-pricing="Freemium" data-features="OCR"><h3>Blackbox</h3><p>Extrai código de vídeos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.blackbox.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Cody" data-desc="Lê toda a codebase." data-details="Entende o contexto do projeto." data-pricing="Freemium" data-features="Contexto"><h3>Cody</h3><p>Entende seu repositório inteiro.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://sourcegraph.com/cody" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="v0.dev" data-desc="Gera UI React/Tailwind." data-details="Da Vercel. Texto para Interface." data-pricing="Freemium" data-features="UI, React"><h3>v0.dev</h3><p>Gera interfaces React/Tailwind.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://v0.dev" target="_blank" class="btn-visitar">Visitar</a></div></div>
                 </div>
             </section>
 
             <section class="categoria">
                 <h2 class="categoria-titulo">🎙️ Áudio & Música</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card" 
-                         data-nome="ElevenLabs"
-                         data-desc="Líder em clonagem de voz e TTS realista."
-                         data-details="Gera falas com emoção (sussurros, gritos, risadas) indistinguíveis de humanos. Suporta dezenas de idiomas."
-                         data-pricing="Freemium"
-                         data-features="Voz, Clonagem, Dublagem">
-                        <h3>ElevenLabs</h3>
-                        <p>Líder em clonagem de voz e TTS realista...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://elevenlabs.io" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Suno AI"
-                         data-desc="Cria músicas completas (letra e voz) via prompt."
-                         data-details="Você digita 'um pagode triste sobre perder o ônibus' e ele gera uma música de rádio completa. Impressionante qualidade musical."
-                         data-pricing="Freemium"
-                         data-features="Música Completa, Vocais">
-                        <h3>Suno AI</h3>
-                        <p>Cria músicas completas (letra e voz) via prompt...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://suno.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Udio"
-                         data-desc="O grande concorrente do Suno, com alta fidelidade."
-                         data-details="Famoso por gerar músicas com qualidade de estúdio e vocais muito limpos. Permite estender as faixas e remixar."
-                         data-pricing="Grátis (Beta)"
-                         data-features="Música, Alta Fidelidade">
-                        <h3>Udio</h3>
-                        <p>O grande concorrente do Suno, com alta fidelidade...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.udio.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Murf.ai"
-                         data-desc="Studio de voz focado em apresentações e e-learning."
-                         data-details="Permite sincronizar a voz gerada com vídeos ou slides. Ótimo para criar tutoriais corporativos."
-                         data-pricing="Pago"
-                         data-features="Voz Corporativa, Slides">
-                        <h3>Murf.ai</h3>
-                        <p>Studio de voz focado em apresentações e e-learning...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://murf.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Play.ht"
-                         data-desc="Gerador de voz ultra-rápido e realista."
-                         data-details="Conhecido pela baixa latência e clonagem de voz instantânea. Muito usado para ler artigos de blog em áudio."
-                         data-pricing="Freemium"
-                         data-features="TTS, Clonagem">
-                        <h3>Play.ht</h3>
-                        <p>Gerador de voz ultra-rápido e realista...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://play.ht" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="AIVA"
-                         data-desc="Compositor de trilhas sonoras instrumentais."
-                         data-details="Focado em música clássica, eletrônica e trilhas para filmes/games. Permite editar a partitura MIDI gerada."
-                         data-pricing="Freemium"
-                         data-features="Instrumental, MIDI">
-                        <h3>AIVA</h3>
-                        <p>Compositor de trilhas sonoras instrumentais...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.aiva.ai" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Speechify"
-                         data-desc="Lê qualquer texto (PDFs, livros) em voz alta."
-                         data-details="Focado em acessibilidade e produtividade. Tem vozes famosas (como Snoop Dogg e Gwyneth Paltrow) licenciadas."
-                         data-pricing="Freemium"
-                         data-features="Leitura, Acessibilidade">
-                        <h3>Speechify</h3>
-                        <p>Lê qualquer texto, PDF ou livro em voz alta...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://speechify.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Soundraw"
-                         data-desc="Música livre de royalties para criadores de vídeo."
-                         data-details="Você escolhe o humor, tempo e duração, e ele gera uma música única que você pode usar no YouTube sem levar strike."
-                         data-pricing="Pago"
-                         data-features="Sem Copyright, Vídeos">
-                        <h3>Soundraw</h3>
-                        <p>Música livre de royalties para criadores de vídeo...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://soundraw.io" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Adobe Podcast"
-                         data-desc="Limpa áudios ruins e faz parecer estúdio."
-                         data-details="A ferramenta 'Enhance Speech' remove ruído de fundo e eco, fazendo uma gravação de celular parecer feita em microfone profissional."
-                         data-pricing="Grátis (Ferramentas básicas)"
-                         data-features="Limpeza de Áudio, Podcast">
-                        <h3>Adobe Podcast</h3>
-                        <p>Limpa áudios ruins e faz parecer estúdio...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://podcast.adobe.com" target="_blank" class="btn-visitar">Visitar</a></div>
-                    </div>
+                    <div class="ferramenta-card" data-nome="ElevenLabs" data-desc="Vozes realistas." data-pricing="Freemium"><h3>ElevenLabs</h3><p>Líder em clonagem de voz.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://elevenlabs.io" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Suno" data-desc="Música completa." data-pricing="Freemium"><h3>Suno</h3><p>Cria músicas de rádio com letra.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://suno.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Udio" data-desc="Alta fidelidade musical." data-pricing="Grátis"><h3>Udio</h3><p>Concorrente do Suno, som limpo.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.udio.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Murf" data-desc="Voz para empresas." data-pricing="Pago"><h3>Murf</h3><p>Vozes corporativas para vídeos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://murf.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Play.ht" data-desc="Vozes ultra-rápidas." data-pricing="Freemium"><h3>Play.ht</h3><p>Clonagem e TTS de qualidade.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://play.ht" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Speechify" data-desc="Leitor de texto." data-pricing="Freemium"><h3>Speechify</h3><p>Lê PDFs e livros para você.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://speechify.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Adobe Podcast" data-desc="Limpeza de áudio." data-pricing="Grátis"><h3>Adobe Podcast</h3><p>Remove ruído de gravações.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://podcast.adobe.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="AIVA" data-desc="Compositor MIDI." data-pricing="Freemium"><h3>AIVA</h3><p>Trilhas sonoras instrumentais.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.aiva.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Lalal.ai" data-desc="Separação de faixas." data-pricing="Pago"><h3>Lalal.ai</h3><p>Remove vocal de músicas.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.lalal.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
                 </div>
             </section>
 
             <section class="categoria">
                 <h2 class="categoria-titulo">🎬 Vídeo & Animação</h2>
                 <div class="ferramentas-lista">
-                    <div class="ferramenta-card" 
-                         data-nome="Runway (Gen-2)"
-                         data-desc="Pioneiro em criar vídeo a partir de texto."
-                         data-details="Uma suíte criativa completa. Permite usar o 'Motion Brush' para pintar uma área de uma foto e dizer para a IA mover apenas aquela parte."
-                         data-pricing="Freemium"
-                         data-features="Texto para Vídeo, Edição">
-                        <h3>Runway</h3>
-                        <p>Pioneiro em criar vídeo a partir de texto...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://runwayml.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="Runway" data-desc="Editor de vídeo IA." data-pricing="Freemium"><h3>Runway</h3><p>Texto para vídeo e edição mágica.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://runwayml.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Pika" data-desc="Animação de vídeo." data-pricing="Freemium"><h3>Pika Labs</h3><p>Ótimo para anime e 3D.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://pika.art" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="HeyGen" data-desc="Avatares falantes." data-pricing="Freemium"><h3>HeyGen</h3><p>Dublagem e avatares realistas.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.heygen.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Sora" data-desc="Realismo físico." data-pricing="Privado"><h3>Sora</h3><p>O futuro do vídeo (OpenAI).</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://openai.com/sora" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Descript" data-desc="Edição por texto." data-pricing="Freemium"><h3>Descript</h3><p>Edite vídeo como se fosse Word.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.descript.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="InVideo" data-desc="YouTube automático." data-pricing="Freemium"><h3>InVideo</h3><p>Cria roteiro e vídeo explicativo.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://invideo.io" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Synthesia" data-desc="Treinamento corporativo." data-pricing="Pago"><h3>Synthesia</h3><p>Avatares para empresas.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.synthesia.io" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Opus Clip" data-desc="Cortes virais." data-pricing="Freemium"><h3>Opus Clip</h3><p>Transforma vídeo longo em Shorts.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.opus.pro" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Luma Dream Machine" data-desc="Vídeo rápido." data-pricing="Freemium"><h3>Dream Machine</h3><p>Gera vídeo de alta qualidade rápido.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://lumalabs.ai/dream-machine" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎓 Educação & Pesquisa</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Consensus" data-desc="Busca científica." data-pricing="Freemium"><h3>Consensus</h3><p>Responde com base em papers.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://consensus.app" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Scispace" data-desc="Chat com PDF." data-pricing="Freemium"><h3>Scispace</h3><p>Entenda artigos complexos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://typeset.io" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Elicit" data-desc="Revisão bibliográfica." data-pricing="Freemium"><h3>Elicit</h3><p>Automatiza pesquisa acadêmica.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://elicit.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Scholarcy" data-desc="Resumos automáticos." data-pricing="Freemium"><h3>Scholarcy</h3><p>Cria flashcards de artigos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.scholarcy.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="QuillBot" data-desc="Paráfrase." data-pricing="Freemium"><h3>QuillBot</h3><p>Reescreve textos academicos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://quillbot.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Khanmigo" data-desc="Tutor Socrático." data-pricing="Pago"><h3>Khanmigo</h3><p>Ensina sem dar a resposta.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.khanmigo.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Socratic" data-desc="Ajuda visual." data-pricing="Grátis"><h3>Socratic</h3><p>Resolve dever de casa por foto.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://socratic.org" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Paperpal" data-desc="Escrita acadêmica." data-pricing="Freemium"><h3>Paperpal</h3><p>Melhora inglês para papers.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://paperpal.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Gradescope" data-desc="Correção de provas." data-pricing="Inst"><h3>Gradescope</h3><p>Agiliza correção para professores.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.gradescope.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">📊 Apresentações (Slides)</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Gamma" data-desc="Slides via texto." data-pricing="Freemium"><h3>Gamma</h3><p>Cria decks completos digitando.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://gamma.app" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Beautiful.ai" data-desc="Design automático." data-pricing="Pago"><h3>Beautiful.ai</h3><p>Impede slides feios.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.beautiful.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Tome" data-desc="Storytelling." data-pricing="Freemium"><h3>Tome</h3><p>Narrativa visual com IA.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://tome.app" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="SlidesAI" data-desc="Google Slides." data-pricing="Freemium"><h3>SlidesAI</h3><p>Plugin para Google Slides.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.slidesai.io" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Pitch" data-desc="Colaborativo." data-pricing="Freemium"><h3>Pitch</h3><p>Slides modernos para times.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://pitch.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Decktopus" data-desc="Funil de vendas." data-pricing="Pago"><h3>Decktopus</h3><p>Slides para capturar leads.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://decktopus.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Presentations.ai" data-desc="Corporativo." data-pricing="Freemium"><h3>Presentations</h3><p>Consistência de marca.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.presentations.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Sendsteps" data-desc="Interativo." data-pricing="Freemium"><h3>Sendsteps</h3><p>Slides com votação ao vivo.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.sendsteps.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="PopAi" data-desc="PDF para Slide." data-pricing="Freemium"><h3>PopAi</h3><p>Converte docs em slides.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.popai.pro" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🧊 3D & Modelagem</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Luma AI" data-desc="Captura 3D." data-pricing="Grátis"><h3>Luma AI</h3><p>Do vídeo para o 3D (Splatting).</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://lumalabs.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Spline" data-desc="Design 3D Web." data-pricing="Freemium"><h3>Spline</h3><p>3D no navegador com IA.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://spline.design" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Meshy" data-desc="Assets rápidos." data-pricing="Freemium"><h3>Meshy</h3><p>Texto para 3D em 1 min.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.meshy.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Tripo AI" data-desc="Prototipagem." data-pricing="Freemium"><h3>Tripo AI</h3><p>Geração ultra-rápida.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.tripo3d.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Skybox" data-desc="Mundos 360." data-pricing="Freemium"><h3>Skybox AI</h3><p>Cenários 360 graus.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://skybox.blockadelabs.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Rodin" data-desc="Alta qualidade." data-pricing="Pago"><h3>Rodin</h3><p>Modelos complexos e limpos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://hyperhuman.deemos.com/rodin" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Masterpiece X" data-desc="Criar em VR." data-pricing="Freemium"><h3>Masterpiece</h3><p>Modelagem dentro do VR.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.masterpiecex.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="CSM.ai" data-desc="Imagem para 3D." data-pricing="Freemium"><h3>CSM.ai</h3><p>Converte fotos em 3D.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://csm.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Ponzu" data-desc="Texturas." data-pricing="Freemium"><h3>Ponzu</h3><p>Gera texturas PBR.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.ponzu.gg" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎮 Games & Interatividade</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Scenario" data-desc="Assets de jogos." data-pricing="Freemium"><h3>Scenario</h3><p>Arte consistente para games.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.scenario.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Inworld" data-desc="NPCs inteligentes." data-pricing="Freemium"><h3>Inworld AI</h3><p>Cérebro para personagens.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://inworld.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Unity Muse" data-desc="IA da Unity." data-pricing="Pago"><h3>Unity Muse</h3><p>Assistente oficial da Unity.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://unity.com/products/muse" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Rosebud" data-desc="Jogos via texto." data-pricing="Freemium"><h3>Rosebud</h3><p>Crie jogos descrevendo-os.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.rosebud.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Layer" data-desc="Arte em massa." data-pricing="Pago"><h3>Layer AI</h3><p>Produtividade para estúdios.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://layer.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Convai" data-desc="Conversa real." data-pricing="Freemium"><h3>Convai</h3><p>Fale com personagens no jogo.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.convai.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Kinetix" data-desc="Emotes 3D." data-pricing="Freemium"><h3>Kinetix</h3><p>Danças a partir de vídeo.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.kinetix.tech" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Opus.ai" data-desc="Mundos 3D." data-pricing="Waitlist"><h3>Opus.ai</h3><p>Texto para mundo 3D.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://opus.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Leonardo Texture" data-desc="Texturas." data-pricing="Freemium"><h3>Leonardo</h3><p>Modo de textura tileable.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://leonardo.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">⚖️ Jurídico & Legal</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Harvey" data-desc="IA para elite." data-pricing="Privado"><h3>Harvey</h3><p>IA jurídica para grandes bancas.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.harvey.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Casetext" data-desc="CoCounsel." data-pricing="Pago"><h3>Casetext</h3><p>Pesquisa jurídica confiável.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://casetext.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Jusbrasil" data-desc="Brasil." data-pricing="Freemium"><h3>Jusbrasil</h3><p>IA na lei brasileira.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.jusbrasil.com.br" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Spellbook" data-desc="No Word." data-pricing="Pago"><h3>Spellbook</h3><p>Copilot jurídico no Word.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.spellbook.legal" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Ironclad" data-desc="Contratos." data-pricing="Pago"><h3>Ironclad</h3><p>Gestão de ciclo de contratos.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://ironcladapp.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="DoNotPay" data-desc="Consumidor." data-pricing="Pago"><h3>DoNotPay</h3><p>O advogado robô do povo.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://donotpay.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="LegalRobot" data-desc="Simplificador." data-pricing="Freemium"><h3>LegalRobot</h3><p>Traduz juridiquês.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://legalrobot.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Humata" data-desc="PDF Legal." data-pricing="Freemium"><h3>Humata</h3><p>Analisa processos em PDF.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.humata.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Latch" data-desc="Gestão." data-pricing="Pago"><h3>Latch</h3><p>Review e negociação.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.latchapp.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">📈 Dados & Análise</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Julius AI" data-desc="Cientista de dados." data-pricing="Freemium"><h3>Julius AI</h3><p>Analise dados no chat.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://julius.ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Tableau" data-desc="Pulse." data-pricing="Pago"><h3>Tableau</h3><p>BI líder com IA.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.tableau.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="MonkeyLearn" data-desc="Análise de texto." data-pricing="Pago"><h3>MonkeyLearn</h3><p>Classifica sentimentos sem código.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://monkeylearn.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="PandasAI" data-desc="Python Lib." data-pricing="Open Source"><h3>PandasAI</h3><p>Converse com Dataframes.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://github.com/gventuri/pandas-ai" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Rows" data-desc="Planilha moderna." data-pricing="Freemium"><h3>Rows</h3><p>Excel com IA nativa.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://rows.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Akkio" data-desc="Preditiva." data-pricing="Pago"><h3>Akkio</h3><p>Previsão de vendas fácil.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.akkio.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="BlazeSQL" data-desc="SQL." data-pricing="Freemium"><h3>BlazeSQL</h3><p>Texto para Query SQL.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.blazesql.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="Polymer" data-desc="Dashboards." data-pricing="Pago"><h3>Polymer</h3><p>Planilhas em Dashboards.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.polymersearch.com" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                    <div class="ferramenta-card" data-nome="MS Fabric" data-desc="Enterprise." data-pricing="Pago"><h3>MS Fabric</h3><p>Plataforma de dados completa.</p><div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.microsoft.com/en-us/microsoft-fabric" target="_blank" class="btn-visitar">Visitar</a></div></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">📊 Apresentações (Slides)</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Gamma" data-desc="Slides via texto." data-details="Cria decks completos, bonitos e editáveis apenas digitando o tópico." data-pricing="Freemium" data-features="Design, Web">
+                        <h3>Gamma</h3>
+                        <p>Cria apresentações inteiras digitando um tema.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://gamma.app" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Pika Labs"
-                         data-desc="Especialista em animações fluidas e estilo anime/3D."
-                         data-details="Funciona via Discord e Web. É excelente para animar personagens e criar efeitos de lip-sync (sincronia labial)."
-                         data-pricing="Freemium"
-                         data-features="Animação, Lip Sync">
-                        <h3>Pika Labs</h3>
-                        <p>Especialista em animações fluidas e estilo anime...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://pika.art" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="Beautiful.ai" data-desc="Design automático." data-details="Impede que você faça slides feios ajustando o layout automaticamente." data-pricing="Pago" data-features="Design">
+                        <h3>Beautiful.ai</h3>
+                        <p>Slides que se ajustam sozinhos.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.beautiful.ai" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="HeyGen"
-                         data-desc="Cria avatares falantes ultra-realistas."
-                         data-details="Você sobe uma foto ou vídeo seu, digita um texto, e ele cria um vídeo seu falando aquilo em qualquer idioma, movendo a boca perfeitamente."
-                         data-pricing="Freemium"
-                         data-features="Avatares, Tradução de Vídeo">
-                        <h3>HeyGen</h3>
-                        <p>Cria avatares falantes ultra-realistas para negócios...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.heygen.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="Tome" data-desc="Storytelling." data-details="Focado em narrativas visuais e pitch decks modernos." data-pricing="Freemium" data-features="Storytelling">
+                        <h3>Tome</h3>
+                        <p>Narrativa visual e storytelling com IA.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://tome.app" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Sora (OpenAI)"
-                         data-desc="O modelo mais avançado de vídeo (em breve)."
-                         data-details="Capaz de criar vídeos de até 1 minuto com consistência física incrível. Atualmente disponível apenas para testadores selecionados."
-                         data-pricing="Não divulgado"
-                         data-features="Realismo Físico, Alta Resolução">
-                        <h3>Sora</h3>
-                        <p>O modelo mais avançado de vídeo (em testes)...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://openai.com/sora" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="SlidesAI" data-desc="Google Slides." data-details="Extensão que cria slides direto dentro do Google Slides." data-pricing="Freemium" data-features="Google">
+                        <h3>SlidesAI</h3>
+                        <p>Gere slides dentro do Google Slides.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.slidesai.io" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Descript"
-                         data-desc="Edita vídeo editando o texto."
-                         data-details="Ele transcreve seu vídeo. Se você apagar uma palavra no texto, ele corta aquela parte do vídeo automaticamente. Remove 'hums' e 'ehs' com um clique."
-                         data-pricing="Freemium"
-                         data-features="Edição por Texto, Podcast">
-                        <h3>Descript</h3>
-                        <p>Edita vídeo editando o texto da transcrição...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.descript.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🧊 3D & Modelagem</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Luma AI" data-desc="Captura 3D." data-details="Transforma vídeos feitos no celular em cenas 3D interativas (Gaussian Splatting)." data-pricing="Grátis" data-features="Capture, NeRF">
+                        <h3>Luma AI</h3>
+                        <p>Do vídeo para o 3D realista.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://lumalabs.ai" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="InVideo AI"
-                         data-desc="Cria vídeos explicativos para YouTube do zero."
-                         data-details="Você dá um tema, ele escreve o roteiro, escolhe cenas de bancos de imagem, coloca narração e legendas. Tudo automático."
-                         data-pricing="Freemium"
-                         data-features="YouTube, Automação">
-                        <h3>InVideo AI</h3>
-                        <p>Cria vídeos explicativos completos para YouTube...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://invideo.io" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="Spline" data-desc="Design 3D Web." data-details="Ferramenta de design 3D colaborativa com geração de textura e objetos por IA." data-pricing="Freemium" data-features="Web Design">
+                        <h3>Spline</h3>
+                        <p>Design 3D direto no navegador.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://spline.design" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Synthesia"
-                         data-desc="Avatares de IA para treinamento corporativo."
-                         data-details="Focado em empresas. Substitui a necessidade de contratar atores e estúdios para fazer vídeos de treinamento interno."
-                         data-pricing="Pago"
-                         data-features="Corporativo, Avatares">
-                        <h3>Synthesia</h3>
-                        <p>Avatares de IA para treinamento corporativo...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.synthesia.io" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="Meshy" data-desc="Texto para 3D." data-details="Gera modelos 3D texturizados e prontos para jogos em minutos." data-pricing="Freemium" data-features="Assets">
+                        <h3>Meshy</h3>
+                        <p>Crie assets 3D digitando texto.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.meshy.ai" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Kaiber"
-                         data-desc="Transforma vídeos reais em animações estilizadas."
-                         data-details="Ficou famoso por fazer clipes do Linkin Park. Você sobe um vídeo seu dançando e pede para transformar em 'anime futurista'."
-                         data-pricing="Pago"
-                         data-features="Estilização, Music Video">
-                        <h3>Kaiber</h3>
-                        <p>Transforma vídeos reais em animações estilizadas...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://kaiber.ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    <div class="ferramenta-card" data-nome="Tripo AI" data-desc="Geração rápida." data-details="Focado em velocidade para prototipagem de modelos 3D." data-pricing="Freemium" data-features="Rápido">
+                        <h3>Tripo AI</h3>
+                        <p>Modelos 3D gerados instantaneamente.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.tripo3d.ai" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
-                    <div class="ferramenta-card" 
-                         data-nome="Opus Clip"
-                         data-desc="Corta vídeos longos em Shorts virais."
-                         data-details="Pega um podcast de 1 hora, identifica os momentos mais engajadores, corta na vertical, adiciona legendas coloridas e dá uma nota de viralidade."
-                         data-pricing="Freemium"
-                         data-features="Cortes, Viralidade, Shorts">
-                        <h3>Opus Clip</h3>
-                        <p>Corta vídeos longos em Shorts virais automaticamente...</p>
-                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.opus.pro" target="_blank" class="btn-visitar">Visitar</a></div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎮 Games & Interatividade</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Scenario" data-desc="Assets de jogos." data-details="Treine IA com seu próprio estilo artístico para gerar assets infinitos." data-pricing="Freemium" data-features="Game Art">
+                        <h3>Scenario</h3>
+                        <p>Crie assets consistentes para jogos.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.scenario.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Inworld" data-desc="NPCs inteligentes." data-details="Cérebro para NPCs que conversam e reagem ao jogador dinamicamente." data-pricing="Freemium" data-features="NPCs">
+                        <h3>Inworld AI</h3>
+                        <p>Dê vida e diálogo real aos NPCs.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://inworld.ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Unity Muse" data-desc="IA da Unity." data-details="Suíte de ferramentas de IA oficial dentro da engine Unity." data-pricing="Pago" data-features="Game Dev">
+                        <h3>Unity Muse</h3>
+                        <p>Assistente de criação oficial da Unity.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://unity.com/products/muse" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Rosebud" data-desc="Jogos via texto." data-details="Plataforma para criar jogos descrevendo as regras e cenários." data-pricing="Freemium" data-features="No-Code">
+                        <h3>Rosebud</h3>
+                        <p>Desenvolva jogos conversando.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.rosebud.ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">🎓 Educação & Pesquisa</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Consensus" data-desc="Busca científica." data-details="Motor de busca que responde perguntas baseadas apenas em artigos científicos revisados." data-pricing="Freemium" data-features="Ciência">
+                        <h3>Consensus</h3>
+                        <p>Respostas baseadas em ciência real.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://consensus.app" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Scispace" data-desc="Chat com PDF." data-details="Explica fórmulas e textos complexos de artigos acadêmicos." data-pricing="Freemium" data-features="Acadêmico">
+                        <h3>Scispace</h3>
+                        <p>Entenda qualquer artigo acadêmico.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://typeset.io" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Elicit" data-desc="Revisão bibliográfica." data-details="Automatiza a busca e o resumo de literatura para teses." data-pricing="Freemium" data-features="Pesquisa">
+                        <h3>Elicit</h3>
+                        <p>Seu assistente de pesquisa acadêmica.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://elicit.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Khanmigo" data-desc="Tutor Socrático." data-details="IA da Khan Academy que ensina sem dar a resposta pronta." data-pricing="Pago" data-features="Ensino">
+                        <h3>Khanmigo</h3>
+                        <p>Tutor pessoal da Khan Academy.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.khanmigo.ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">⚖️ Jurídico & Legal</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Harvey" data-desc="IA para elite." data-details="IA jurídica personalizada para grandes escritórios de advocacia." data-pricing="Privado" data-features="Advocacia">
+                        <h3>Harvey</h3>
+                        <p>O padrão ouro da IA jurídica.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.harvey.ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Jusbrasil" data-desc="Contexto Brasil." data-details="Usa IA para conectar jurisprudência e leis brasileiras." data-pricing="Freemium" data-features="Brasil">
+                        <h3>Jusbrasil</h3>
+                        <p>Inteligência legal focada no Brasil.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.jusbrasil.com.br" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Casetext" data-desc="CoCounsel." data-details="Assistente jurídico confiável para revisão de documentos." data-pricing="Pago" data-features="Pesquisa">
+                        <h3>Casetext</h3>
+                        <p>Pesquisa jurídica e revisão de contratos.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://casetext.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Spellbook" data-desc="Plugin Word." data-details="Funciona dentro do Word para redigir cláusulas contratuais." data-pricing="Pago" data-features="Contratos">
+                        <h3>Spellbook</h3>
+                        <p>Copilot jurídico dentro do Word.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.spellbook.legal" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categoria">
+                <h2 class="categoria-titulo">📈 Dados & Análise</h2>
+                <div class="ferramentas-lista">
+                    <div class="ferramenta-card" data-nome="Julius AI" data-desc="Cientista de dados." data-details="Converse com seus dados. Gera gráficos e análises via chat." data-pricing="Freemium" data-features="Análise">
+                        <h3>Julius AI</h3>
+                        <p>Analise planilhas complexas no chat.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://julius.ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Tableau Pulse" data-desc="BI com IA." data-details="Insights automáticos sobre seus dados de negócios." data-pricing="Pago" data-features="Business">
+                        <h3>Tableau</h3>
+                        <p>A ferramenta de BI líder, agora com IA.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://www.tableau.com" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="PandasAI" data-desc="Python Library." data-details="Biblioteca Python para fazer análise de dados usando linguagem natural." data-pricing="Open Source" data-features="Dev, Dados">
+                        <h3>PandasAI</h3>
+                        <p>Use IA dentro do seu código Python.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://github.com/gventuri/pandas-ai" target="_blank" class="btn-visitar">Visitar</a></div>
+                    </div>
+                    <div class="ferramenta-card" data-nome="Rows" data-desc="Excel moderno." data-details="Planilhas conectadas à internet com IA nativa." data-pricing="Freemium" data-features="Planilhas">
+                        <h3>Rows</h3>
+                        <p>A planilha mais moderna do mundo.</p>
+                        <div class="card-actions"><button class="btn-detalhes">Detalhes</button><a href="https://rows.com" target="_blank" class="btn-visitar">Visitar</a></div>
                     </div>
                 </div>
             </section>
@@ -1355,577 +519,145 @@
     </main>
 
     <main id="pagina-biblioteca" class="container hidden">
-        <section class="info-card">
-            <h2>Biblioteca de Prompts Prontos</h2>
-            <p>Copie e cole estes prompts testados para obter melhores resultados nas IAs.</p>
-            
-            <div class="search-container">
-                <input type="search" id="search-library" placeholder="Buscar prompts por tema, tag ou conteúdo...">
-            </div>
-
-            <div class="library-grid">
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Marketing</span>
-                        <span class="tag">Copywriting</span>
-                    </div>
-                    <h3>Estrutura AIDA para Vendas</h3>
-                    <div class="prompt-content">Atue como um especialista em copywriting de resposta direta. Escreva um texto de vendas persuasivo para [PRODUTO/SERVIÇO] usando a estrutura AIDA (Atenção, Interesse, Desejo, Ação). O público-alvo são [PÚBLICO]. O tom deve ser [TOM DE VOZ].</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Programação</span>
-                        <span class="tag">Python</span>
-                    </div>
-                    <h3>Explique o Código (ELi5)</h3>
-                    <div class="prompt-content">Por favor, aja como um instrutor de programação sênior. Explique o seguinte trecho de código Python como se eu tivesse 10 anos de idade (ELI5). Use analogias do mundo real para explicar conceitos abstratos:
-[INSERIR CÓDIGO AQUI]</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Imagem</span>
-                        <span class="tag">Midjourney</span>
-                    </div>
-                    <h3>Fotografia Realista</h3>
-                    <div class="prompt-content">Cinematic shot, ultra-realistic photography of a [SUJEITO] in [LOCAL], dramatic lighting, 8k resolution, shot on 35mm lens, depth of field, hyper-detailed, photorealistic, unreal engine 5 render style --ar 16:9 --v 6.0</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Produtividade</span>
-                        <span class="tag">Resumo</span>
-                    </div>
-                    <h3>Resumo Executivo (TL;DR)</h3>
-                    <div class="prompt-content">Crie um resumo executivo do texto abaixo em formato de bullet points. Foque nos principais insights, dados numéricos e conclusões. Ao final, adicione uma seção "Ação Recomendada". Texto: [COLAR TEXTO]</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Criatividade</span>
-                        <span class="tag">Brainstorming</span>
-                    </div>
-                    <h3>Método SCAMPER</h3>
-                    <div class="prompt-content">Vamos usar o método SCAMPER para fazer brainstorming de inovações para [PRODUTO/PROJETO]. Gere 3 ideias para cada letra do acrônimo: Substituir, Combinar, Adaptar, Modificar, Propor outro uso, Eliminar e Reorganizar.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-                
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Educação</span>
-                        <span class="tag">Aprendizado</span>
-                    </div>
-                    <h3>Tutor Socrático</h3>
-                    <div class="prompt-content">Quero que você atue como um tutor Socrático. Você não deve me dar as respostas diretamente. Em vez disso, faça perguntas que me guiem a encontrar a resposta por conta própria e entender o conceito de [TEMA DE ESTUDO]. Comece com uma pergunta simples.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Produtividade</span>
-                        <span class="tag">Excel</span>
-                    </div>
-                    <h3>Mestre das Fórmulas Excel</h3>
-                    <div class="prompt-content">Atue como um especialista em Excel. Eu tenho uma planilha onde a coluna A é [DADOS A] e a coluna B é [DADOS B]. Preciso de uma fórmula para [OBJETIVO]. Explique como a fórmula funciona.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Carreira</span>
-                        <span class="tag">Simulação</span>
-                    </div>
-                    <h3>Simulador de Entrevista</h3>
-                    <div class="prompt-content">Estou me candidatando para uma vaga de [CARGO]. Aja como um recrutador exigente e faça uma simulação de entrevista comigo. Faça uma pergunta por vez e aguarde minha resposta antes de dar feedback e fazer a próxima pergunta.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Marketing</span>
-                        <span class="tag">Instagram</span>
-                    </div>
-                    <h3>Calendário de Conteúdo 30 Dias</h3>
-                    <div class="prompt-content">Crie um calendário editorial de 30 dias para o Instagram de uma empresa de [NICHO]. Inclua ideias de posts (Reels, Carrossel e Stories), sugestões de legendas engajadoras e hashtags relevantes para cada dia. O objetivo é [OBJETIVO].</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Marketing</span>
-                        <span class="tag">SEO</span>
-                    </div>
-                    <h3>Artigo Otimizado para SEO</h3>
-                    <div class="prompt-content">Escreva um artigo de blog de 1500 palavras otimizado para SEO sobre a palavra-chave "[PALAVRA-CHAVE]". Use títulos H2 e H3, inclua uma lista de perguntas frequentes (FAQ) no final e mantenha um tom informativo e amigável.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Programação</span>
-                        <span class="tag">Clean Code</span>
-                    </div>
-                    <h3>Refatoração Clean Code</h3>
-                    <div class="prompt-content">Revise o código abaixo e sugira melhorias baseadas nos princípios de Clean Code e SOLID. Torne-o mais legível, eficiente e modular. Explique o que foi alterado.
-[INSERIR CÓDIGO AQUI]</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Tradutor</span>
-                        <span class="tag">Idiomas</span>
-                    </div>
-                    <h3>Tradutor Contextual</h3>
-                    <div class="prompt-content">Traduza o seguinte texto para o [IDIOMA DE DESTINO]. Não traduza literalmente; adapte as expressões idiomáticas e culturais para que soe natural para um falante nativo. O contexto é [CONTEXTO]. Texto: [TEXTO ORIGINAL]</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Programação</span>
-                        <span class="tag">Debug</span>
-                    </div>
-                    <h3>Caçador de Bugs</h3>
-                    <div class="prompt-content">Este código está apresentando um erro ou comportamento inesperado. Analise a lógica, identifique possíveis falhas de segurança ou erros de sintaxe e proponha a correção.
-[INSERIR CÓDIGO AQUI]</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Negócios</span>
-                        <span class="tag">Email</span>
-                    </div>
-                    <h3>Recusa Polida</h3>
-                    <div class="prompt-content">Escreva um e-mail profissional e empático recusando um convite para [EVENTO/PROJETO] devido à falta de tempo na agenda. Mantenha as portas abertas para oportunidades futuras.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Design</span>
-                        <span class="tag">Midjourney</span>
-                    </div>
-                    <h3>Logo Minimalista</h3>
-                    <div class="prompt-content">Minimalist vector logo design for a [TIPO DE EMPRESA], simple geometric shapes, clean lines, flat design, white background, professional, award winning design --no shading, details</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Dados</span>
-                        <span class="tag">SQL</span>
-                    </div>
-                    <h3>Gerador de Query SQL</h3>
-                    <div class="prompt-content">Tenho duas tabelas: 'Usuarios' (id, nome, email) e 'Pedidos' (id, usuario_id, valor, data). Escreva uma query SQL complexa para encontrar os 5 usuários que mais gastaram no último mês.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Negócios</span>
-                        <span class="tag">Estratégia</span>
-                    </div>
-                    <h3>Análise SWOT</h3>
-                    <div class="prompt-content">Realize uma Análise SWOT (Forças, Fraquezas, Oportunidades, Ameaças) detalhada para uma empresa que atua no mercado de [MERCADO]. Considere concorrentes atuais e tendências futuras.</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Programação</span>
-                        <span class="tag">Testes</span>
-                    </div>
-                    <h3>Gerador de Testes Unitários</h3>
-                    <div class="prompt-content">Escreva testes unitários abrangentes para a seguinte função usando [FRAMEWORK DE TESTE]. Certifique-se de cobrir casos de borda (edge cases) e possíveis entradas inválidas.
-[CÓDIGO DA FUNÇÃO]</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-                
-                <div class="prompt-card">
-                    <div class="prompt-tags">
-                        <span class="tag">Criador</span>
-                        <span class="tag">Vídeo</span>
-                    </div>
-                    <h3>Roteiro para YouTube</h3>
-                    <div class="prompt-content">Escreva um roteiro de vídeo para o YouTube sobre [TEMA]. O vídeo deve ter 10 minutos. Inclua um gancho forte nos primeiros 30 segundos, introdução, 3 pontos principais de conteúdo, e um Call to Action (CTA) claro no final. Estilo: [ESTILO].</div>
-                    <button class="btn-copy">📋 Copiar Prompt</button>
-                </div>
-
-            </div>
-        </section>
+        <div class="search-container"><input type="search" id="search-library" placeholder="Buscar prompts..."></div>
+        <div class="library-grid">
+            <div class="prompt-card"><div class="tag">Marketing</div><h3>AIDA</h3><div class="prompt-content">Crie um texto de vendas usando AIDA (Atenção, Interesse, Desejo, Ação) para [PRODUTO].</div><button class="btn-copy">📋 Copiar</button></div>
+            <div class="prompt-card"><div class="tag">Dev</div><h3>Explain Code</h3><div class="prompt-content">Explique este código como se eu tivesse 10 anos: [CÓDIGO].</div><button class="btn-copy">📋 Copiar</button></div>
+            <div class="prompt-card"><div class="tag">Imagem</div><h3>Photo Real</h3><div class="prompt-content">Cinematic shot, 35mm, 8k, highly detailed, photorealistic.</div><button class="btn-copy">📋 Copiar</button></div>
+            <div class="prompt-card"><div class="tag">Negócios</div><h3>SWOT</h3><div class="prompt-content">Faça uma análise SWOT para [EMPRESA].</div><button class="btn-copy">📋 Copiar</button></div>
+            <div class="prompt-card"><div class="tag">Estudo</div><h3>Socrático</h3><div class="prompt-content">Seja um tutor Socrático. Não dê a resposta, faça perguntas para me guiar.</div><button class="btn-copy">📋 Copiar</button></div>
+            <div class="prompt-card"><div class="tag">Email</div><h3>Recusa</h3><div class="prompt-content">Escreva um email polido recusando o convite para [EVENTO].</div><button class="btn-copy">📋 Copiar</button></div>
+        </div>
     </main>
 
     <main id="pagina-prompt" class="container hidden">
         <section class="info-card">
-            <h2>O que é Engenharia de Prompt?</h2>
-            <p>Engenharia de Prompt é a prática de desenhar e otimizar as instruções (os "prompts") dadas a um modelo de linguagem...</p>
-            <h3>Pilares de um Bom Prompt:</h3>
-            <ul>
-                <li><strong>Clareza e Especificidade:</strong> Evite ambiguidades. Diga exatamente o que quer.</li>
-                <li><strong>Contexto:</strong> Forneça as informações de fundo necessárias...</li>
-                <li><strong>Persona (Papel):</strong> Diga à IA quem ela deve "ser"...</li>
-                <li><strong>Formato:</strong> Especifique como você quer a resposta...</li>
-            </ul>
-        </section>
-        
-        <section class="info-card" id="prompt-generator">
             <h2>Gerador de Prompt</h2>
-            <p>Use os campos abaixo para construir um prompt estruturado e eficaz.</p>
-            
-            <h3>1. Qual é a tarefa?</h3>
-            <select id="prompt-task">
-                <option value="Escreva">Escreva</option>
-                <option value="Resuma">Resuma</option>
-                <option value="Traduza para o inglês">Traduza (para inglês)</option>
-                <option value="Explique">Explique</option>
-                <option value="Gere o código (em Python)">Gere código (Python)</option>
-                <option value="Crie um plano detalhado para">Crie um plano para</option>
-                <option value="Compare e contraste">Compare e contraste</option>
-            </select>
-
-            <h3>2. Qual é o assunto principal?</h3>
-            <input type="text" id="prompt-topic" placeholder="ex: um e-mail de marketing para o Dia das Mães">
-
-            <h3>3. Dê um papel para a IA (Persona):</h3>
-            <select id="prompt-persona">
-                <option value="">-- Nenhuma (padrão) --</option>
-                <option value="um especialista em marketing digital">Especialista em Marketing</option>
-                <option value="um professor de história didático">Professor de História</option>
-                <option value="um programador sênior">Programador Sênior</option>
-                <option value="um roteirista de comédia">Roteirista de Comédia</option>
-                <option value="um advogado revisando um contrato">Advogado</option>
-            </select>
-
-            <h3>4. Qual o formato da resposta?</h3>
-            <select id="prompt-format">
-                <option value="">-- Nenhum (padrão) --</option>
-                <option value="em tópicos (bullet points)">Tópicos (bullet points)</option>
-                <option value="em uma tabela com duas colunas">Tabela</option>
-                <option value="em um tom formal e profissional">Tom formal</option>
-                <option value="de forma simples, como se eu tivesse 10 anos">Tom simples (ELi5)</option>
-                <option value="como um bloco de código JSON">JSON</option>
-            </select>
-
-            <button id="btn-generate-prompt">Gerar Prompt</button>
-
-            <h3>Prompt Gerado:</h3>
-            <textarea id="prompt-result" rows="6" readonly placeholder="Seu prompt aparecerá aqui..."></textarea>
-
+            <select id="prompt-task"><option>Escreva</option><option>Resuma</option><option>Explique</option><option>Gere código</option></select>
+            <input type="text" id="prompt-topic" placeholder="Assunto...">
+            <select id="prompt-persona"><option>Especialista</option><option>Professor</option><option>Programador</option></select>
+            <select id="prompt-format"><option>Tópicos</option><option>Tabela</option><option>Formal</option></select>
+            <button id="btn-generate-prompt" style="background:#3498db; color:white; padding:10px; border:none; border-radius:5px; margin-top:10px; cursor:pointer;">Gerar</button>
+            <textarea id="prompt-result" style="width:100%; margin-top:10px; padding:10px;" rows="5"></textarea>
         </section>
     </main>
-    
+
     <main id="pagina-sobre" class="container hidden">
-        <section class="info-card">
-            <h2>Sobre este Projeto</h2>
-            <p>Este projeto é um catálogo interativo de ferramentas de Inteligência Artificial.</p>
-            <p>Foi construído usando apenas HTML, CSS e JavaScript puro, demonstrando como criar uma Single Page Application (SPA) simples sem frameworks pesados.</p>
-            <p>O objetivo é organizar as crescentes ferramentas de IA em categorias claras para facilitar a descoberta.</p>
-        </section>
+        <section class="info-card"><h2>Sobre</h2><p>Catálogo SPA (Single Page Application) com HTML/CSS/JS Puro.</p></section>
     </main>
 
     <div id="modal-overlay" class="hidden">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2 id="modal-title">Título da Ferramenta</h2>
-            <div class="modal-meta">
-                <span id="modal-pricing" class="modal-badge modal-pricing">Preço</span>
-                <span id="modal-features" class="modal-badge">Tags</span>
-            </div>
-            <p id="modal-desc-full">Descrição completa aqui...</p>
+            <h2 id="modal-title"></h2>
+            <div class="modal-meta"><span id="modal-pricing" class="modal-badge modal-pricing"></span><span id="modal-features" class="modal-badge"></span></div>
+            <p id="modal-desc-full"></p>
         </div>
     </div>
 
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- Referências de Elementos Principais ---
+            // Elementos
             const themeSwitch = document.getElementById('theme-switch');
+            const pages = ['inicio', 'catalogo', 'biblioteca', 'prompt', 'sobre'];
+            const navButtons = pages.map(p => document.getElementById(`btn-${p}`));
+            const pageElements = pages.map(p => document.getElementById(`pagina-${p}`));
+            
+            // Tema
+            if(localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark-mode'); themeSwitch.checked = true; }
+            themeSwitch.addEventListener('change', (e) => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', e.target.checked ? 'dark' : 'light');
+            });
+
+            // Navegação
+            navButtons.forEach((btn, idx) => {
+                btn.addEventListener('click', () => {
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    pageElements.forEach(p => p.classList.add('hidden'));
+                    btn.classList.add('active');
+                    pageElements[idx].classList.remove('hidden');
+                });
+            });
+
+            // Acordeão
+            document.querySelectorAll('.categoria-titulo').forEach(t => t.addEventListener('click', () => t.parentElement.classList.toggle('active')));
+
+            // Busca e Filtro
             const searchBar = document.getElementById('search-bar');
             const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            // Elementos da Navegação de Página
-            const btnInicio = document.getElementById('btn-inicio');
-            const btnCatalogo = document.getElementById('btn-catalogo');
-            const btnBiblioteca = document.getElementById('btn-biblioteca');
-            const btnPrompt = document.getElementById('btn-prompt');
-            const btnSobre = document.getElementById('btn-sobre');
-            
-            const paginaInicio = document.getElementById('pagina-inicio');
-            const paginaCatalogo = document.getElementById('pagina-catalogo');
-            const paginaBiblioteca = document.getElementById('pagina-biblioteca');
-            const paginaPrompt = document.getElementById('pagina-prompt');
-            const paginaSobre = document.getElementById('pagina-sobre');
+            let currentFilter = 'all';
 
-            // Elementos do Catálogo
-            const allCategoryTitles = document.querySelectorAll('.categoria-titulo');
-            const allCards = document.querySelectorAll('.ferramenta-card');
-            const allCategories = document.querySelectorAll('.categoria');
-
-            // Elementos do Modal
-            const modalOverlay = document.getElementById('modal-overlay');
-            const closeModalBtn = document.querySelector('.close-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalDesc = document.getElementById('modal-desc-full');
-            const modalPricing = document.getElementById('modal-pricing');
-            const modalFeatures = document.getElementById('modal-features');
-
-
-            // --- LÓGICA DO MODO CLARO/ESCURO ---
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeSwitch.checked = true;
-            }
-            themeSwitch.addEventListener('change', function() {
-                if (this.checked) {
-                    document.body.classList.add('dark-mode');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-
-
-            // --- LÓGICA DE NAVEGAÇÃO ---
-            function resetNavigation() {
-                btnInicio.classList.remove('active');
-                btnCatalogo.classList.remove('active');
-                btnBiblioteca.classList.remove('active'); 
-                btnPrompt.classList.remove('active');
-                btnSobre.classList.remove('active');
-                
-                paginaInicio.classList.add('hidden');
-                paginaCatalogo.classList.add('hidden');
-                paginaBiblioteca.classList.add('hidden'); 
-                paginaPrompt.classList.add('hidden');
-                paginaSobre.classList.add('hidden');
-            }
-
-            btnInicio.addEventListener('click', () => {
-                resetNavigation();
-                btnInicio.classList.add('active');
-                paginaInicio.classList.remove('hidden');
-            });
-
-            btnCatalogo.addEventListener('click', () => {
-                resetNavigation();
-                btnCatalogo.classList.add('active');
-                paginaCatalogo.classList.remove('hidden');
-            });
-
-            btnBiblioteca.addEventListener('click', () => {
-                resetNavigation();
-                btnBiblioteca.classList.add('active');
-                paginaBiblioteca.classList.remove('hidden');
-            });
-
-            btnPrompt.addEventListener('click', () => {
-                resetNavigation();
-                btnPrompt.classList.add('active');
-                paginaPrompt.classList.remove('hidden');
-            });
-
-            btnSobre.addEventListener('click', () => {
-                resetNavigation();
-                btnSobre.classList.add('active');
-                paginaSobre.classList.remove('hidden');
-            });
-
-
-            // --- LÓGICA DO ACORDEÃO (CATÁLOGO) ---
-            allCategoryTitles.forEach(title => {
-                title.addEventListener('click', () => {
-                    const category = title.parentElement;
-                    category.classList.toggle('active');
+            function filter() {
+                const term = searchBar.value.toLowerCase();
+                document.querySelectorAll('.ferramenta-card').forEach(card => {
+                    const text = (card.dataset.nome + card.dataset.desc + card.dataset.features).toLowerCase();
+                    const price = card.dataset.pricing.toLowerCase();
+                    const matchSearch = text.includes(term);
+                    let matchFilter = currentFilter === 'all' || 
+                                      (currentFilter === 'grátis' && (price.includes('grátis') || price.includes('open'))) ||
+                                      (currentFilter === 'freemium' && price.includes('freemium')) ||
+                                      (currentFilter === 'pago' && (price.includes('pago') || price.includes('privado')));
+                    
+                    if(matchSearch && matchFilter) card.classList.remove('hidden');
+                    else card.classList.add('hidden');
                 });
-            });
 
-
-            // --- LÓGICA DE BUSCA E FILTRO (CATÁLOGO) ---
-            let currentFilter = 'all'; // Filtro de preço padrão
-
-            function filterCards() {
-                const searchTerm = searchBar.value.toLowerCase();
-                
-                allCards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const description = card.querySelector('p').textContent.toLowerCase();
-                    const details = card.dataset.details ? card.dataset.details.toLowerCase() : '';
-                    const pricing = card.dataset.pricing ? card.dataset.pricing.toLowerCase() : '';
-                    
-                    const cardText = title + description + details;
-                    
-                    const matchesSearch = cardText.includes(searchTerm);
-                    
-                    let matchesFilter = false;
-                    if (currentFilter === 'all') {
-                        matchesFilter = true;
-                    } else if (currentFilter === 'grátis') {
-                        matchesFilter = pricing.includes('grátis') || pricing.includes('open source') || pricing.includes('free');
-                    } else if (currentFilter === 'freemium') {
-                        matchesFilter = pricing.includes('freemium');
-                    } else if (currentFilter === 'pago') {
-                        matchesFilter = pricing.includes('pago') || pricing.includes('incluso');
-                    }
-
-                    if (matchesSearch && matchesFilter) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-                
-                allCategories.forEach(category => {
-                    const visibleCards = category.querySelectorAll('.ferramenta-card:not(.hidden)').length;
-                    
-                    if (searchTerm.length === 0 && currentFilter === 'all') {
-                        category.classList.remove('hidden');
-                        category.classList.remove('active');
-                    } else if (visibleCards > 0) {
-                        category.classList.remove('hidden');
-                        category.classList.add('active');
-                    } else {
-                        category.classList.add('hidden');
-                        category.classList.remove('active');
-                    }
+                // Esconder categorias vazias
+                document.querySelectorAll('.categoria').forEach(cat => {
+                    const hasVisible = cat.querySelectorAll('.ferramenta-card:not(.hidden)').length > 0;
+                    if(hasVisible) { cat.classList.remove('hidden'); cat.classList.add('active'); }
+                    else { cat.classList.add('hidden'); }
+                    if(term === '' && currentFilter === 'all') cat.classList.remove('active'); // Recolher se limpar
                 });
             }
 
-            searchBar.addEventListener('input', filterCards);
-            searchBar.addEventListener('search', filterCards);
+            searchBar.addEventListener('input', filter);
+            filterButtons.forEach(btn => btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                filter();
+            }));
 
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentFilter = btn.getAttribute('data-filter');
-                    filterCards();
+            // Modal
+            const modal = document.getElementById('modal-overlay');
+            document.querySelectorAll('.btn-detalhes').forEach(btn => btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.ferramenta-card');
+                document.getElementById('modal-title').textContent = card.dataset.nome;
+                document.getElementById('modal-desc-full').textContent = card.dataset.details;
+                document.getElementById('modal-pricing').textContent = card.dataset.pricing;
+                document.getElementById('modal-features').textContent = card.dataset.features;
+                modal.classList.remove('hidden');
+            }));
+            document.querySelector('.close-modal').addEventListener('click', () => modal.classList.add('hidden'));
+            modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.add('hidden'); });
+
+            // Gerador de Prompt
+            document.getElementById('btn-generate-prompt').addEventListener('click', () => {
+                const task = document.getElementById('prompt-task').value;
+                const topic = document.getElementById('prompt-topic').value;
+                const persona = document.getElementById('prompt-persona').value;
+                document.getElementById('prompt-result').value = `Aja como um ${persona}. Quero que você ${task} sobre ${topic}.`;
+            });
+
+            // Copiar
+            document.querySelectorAll('.btn-copy').forEach(btn => btn.addEventListener('click', (e) => {
+                const text = e.target.closest('.prompt-card').querySelector('.prompt-content').textContent;
+                navigator.clipboard.writeText(text);
+                const original = btn.textContent;
+                btn.textContent = '✅';
+                setTimeout(() => btn.textContent = original, 1500);
+            }));
+
+            // Busca Biblioteca
+            document.getElementById('search-library').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.prompt-card').forEach(c => {
+                    c.classList.toggle('hidden', !c.textContent.toLowerCase().includes(term));
                 });
             });
-            
-            // --- LÓGICA DE BUSCA (BIBLIOTECA) [NOVO] ---
-            const searchBarLibrary = document.getElementById('search-library');
-            const allPromptCards = document.querySelectorAll('.prompt-card');
-
-            if(searchBarLibrary) {
-                searchBarLibrary.addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase();
-                    
-                    allPromptCards.forEach(card => {
-                        // Busca em todo o conteúdo textual do card (titulo, tags, prompt)
-                        const content = card.innerText.toLowerCase();
-                        
-                        if(content.includes(term)) {
-                            card.classList.remove('hidden');
-                        } else {
-                            card.classList.add('hidden');
-                        }
-                    });
-                });
-            }
-
-            
-            // --- LÓGICA DO GERADOR DE PROMPT ---
-            const btnGenerate = document.getElementById('btn-generate-prompt');
-            const taskSelect = document.getElementById('prompt-task');
-            const topicInput = document.getElementById('prompt-topic');
-            const personaSelect = document.getElementById('prompt-persona');
-            const formatSelect = document.getElementById('prompt-format');
-            const resultTextarea = document.getElementById('prompt-result');
-
-            btnGenerate.addEventListener('click', () => {
-                const task = taskSelect.value;
-                const topic = topicInput.value;
-                const persona = personaSelect.value;
-                const format = formatSelect.value;
-
-                if (topic.trim() === '') {
-                    alert('Por favor, preencha o "Assunto Principal".');
-                    topicInput.focus();
-                    return;
-                }
-
-                let finalPrompt = "";
-                if (persona) finalPrompt += `Aja como ${persona}. `;
-                finalPrompt += `${task} ${topic}.`;
-                if (format) finalPrompt += ` Formate a resposta ${format}.`;
-                
-                resultTextarea.value = finalPrompt;
-            });
-
-            // --- LÓGICA DO BOTÃO COPIAR (BIBLIOTECA) ---
-            const copyButtons = document.querySelectorAll('.btn-copy');
-            
-            copyButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const card = btn.closest('.prompt-card');
-                    const textToCopy = card.querySelector('.prompt-content').innerText;
-                    
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        const originalText = btn.innerText;
-                        btn.innerText = '✅ Copiado!';
-                        btn.classList.add('copied');
-                        
-                        setTimeout(() => {
-                            btn.innerText = originalText;
-                            btn.classList.remove('copied');
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('Erro ao copiar: ', err);
-                    });
-                });
-            });
-
-
-            // --- LÓGICA DO MODAL DE DETALHES ---
-            
-            const detailButtons = document.querySelectorAll('.btn-detalhes');
-            
-            detailButtons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const card = e.target.closest('.ferramenta-card');
-                    
-                    const nome = card.getAttribute('data-nome');
-                    const details = card.getAttribute('data-details') || "Descrição detalhada não disponível.";
-                    const pricing = card.getAttribute('data-pricing') || "Sob consulta";
-                    const features = card.getAttribute('data-features') || "Geral";
-
-                    modalTitle.textContent = nome;
-                    modalDesc.textContent = details;
-                    modalPricing.textContent = pricing;
-                    modalFeatures.textContent = features;
-
-                    modalOverlay.classList.remove('hidden');
-                });
-            });
-
-            closeModalBtn.addEventListener('click', () => {
-                modalOverlay.classList.add('hidden');
-            });
-
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    modalOverlay.classList.add('hidden');
-                }
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
-                    modalOverlay.classList.add('hidden');
-                }
-            });
-            
         });
     </script>
-
 </body>
 </html>
